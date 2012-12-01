@@ -1,0 +1,27 @@
+/**
+* Description: Core theme for Lydia
+*/
+
+/* import fonts */
+@import url('http://fonts.googleapis.com/css?family=Archivo+Narrow');
+
+/**
+* Structure
+*/
+html{}
+body{
+	background-color:#fff;
+	color: #000;
+	font-family: 'Archivo Narrow', sans-serif;
+	font-size: 1em;
+}
+
+#header,
+#main,
+#footer {
+	margin:0 auto;
+	width:970px;
+	background-color:#eee;
+	color: #333;
+	padding: 1em;
+}
