@@ -2,19 +2,19 @@
 //
 // PHASE: BOOTSTRAP
 //
-define('LYDIA_INSTALL_PATH', dirname(__FILE__));
-define('LYDIA_SITE_PATH', LYDIA_INSTALL_PATH . '/site');
+define('AMVC_INSTALL_PATH', dirname(__FILE__));
+define('AMVC_SITE_PATH', AMVC_INSTALL_PATH . '/site');
 
-require(LYDIA_INSTALL_PATH.'/src/CLydia/bootstrap.php');
+require(AMVC_INSTALL_PATH.'/src/CAmvc/bootstrap.php');
 
-$ly = CLydia::Instance();
+$amvc = CAmvc::Instance();
 
 //
 // PHASE: FRONTCONTROLLER ROUTE
 //
-$ly->FrontControllerRoute();
+$amvc->FrontControllerRoute();
 
 //
 // PHASE: THEME ENGINE RENDER
 //
-$ly->ThemeEngineRender();
+$amvc->ThemeEngineRender();
