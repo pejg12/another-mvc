@@ -65,3 +65,8 @@ $amvc->config['base_url'] = null;
 * querystring  = 2      => index.php?q=controller/method/arg1/arg2/arg3
 */
 $amvc->config['url_type'] = 1;
+
+/**
+* Determine debug settings
+*/
+$amvc->config['debug']['display-core'] = TRUE;

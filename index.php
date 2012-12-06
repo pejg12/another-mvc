@@ -5,7 +5,7 @@
 define('AMVC_INSTALL_PATH', dirname(__FILE__));
 define('AMVC_SITE_PATH', AMVC_INSTALL_PATH . '/site');
 
-require(AMVC_INSTALL_PATH.'/src/CAmvc/bootstrap.php');
+require(AMVC_INSTALL_PATH.'/src/bootstrap.php');
 
 $amvc = CAmvc::Instance();
 

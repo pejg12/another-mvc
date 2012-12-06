@@ -38,6 +38,7 @@ class CAmvc implements ISingleton {
     $this->request->Init($this->config['base_url']);
     $controller = $this->request->controller;
     $method     = $this->request->method;
+	$method     = str_replace(array('_', '-'), '', $method);
     $arguments  = $this->request->arguments;
 
     // Is the controller enabled in config.php?
