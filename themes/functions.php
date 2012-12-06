@@ -15,7 +15,7 @@ function get_debug() {
 	{
 		$html  = "<h2>Debuginformation</h2>";
 		$html .= "<p>The content of CAmvc:</p>";
-		$html .= "<pre>" . htmlentities(print_r($amvc, true)) . "</pre>";
+		$html .= "<pre>" . htmlent(print_r($amvc, true)) . "</pre>";
 		return $html;
 	}
 }

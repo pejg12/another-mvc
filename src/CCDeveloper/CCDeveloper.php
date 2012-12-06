@@ -87,7 +87,7 @@ EOD;
 		<h2>Dumping content of CDeveloper</h2>
 		<p>Here is the content of the controller, including properties from CObject which holds access to common resources in CAmvc.</p>
 EOD;
-		$this->data['main'] .= '<pre>' . htmlentities(print_r($this, true)) . '</pre>';
+		$this->data['main'] .= '<pre>' . htmlent(print_r($this, true)) . '</pre>';
 	}
   
 }  
