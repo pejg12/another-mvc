@@ -24,8 +24,8 @@ class CRequest {
    * @param boolean $urlType integer 
    */
   public function __construct($urlType=0) {
-    $this->cleanUrl       = $urlType= 1 ? true : false;
-    $this->querystringUrl = $urlType= 2 ? true : false;
+    $this->cleanUrl       = ($urlType == 1 ? true : false);
+    $this->querystringUrl = ($urlType == 2 ? true : false);
   }
 
   /**
