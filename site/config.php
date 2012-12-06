@@ -42,6 +42,7 @@ $amvc->config['language'] = 'en';
 $amvc->config['controllers'] = array(
   'index'     => array('enabled' => true,'class' => 'CCIndex'),
   'developer' => array('enabled' => true,'class' => 'CCDeveloper'),
+  'guestbook' => array('enabled' => true,'class' => 'CCGuestbook'),
 );
 
 /**
@@ -69,4 +70,4 @@ $amvc->config['url_type'] = 1;
 /**
 * Determine debug settings
 */
-$amvc->config['debug']['display-core'] = TRUE;
+$amvc->config['debug']['display-core'] = FALSE;

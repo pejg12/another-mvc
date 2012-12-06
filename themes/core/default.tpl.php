@@ -7,7 +7,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><?=$title?></title>
-		<meta name="description" content="<?=$meta_description?>">
+		<!--meta name="description" content="<?php /*echo $meta_description;*/ ?>"-->
 		<meta name="viewport" content="width=device-width">
 
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
