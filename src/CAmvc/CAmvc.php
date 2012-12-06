@@ -27,6 +27,16 @@ class CAmvc implements ISingleton {
       // include the site specific config.php and create a ref to $amvc to be used by config.php
       $amvc = &$this;
       require(AMVC_SITE_PATH.'/config.php');
+
+      // Start a named session
+      session_name($this->config['session_name']);
+      session_start();
+    
+      // Set default charset
+      ini_set('default_charset', strtolower($amvc->config['character_encoding']));
+
+      // Set default date/time-zone
+      date_default_timezone_set($this->config['timezone']);
    }
 
   /**

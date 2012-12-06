@@ -13,7 +13,7 @@ ini_set('display_errors', 1);
 /*
 * Define session name
 */
-$amvc->config['session_name'] = preg_replace('/[:\.\/-_]/', '', $_SERVER["SERVER_NAME"]);
+$amvc->config['session_name'] = "pejgmvckm3";
 
 /*
 * Define server timezone
