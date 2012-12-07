@@ -7,7 +7,7 @@
 class CCGuestbook extends CObject implements IController, IHasSQL {
 
   private $pageTitle  = 'Another MVC Guestbook Example';
-  private $pageHeader = '<h1>Guestbook Example</h1><p>Showing off how to implement a guestbook in Another MVC.</p>';
+  private $pageHeader = 'Showing off how to implement a guestbook in Another MVC.';
   private $pageForm; 
 
   /**
@@ -25,7 +25,8 @@ class CCGuestbook extends CObject implements IController, IHasSQL {
     $this->views->SetTitle($this->pageTitle);
     $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
       'entries'=>$this->ReadAllFromDatabase(),
-      'formAction'=>$this->request->CreateUrl('guestbook/handler')
+      'formAction'=>$this->request->CreateUrl('guestbook/handler'),
+      'header'=>$this->pageHeader
     ));
   }
 

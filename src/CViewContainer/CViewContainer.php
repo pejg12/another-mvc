@@ -52,7 +52,12 @@ class CViewContainer {
   * @param vars array containing the variables that should be avilable for the included file.
   */
   public function AddInclude($file, $variables=array()) {
-    $this->views[] = array('type' => 'include', 'file' => $file, 'variables' => $variables);
+    // variables must be saved together with $this->data so that we can pass along the data together
+    foreach($variables AS $key => $value)
+    {
+      $this->SetVariable($key, $value);
+    }
+    $this->views[] = array('type' => 'include', 'file' => $file, 'variables' => $this->data);
   }
 
 
