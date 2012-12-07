@@ -66,4 +66,23 @@ EOD;
     header('Location: ' . $this->request->CreateUrl('guestbook'));
   }
 
+  /**
+    * Create a new database table.
+    */
+  private function CreateTableInDatabase() {
+    try {
+      $db = new PDO($this->config['database'][0]['dsn']);
+      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+  
+      $stmt = $db->prepare("CREATE TABLE IF NOT EXISTS mvckm3_Guestbook (
+        id INTEGER PRIMARY KEY, 
+        entry TEXT, 
+        created DATETIME default (datetime('now'))
+      )");
+      $stmt->execute();
+    } catch(Exception$e) {
+      die("Failed to open database: " . $this->config['database'][0]['dsn'] . "</br>" . $e);
+    }
+  }
+
 }
