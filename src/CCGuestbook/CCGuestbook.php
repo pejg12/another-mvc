@@ -50,13 +50,7 @@ EOD;
    */
   private function ReadAllFromDatabase() {
     try {
-      $db = new PDO($this->config['database'][0]['dsn']);
-      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- 
-      $stmt = $db->prepare('SELECT * FROM mvckm3_Guestbook ORDER BY created DESC;');
-      $stmt->execute();
-      $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      return $res;
+      return $this->db->ExecuteSelectQueryAndFetchAll('SELECT * FROM mvckm3_Guestbook ORDER BY created DESC;');
     } catch(Exception $e) {
       return array();
     }
@@ -82,12 +76,8 @@ EOD;
    * Save a new entry to database.
    */
   private function SaveNewToDatabase($entry) {
-    $db = new PDO($this->config['database'][0]['dsn']);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-    $stmt = $db->prepare('INSERT INTO mvckm3_Guestbook (entry) VALUES (?)');
-    $stmt->execute(array($entry));
-    if($stmt->rowCount() != 1) {
+    $this->db->ExecuteQuery('INSERT INTO mvckm3_Guestbook (entry) VALUES (?)', array($entry));
+    if($this->db->rowCount() != 1) {
       die('Failed to insert new guestbook item into database.');
     }
   }
@@ -96,11 +86,7 @@ EOD;
    * Delete all entries from the database.
    */
   private function DeleteAllFromDatabase() {
-    $db = new PDO($this->config['database'][0]['dsn']);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-    $stmt = $db->prepare('DELETE FROM mvckm3_Guestbook');
-    $stmt->execute();
+    $this->db->ExecuteQuery('DELETE FROM mvckm3_Guestbook');
   }
 
   /**
@@ -108,15 +94,11 @@ EOD;
     */
   private function CreateTableInDatabase() {
     try {
-      $db = new PDO($this->config['database'][0]['dsn']);
-      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-  
-      $stmt = $db->prepare("CREATE TABLE IF NOT EXISTS mvckm3_Guestbook (
+      $this->db->ExecuteQuery("CREATE TABLE IF NOT EXISTS mvckm3_Guestbook (
         id INTEGER PRIMARY KEY, 
         entry TEXT, 
         created DATETIME default (datetime('now'))
       )");
-      $stmt->execute();
     } catch(Exception$e) {
       die("Failed to open database: " . $this->config['database'][0]['dsn'] . "</br>" . $e);
     }

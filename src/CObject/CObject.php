@@ -9,6 +9,7 @@ class CObject {
    public $config;
    public $request;
    public $data;
+   public $db;
 
    /**
     * Constructor
@@ -18,6 +19,7 @@ class CObject {
     $this->config   = &$amvc->config;
     $this->request  = &$amvc->request;
     $this->data     = &$amvc->data;
+    $this->db       = &$amvc->db;
   }
 
 }
