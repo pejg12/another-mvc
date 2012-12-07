@@ -6,6 +6,13 @@
 
 
 /**
+* Render all views.
+*/
+function render_views() {
+  return CAmvc::Instance()->views->Render();
+}
+
+/**
 * Print debuginformation from the framework.
 */
 function get_debug() {

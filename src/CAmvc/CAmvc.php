@@ -42,6 +42,9 @@ class CAmvc implements ISingleton {
       if(isset($this->config['database'][0]['dsn'])) {
         $this->db = new CDatabase($this->config['database'][0]['dsn']);
       }
+
+     // Create a container for all views and theme data
+     $this->views = new CViewContainer();
    }
 
   /**
@@ -109,8 +112,9 @@ class CAmvc implements ISingleton {
       include $functionsPath;
     }
 
-    // Extract $amvc->data to own variables and handover to the template file
+    // Extract $amvc->data and $amvc->views->data to own variables and hand over to the template file
     extract($this->data);     
+    extract($this->views->GetData());     
     include("{$themePath}/default.tpl.php");
   }
 
