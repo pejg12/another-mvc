@@ -2,26 +2,103 @@
 * Description: Core theme for Another MVC
 */
 
-/* import fonts */
-@import url('http://fonts.googleapis.com/css?family=Archivo+Narrow');
 
-/**
-* Structure
-*/
-html{}
-body{
-	background-color:#fff;
-	color: #000;
-	font-family: 'Archivo Narrow', sans-serif;
-	font-size: 1em;
+/*-----------------------------------------------------------------------------
+ * Page structure (header, content, footer)
+ */
+
+html {
+/* Force scrollbar for centered websites */
+    overflow-y: scroll;
 }
 
-#header,
-#main,
-#footer {
-	margin:0 auto;
-	width:970px;
-	background-color:#eee;
-	color: #333;
-	padding: 1em;
+
+/*-----------------------------------------------------------------------------
+ * Bootstrap has navbar-static-top but not navbar-static-bottom.. It would
+ * probably look something like this? I reversed tops and bottoms, and removed
+ * the boxshadow because the bar won't always end up at the very bottom.
+ */
+
+.navbar-static-bottom .container {
+    width: 940px;
+}
+
+.navbar-static-bottom {
+    position: static;
+    margin-bottom: 0;
+    margin-top: 1em;
+}
+
+.navbar-static-bottom .navbar-inner {
+    padding-top: 1em;
+    text-align: center;
+    border-width: 1px 0 0 0;
+/* CSS3 border radius */
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+/* CSS3 box-shadow */
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+/* CSS3 gradients */
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(bottom, #ffffff, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, to(#ffffff), from(#f2f2f2));
+    background-image: -webkit-linear-gradient(bottom, #ffffff, #f2f2f2);
+    background-image: -o-linear-gradient(bottom, #ffffff, #f2f2f2);
+    background-image: linear-gradient(to top, #ffffff, #f2f2f2);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2f2f2', endColorstr='#ffffffff', GradientType=0);
+}
+
+
+/*-----------------------------------------------------------------------------
+ * Typography (h1, p, a)
+ */
+
+aside h1,
+aside h2,
+aside h3 {
+  line-height: 20px;
+}
+
+aside h1 {
+  font-size: 25px;
+}
+
+aside h2 {
+  font-size: 22.5px;
+}
+
+aside h3 {
+  font-size: 17.5px;
+}
+
+aside h4 {
+  font-size: 14px;
+}
+
+aside h5 {
+  font-size: 13px;
+}
+
+aside h6 {
+  font-size: 11.9px;
+}
+
+aside h1 small {
+  font-size: 22.5px;
+}
+
+aside h2 small {
+  font-size: 17.5px;
+}
+
+aside h3 small {
+  font-size: 14px;
+}
+
+aside h4 small {
+  font-size: 13px;
 }

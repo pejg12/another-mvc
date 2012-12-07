@@ -6,7 +6,6 @@
 /**
  * Add static entries in the template file. 
  */
-$amvc->data['header'] = '<h1>Header: Another MVC</h1>';
 $amvc->data['footer'] = <<<EOD
 <p>Footer: &copy; Another MVC by pejg12 (pejg12@student.bth.se), fork of Lydia by Mikael Roos (mos@dbwebb.se)</p>
 
