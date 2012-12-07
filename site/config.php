@@ -71,6 +71,8 @@ $amvc->config['url_type'] = 1;
 * Determine debug settings
 */
 $amvc->config['debug']['display-core'] = FALSE;
+$amvc->config['debug']['db-num-queries'] = FALSE;
+$amvc->config['debug']['db-queries'] = FALSE;
 
 /**
 * Set database(s).
