@@ -53,7 +53,12 @@ EOD;
     if(isset($_POST['doAdd'])) {
       $entry = strip_tags($_POST['newEntry']);
       $time = date('Y-m-d H:i:s');
-      $_SESSION['guestbook'][] = array('time'=>$time, 'entry'=>$entry);
+
+      // it has to be an array for array_unshift() to work
+      $_SESSION['guestbook'] = (is_array($_SESSION['guestbook']) ? $_SESSION['guestbook'] : array());
+
+      // this will put all new messages in the beginning of the array instead of at the end. newest on top :)
+      array_unshift($_SESSION['guestbook'], array('time'=>$time, 'entry'=>$entry));
     }
     elseif(isset($_POST['doClear'])) {
       unset($_SESSION['guestbook']);
