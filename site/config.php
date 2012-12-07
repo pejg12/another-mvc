@@ -71,3 +71,8 @@ $amvc->config['url_type'] = 1;
 * Determine debug settings
 */
 $amvc->config['debug']['display-core'] = FALSE;
+
+/**
+* Set database(s).
+*/
+$amvc->config['database'][0]['dsn'] = 'sqlite:' . AMVC_SITE_PATH . '/data/.ht.sqlite';
