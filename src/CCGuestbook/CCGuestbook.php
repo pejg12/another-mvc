@@ -106,7 +106,7 @@ class CCGuestbook extends CObject implements IController, IHasSQL {
   private function CreateTableInDatabase() {
     try {
       $this->db->ExecuteQuery(self::SQL('create table guestbook'));
-      $this->session->AddMessage('notice', 'Successfully created the database tables (or left them untouched if they already existed).');
+      $this->session->AddMessage('info', 'Successfully created the database tables (or left them untouched if they already existed).');
     } catch(Exception$e) {
       die("Failed to open database: " . $this->config['database'][0]['dsn'] . "</br>" . $e);
     }
