@@ -26,4 +26,23 @@ class CObject {
     $this->session  = &$amvc->session;
   }
 
+
+  /**
+   * Redirect to another url and store the session
+   */
+  protected function RedirectTo($url) {
+    $amvc = CAmvc::Instance();
+    if(isset($amvc->config['debug']['db-num-queries']) && $amvc->config['debug']['db-num-queries'] && isset($amvc->db)) {
+      $this->session->SetFlash('database_numQueries', $this->db->GetNumQueries());
+    }    
+    if(isset($amvc->config['debug']['db-queries']) && $amvc->config['debug']['db-queries'] && isset($amvc->db)) {
+      $this->session->SetFlash('database_queries', $this->db->GetQueries());
+    }    
+    if(isset($amvc->config['debug']['timer']) && $amvc->config['debug']['timer']) {
+      $this->session->SetFlash('timer', $amvc->timer);
+    }    
+    $this->session->StoreInSession();
+    header('Location: ' . $this->request->CreateUrl($url));
+  }
+
 }

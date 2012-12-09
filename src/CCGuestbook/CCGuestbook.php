@@ -77,8 +77,8 @@ class CCGuestbook extends CObject implements IController, IHasSQL {
     }           
     elseif(isset($_POST['doCreate'])) {
       $this->CreateTableInDatabase();
-    }           
-    header('Location: ' . $this->request->CreateUrl('guestbook'));
+    }
+    $this->RedirectTo($this->request->CreateUrl($this->request->controller));
   }
 
   /**
