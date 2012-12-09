@@ -6,22 +6,21 @@
 */
 class CCIndex extends CObject implements IController {
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
+  /**
+    * Constructor
+    */
+  public function __construct() {
+      parent::__construct();
+  }
 
-	/**
-	 * Implementing interface IController. All controllers must have an index action.
-	 */
-	public function Index() {   
-		$this->data['title'] = "The Index Controller";
-		$this->data['main'] = <<<EOD
-		<h1>The Index Controller</h1>
-		<p>Welcome to Another MVC.</p>
-EOD;
-	}
+  /**
+    * Implementing interface IController. All controllers must have an index action.
+    */
+  public function Index() {
+    $this->views->SetTitle('The Index Controller');
+    $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
+      'header'     => 'Welcome to Another MVC.',
+    ));
+  }
 
 } 
