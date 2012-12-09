@@ -14,6 +14,7 @@ ini_set('display_errors', 1);
 * Define session name
 */
 $amvc->config['session_name'] = "pejgmvckm3";
+$amvc->config['session_key']  = "another-mvc";
 
 /*
 * Define server timezone
@@ -73,6 +74,7 @@ $amvc->config['url_type'] = 1;
 $amvc->config['debug']['display-core'] = FALSE;
 $amvc->config['debug']['db-num-queries'] = FALSE;
 $amvc->config['debug']['db-queries'] = FALSE;
+$amvc->config['debug']['session'] = FALSE;
 
 /**
 * Set database(s).

@@ -27,6 +27,10 @@ function get_debug() {
   if(isset($amvc->config['debug']['display-core']) && $amvc->config['debug']['display-core']) {
     $html .= "<hr><h3>Debuginformation</h3><p>The content of CAmvc:</p><pre>" . htmlent(print_r($amvc, true)) . "</pre>";
   }   
+  if(isset($amvc->config['debug']['session']) && $amvc->config['debug']['session']) {
+    $html .= "<hr><h3>SESSION</h3><p>The content of CAmvc->session:</p><pre>" . htmlent(print_r($amvc->session, true)) . "</pre>";
+    $html .= "<p>The content of \$_SESSION:</p><pre>" . htmlent(print_r($_SESSION, true)) . "</pre>";
+  }   
   return $html;
 }
 
@@ -44,4 +48,20 @@ function base_url($url) {
 */
 function current_url() {
 	return $amvc->request->current_url;
+}
+
+/**
+* Get messages stored in flash-session.
+*/
+function get_messages_from_session() {
+  $messages = CAmvc::Instance()->session->GetMessages();
+  $html = null;
+  if(!empty($messages)) {
+    foreach($messages as $val) {
+      $valid = array('info', 'notice', 'success', 'warning', 'error', 'alert');
+      $class = (in_array($val['type'], $valid)) ? $val['type'] : 'info';
+      $html .= "<div class='$class'>{$val['message']}</div>\n";
+    }
+  }
+  return $html;
 }

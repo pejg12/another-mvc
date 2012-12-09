@@ -31,6 +31,8 @@ class CAmvc implements ISingleton {
       // Start a named session
       session_name($this->config['session_name']);
       session_start();
+      $this->session = new CSession($this->config['session_key']);
+      $this->session->PopulateFromSession();
     
       // Set default charset
       ini_set('default_charset', strtolower($amvc->config['character_encoding']));
