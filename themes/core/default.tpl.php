@@ -37,9 +37,9 @@
             <div class="row">
 
                 <div class="span12">
-                  <?=get_messages_from_session()?>
-                  <?=@$main?>
-                  <?=render_views()?>
+<?=get_messages_from_session()?>
+<?=@$main?>
+<?=render_views()?>
                 </div> <!-- span -->
 
             </div> <!-- row -->
