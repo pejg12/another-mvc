@@ -9,7 +9,7 @@ class CSession {
   /**
     * Members
     */
-  private $key;
+  private $akey;
   private $data = array();
   private $flash = null;
     
@@ -17,40 +17,40 @@ class CSession {
   /**
     * Constructor
     */
-  public function __construct($key) {
-    $this->key = $key;
+  public function __construct($akey) {
+    $this->akey = $akey;
   }
 
 
   /**
     * Set values
     */
-  public function __set($key, $value) {
-    $this->data[$key] = $value;
+  public function __set($akey, $value) {
+    $this->data[$akey] = $value;
   }
 
 
   /**
     * Get values
     */
-  public function __get($key) {
-    return isset($this->data[$key]) ? $this->data[$key] : null;
+  public function __get($akey) {
+    return isset($this->data[$akey]) ? $this->data[$akey] : null;
   }
 
 
   /**
     * Set flash values, to be remembered one page request
     */
-  public function SetFlash($key, $value) {
-    $this->data['flash'][$key] = $value;
+  public function SetFlash($akey, $value) {
+    $this->data['flash'][$akey] = $value;
   }
 
 
   /**
     * Get flash values, if any.
     */
-  public function GetFlash($key) {
-    return isset($this->flash[$key]) ? $this->flash[$key] : null;
+  public function GetFlash($akey) {
+    return isset($this->flash[$akey]) ? $this->flash[$akey] : null;
   }
 
 
@@ -79,7 +79,7 @@ class CSession {
     * Store values into session.
     */
   public function StoreInSession() {
-    $_SESSION[$this->key] = $this->data;
+    $_SESSION[$this->akey] = $this->data;
   }
 
 
@@ -87,8 +87,8 @@ class CSession {
     * Store values from this object into the session.
     */
   public function PopulateFromSession() {
-    if(isset($_SESSION[$this->key])) {
-      $this->data = $_SESSION[$this->key];
+    if(isset($_SESSION[$this->akey])) {
+      $this->data = $_SESSION[$this->akey];
       if(isset($this->data['flash'])) {
         $this->flash = $this->data['flash'];
         unset($this->data['flash']);
