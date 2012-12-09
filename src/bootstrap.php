@@ -30,7 +30,7 @@ function htmlent($str, $flags = ENT_COMPAT) {
 /**
 * Set a default exception handler and enable logging in it.
 */
-function exception_handler($exception) {
+function exception_handler($e) {
   echo "Another MVC: Uncaught exception: <p>" . $e->getMessage() . "</p><pre>" . $e->getTraceAsString(), "</pre>";
 }
 set_exception_handler('exception_handler');
