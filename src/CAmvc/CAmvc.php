@@ -96,7 +96,7 @@ class CAmvc implements ISingleton {
           if($methodObj->isPublic()) {
             $methodObj->invokeArgs($controllerObj, $arguments);
           } else {
-            die("404. " . get_class() . ' error: Controller method not public.');          
+            die("404. " . get_class() . ' error: Controller method not public.');
           }
         } else {
           die("404. " . get_class() . ' error: Controller does not contain method.');
@@ -140,8 +140,8 @@ class CAmvc implements ISingleton {
     }
 
     // Extract $amvc->data and $amvc->views->data to own variables and hand over to the template file
-    extract($this->data);     
-    extract($this->views->GetData());     
+    extract($this->data);
+    extract($this->views->GetData());
     include("{$themePath}/default.tpl.php");
   }
 
