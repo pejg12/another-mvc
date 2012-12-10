@@ -44,11 +44,33 @@ function base_url($url) {
 
 
 /**
+ * Create a url to an internal resource.
+ *
+ * @param string the whole url or the controller. Leave empty for current controller.
+ * @param string the method when specifying controller as first argument, else leave empty.
+ * @param string the extra arguments to the method, leave empty if not using method.
+ */
+function create_url($urlOrController=null, $method=null, $arguments=null) {
+  return CAmvc::Instance()->request->CreateUrl($urlOrController, $method, $arguments);
+}
+
+
+/**
+ * Prepend the theme_url, which is the url to the current theme directory.
+ */
+function theme_url($url) {
+  $amvc = CAmvc::Instance();
+  return "{$amvc->request->base_url}themes/{$amvc->config['theme']['name']}/{$url}";
+}
+
+
+/**
 * Return the current url.
 */
 function current_url() {
 	return $amvc->request->current_url;
 }
+
 
 /**
 * Get messages stored in flash-session.
@@ -59,7 +81,7 @@ function get_messages_from_session() {
   if(!empty($messages)) {
     foreach($messages as $val) {
       $valid = array('block', 'error', 'success', 'info');
-      $class = (in_array($val['type'], $valid)) ? $val['type'] : 'info';
+      $class = (in_array($val['type'], $valid) ? $val['type'] : 'info');
       $html .= "<div class='alert alert-$class'>{$val['message']}</div>\n";
     }
   }
