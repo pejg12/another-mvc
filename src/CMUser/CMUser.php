@@ -10,8 +10,8 @@ class CMUser extends CObject implements IHasSQL {
   /**
     * Constructor
     */
-  public function __construct() {
-    parent::__construct();
+  public function __construct($amvc=null) {
+    parent::__construct($amvc);
   }
 
 

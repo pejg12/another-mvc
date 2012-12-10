@@ -16,8 +16,10 @@ class CObject {
    /**
     * Constructor
     */
-   protected function __construct() {
-    $amvc = CAmvc::Instance();
+   protected function __construct($amvc=null) {
+    if(!$amvc) {
+      $amvc = CAmvc::Instance();
+    }
     $this->config   = &$amvc->config;
     $this->request  = &$amvc->request;
     $this->data     = &$amvc->data;
