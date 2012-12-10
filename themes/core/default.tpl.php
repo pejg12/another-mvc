@@ -25,6 +25,19 @@
 
         <!-- Add your site or application content here -->
 
+        <header>
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="brand" href="<?=create_url('index')?>">Another MVC</a>
+                        <ul class="nav pull-right">
+<?=login_menu()?>
+                        </ul>
+                    </div> <!-- container -->
+                </div> <!-- navbar-inner -->
+            </div> <!-- navbar -->
+        </header>
+
         <div class="container" id='maincontent'>
             <div class="row">
                 <div class="span12">

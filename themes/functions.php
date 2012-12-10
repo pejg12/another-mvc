@@ -87,3 +87,21 @@ function get_messages_from_session() {
   }
   return $html;
 }
+
+
+/**
+* Login menu. Creates a menu which reflects if user is logged in or not.
+*/
+function login_menu() {
+  $amvc = CAmvc::Instance();
+  if($amvc->user->IsAuthenticated()) {
+    $items = "<li><a href='" . create_url('user/profile') . "'>My profile (" . $amvc->user->GetAcronym() . ")</a></li>";
+    if($amvc->user->IsAdministrator()) {
+      $items .= "<li><a href='" . create_url('acp') . "'>Control Panel</a></li>";
+    }
+    $items .= "<li><a href='" . create_url('user', 'logout') . "'>Log out</a></li>";
+  } else {
+    $items = "<li><a href='" . create_url('user', 'login') . "'>Log in</a></li>";
+  }
+  return $items;
+}

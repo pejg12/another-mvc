@@ -12,6 +12,7 @@ class CObject {
    public $db;
    public $views;
    public $session;
+   public $user;
 
    /**
     * Constructor
@@ -26,6 +27,7 @@ class CObject {
     $this->db       = &$amvc->db;
     $this->views    = &$amvc->views;
     $this->session  = &$amvc->session;
+    $this->user     = &$amvc->user;
   }
 
 
