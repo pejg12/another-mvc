@@ -1,1 +1,3 @@
-<p>One controller to manage the admin related stuff. This far it should list all users and all groups and enable to add, modify, delete users and add, modify, delete groups.</p>
+<p>A controller to manage the administrative stuff.</p>
+
+<p>This far it <em>should</em> list all users and all groups. It should also provide ways to add, modify, and delete both users and groups.</p>
