@@ -44,6 +44,7 @@ $amvc->config['controllers'] = array(
   'index'     => array('enabled' => true,'class' => 'CCIndex'),
   'developer' => array('enabled' => true,'class' => 'CCDeveloper'),
   'guestbook' => array('enabled' => true,'class' => 'CCGuestbook'),
+  'user'      => array('enabled' => true,'class' => 'CCUser'),
 );
 
 /**
