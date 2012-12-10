@@ -30,13 +30,23 @@
                 <div class="span12">
                     <div class='page-header'>
                         <h1><?=$title?></h1>
-                        <p><?=$header?></p>
                     </div>
                 </div>
             </div>
             <div class="row">
 
-                <div class="span12">
+                <div class="span3">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+<?php /* I know this code should not be in the theme, I'll move it later */ ?>
+<?php foreach(array_keys($amvc->config['controllers']) AS $controller) { ?>
+                            <li><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a></li>
+<?php } ?>
+                        </ul>
+                    </div> <!-- sidebar-nav -->
+                </div> <!--span-->
+
+                <div class="span9">
 <?=get_messages_from_session()?>
 <?=@$main?>
 <?=render_views()?>

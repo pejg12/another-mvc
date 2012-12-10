@@ -24,7 +24,6 @@ class CCUser extends CObject implements IController {
   public function Index() {
     $this->views->SetTitle('User Profile');
     $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
-      'header'=>'This is your user profile.',
       'is_authenticated'=>$this->userModel->IsAuthenticated(),
       'user'=>$this->userModel->GetUserProfile(),
     ));

@@ -18,9 +18,7 @@ class CCIndex extends CObject implements IController {
     */
   public function Index() {
     $this->views->SetTitle('The Index Controller');
-    $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
-      'header'     => 'Welcome to Another MVC.',
-    ));
+    $this->views->AddInclude(__DIR__ . '/index.tpl.php');
   }
 
 } 
