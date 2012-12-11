@@ -1,0 +1,15 @@
+= Readme =
+
+This is a readme file using the '''mediawiki''' markup.
+
+ This is a pre block
+ with multiple lines
+
+* Fruits
+** Apple
+** Banana
+* Cars
+** Convertible
+** Van
+
+And here is a link to an [http://example.org external website].
