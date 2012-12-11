@@ -1,6 +1,6 @@
-= Readme =
+== Readme ==
 
-This is a readme file using the '''mediawiki''' markup.
+This is a ''readme'' file using the '''mediawiki''' markup.
 
  This is a pre block
  with multiple lines
@@ -13,3 +13,22 @@ This is a readme file using the '''mediawiki''' markup.
 ** Van
 
 And here is a link to an [http://example.org external website].
+
+== Conclusion ==
+
+It definitely seems to work, but.. Why is the h1 a link? Did I break something? Let's start with a h2 like Wikipedia tells us to.
+
+Let's see how advanced this is...
+
+{|
+! Header
+! Header
+|-
+| Row 1
+| Column 2
+|- 
+| Column 1
+| Row 2
+|}
+
+If the above is output as a table with both th and td, this is one happy camper indeed.
