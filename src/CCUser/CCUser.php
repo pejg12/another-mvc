@@ -31,11 +31,15 @@ class CCUser extends CObject implements IController {
    * View and edit user profile.
    */
   public function Profile() {
-    $this->views->SetTitle('User Profile');
-    $this->views->AddInclude(__DIR__ . '/profile.tpl.php', array(
-      'is_authenticated'=>$this->user->IsAuthenticated(), 
-      'user'=>$this->user->GetProfile(),
-    ));
+    $form = new CFormUserProfile($this, $this->user);
+    $form->CheckIfSubmitted();
+
+    $this->views->SetTitle('User Profile')
+                ->AddInclude(__DIR__ . '/profile.tpl.php', array(
+                  'is_authenticated'=>$this->user['isAuthenticated'],
+                  'user'=>$this->user,
+                  'profile_form'=>$form->GetHTML(),
+                ));
   }
 
 
