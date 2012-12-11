@@ -88,7 +88,7 @@ class CCUser extends CObject implements IController {
                 ->AddInclude(__DIR__ . '/login.tpl.php', array(
                   'login_form' => $form,
                   'allow_create_user' => CAmvc::Instance()->config['create_new_users'],
-                  'create_user_url' => $this->CreateUrl(null, 'create')
+                  'create_user_url' => $this->request->CreateUrl('user', 'create')
                 ));
   }
 
@@ -103,6 +103,47 @@ class CCUser extends CObject implements IController {
     } else {
       $this->AddMessage('error', "Failed to login, user does not exist or passwords do not match.");
       $this->RedirectToController('login');
+    }
+  }
+
+
+  /**
+   * Create a new user.
+   */
+  public function Create() {
+    $form = new CFormUserCreate($this);
+    if($form->Check() === false) {
+      $this->AddMessage('error', 'You must include all the values.');
+      $this->RedirectToController('Create');
+    }
+    $this->views->SetTitle('Create user')
+                ->AddInclude(__DIR__ . '/create.tpl.php', array('form' => $form->GetHTML()));     
+  }
+
+
+  /**
+   * Perform a creation of a user as callback on a submitted form.
+   *
+   * @param $form CForm the form that was submitted
+   */
+  public function DoCreate($form) {
+    if($form['password']['value'] != $form['password1']['value']) {
+      $this->AddMessage('error', 'Passwords do not match.');
+      $this->RedirectToController('create');
+    } else if(empty($form['password']['value']) OR empty($form['password1']['value'])) {
+      $this->AddMessage('error', 'Password is empty.');
+      $this->RedirectToController('create');
+    } else if($this->user->Create($form['acronym']['value'],
+                           $form['password']['value'],
+                           $form['name']['value'],
+                           $form['email']['value']
+                           )) {
+      $this->AddMessage('success', "Welcome {$this->user['name']}. Your have successfully created a new account.");
+      $this->user->Login($form['acronym']['value'], $form['password']['value']);
+      $this->RedirectToController('profile');
+    } else {
+      $this->AddMessage('error', "Failed to create an account.");
+      $this->RedirectToController('create');
     }
   }
 
@@ -123,6 +164,5 @@ class CCUser extends CObject implements IController {
     $this->user->Init();
     $this->RedirectToController();
   }
-  
 
-} 
+} // end class
