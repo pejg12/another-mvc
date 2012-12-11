@@ -85,7 +85,11 @@ class CCUser extends CObject implements IController {
     }
 
     $this->views->SetTitle('Log in')
-                ->AddInclude(__DIR__ . '/login.tpl.php', array('login_form'=>$form->GetHTML()));
+                ->AddInclude(__DIR__ . '/login.tpl.php', array(
+                  'login_form' => $form,
+                  'allow_create_user' => CAmvc::Instance()->config['create_new_users'],
+                  'create_user_url' => $this->CreateUrl(null, 'create')
+                ));
   }
 
 

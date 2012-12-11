@@ -43,15 +43,22 @@ class CForm implements ArrayAccess {
   /**
     * Return HTML for the form
     */
-  public function GetHTML() {
+  public function GetHTML($type=null) {
     $id       = isset($this->form['id'])      ?     " id='{$this->form['id']}'"     : null;
     $class    = isset($this->form['class'])   ?            $this->form['class']     : null;
     $name     = isset($this->form['name'])    ?   " name='{$this->form['name']}'"   : null;
     $action   = isset($this->form['action'])  ? " action='{$this->form['action']}'" : null;
     $method   = " method='post'";
+
+    $form_open = "<form class='form-horizontal {$class}' {$id}{$class}{$name}{$action}{$method}>";
+
+    if($type == 'form') {
+      return $form_open;
+    }
+
     $elements = $this->GetHTMLForElements();
     $html     = <<<EOD
-\n<form class='form-horizontal {$class}' {$id}{$class}{$name}{$action}{$method}>
+\n{$form_open}
 <fieldset>
 {$elements}
 </fieldset>
@@ -182,7 +189,7 @@ class CFormElement implements ArrayAccess {
     $status    = ($validates ? ' error' : null);
 
     $id        = (isset($this['id']) ? $this['id'] : "form-element-{$this['name']}");
-    $class     = (isset($this['class']) ? " class='{$this['class']}'" : null);
+    $class     = (isset($this['class']) ? $this['class'] : null);
     $class     = ((isset($class) OR isset($validates)) ? " class='{$class}{$validates}'" : null);
     $name      = " name='{$this['name']}'";
     $label     = (isset($this['label']) ? ($this['label'] . ((isset($this['required']) && $this['required']) ? "<span class='form-element-required'>*</span>" : null)) : null);
