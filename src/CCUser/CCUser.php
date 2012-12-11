@@ -47,10 +47,15 @@ class CCUser extends CObject implements IController {
       $this->user->Login($acronymOrEmail, $password);
       $this->RedirectToController('profile');
     }
+    $form = new CForm();
+    $form->AddElement('acronym', array('label'=>'Acronym or email:', 'type'=>'text'));
+    $form->AddElement('password', array('label'=>'Password:', 'type'=>'password'));
+    $form->AddElement('doLogin', array('value'=>'Login', 'type'=>'submit'));
+
     $this->views->SetTitle('Log in');
-    $this->views->AddInclude(__DIR__ . '/login.tpl.php');
+    $this->views->AddInclude(__DIR__ . '/login.tpl.php', array('login_form'=>$form->GetHTML()));
   }
-  
+
 
   /**
     * Logout a user.

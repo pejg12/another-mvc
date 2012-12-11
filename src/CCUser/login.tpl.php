@@ -1,3 +1,4 @@
+<?=$login_form?>
 <p>This is where a log in form would be, but for now you can log in using these links.</p>
 <ul>
   <li><a href='<?=create_url('user', 'login', 'doe/doe')?>'>Login as doe:doe (should work)</a>
