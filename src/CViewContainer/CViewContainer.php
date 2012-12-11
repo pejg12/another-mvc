@@ -11,7 +11,7 @@ class CViewContainer {
   */
   private $data = array();
   private $views = array();
-  
+
 
   /**
   * Constructor
@@ -32,6 +32,7 @@ class CViewContainer {
   */
   public function SetTitle($value) {
     $this->SetVariable('title', $value);
+    return $this;
   }
 
 
@@ -42,6 +43,7 @@ class CViewContainer {
   */
   public function SetVariable($key, $value) {
     $this->data[$key] = $value;
+    return $this;
   }
 
 
@@ -52,12 +54,13 @@ class CViewContainer {
   * @param vars array containing the variables that should be avilable for the included file.
   */
   public function AddInclude($file, $variables=array()) {
-    // variables must be saved together with $this->data so that we can pass along the data together
+    // variables must be saved together with $this->data so that we can pass along all the data
     foreach($variables AS $key => $value)
     {
       $this->SetVariable($key, $value);
     }
     $this->views[] = array('type' => 'include', 'file' => $file, 'variables' => $this->data);
+    return $this;
   }
 
 
