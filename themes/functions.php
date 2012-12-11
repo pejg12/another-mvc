@@ -95,13 +95,28 @@ function get_messages_from_session() {
 function login_menu() {
   $amvc = CAmvc::Instance();
   if($amvc->user['isAuthenticated']) {
-    $items = "<li><a href='" . create_url('user', 'profile') . "'>My profile (" . $amvc->user['acronym'] . ")</a></li>";
-    if($amvc->user['hasRoleAdministrator']) {
-      $items .= "<li><a href='" . create_url('acp') . "'>Control Panel</a></li>";
+    $gravatarsize = 24;
+    $items = "<li><a href='" . create_url('user', 'profile') . "'>\n
+      <img src='" . get_gravatar($gravatarsize) . "' alt='Your gravatar' class='img-rounded' width='{$gravatarsize}' height='{$gravatarsize}' />\n
+      {$amvc->user['acronym']}'s profile\n
+      </a></li>\n";
+    if($amvc->user['hasRoleAdmin']) {
+      $items .= "<li><a href='" . create_url('acp') . "'>Control Panel</a></li>\n";
     }
-    $items .= "<li><a href='" . create_url('user', 'logout') . "'>Log out</a></li>";
+    $items .= "<li><a href='" . create_url('user', 'logout') . "'>Log out</a></li>\n";
   } else {
-    $items = "<li><a href='" . create_url('user', 'login') . "'>Log in</a></li>";
+    $items = "<li><a href='" . create_url('user', 'login') . "'>Log in</a></li>\n";
   }
   return $items;
+}
+
+
+/**
+* Get a gravatar based on the user's email.
+*/
+function get_gravatar($size=null) {
+  $email = CAmvc::Instance()->user['email']; // user email
+  $email = md5(strtolower(trim($email)));    // hash for gravatar
+  $size  = ($size ? "?s=$size" : null);      // size defined?
+  return "http://www.gravatar.com/avatar/{$email}.jpg{$size}";
 }
