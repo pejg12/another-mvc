@@ -51,6 +51,8 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
         acronym TEXT KEY, 
         name TEXT, 
         email TEXT, 
+        algorithm TEXT, 
+        salt TEXT,
         password TEXT, 
         created DATETIME default (datetime('now')), 
         updated DATETIME default NULL
@@ -69,11 +71,11 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
         PRIMARY KEY(idUser, idGroups)
       );",
       // insert queries
-      'insert into user'        => "INSERT INTO {$tableprefix}User (acronym,name,email,password) VALUES (?,?,?,?);",
+      'insert into user'        => "INSERT INTO {$tableprefix}User (acronym,name,email,algorithm,salt,password) VALUES (?,?,?,?,?,?);",
       'insert into group'       => "INSERT INTO {$tableprefix}Groups (acronym,name) VALUES (?,?);",
       'insert into user2group'  => "INSERT INTO {$tableprefix}User2Groups (idUser,idGroups) VALUES (?,?);",
       // select queries
-      'check user password'     => "SELECT * FROM {$tableprefix}User WHERE password=? AND (acronym=? OR email=?);",
+      'get user'                => "SELECT * FROM {$tableprefix}User WHERE (acronym=? OR email=?);",
       'get group memberships'   => "SELECT * FROM {$tableprefix}Groups AS g INNER JOIN {$tableprefix}User2Groups AS ug ON g.id=ug.idGroups WHERE ug.idUser=?;",
       // update queries
       'update profile'          => "UPDATE {$tableprefix}User SET name=?, email=?, updated=datetime('now') WHERE id=?;",
@@ -101,10 +103,26 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
       $this->db->ExecuteQuery(self::SQL('create table group'));
       $this->db->ExecuteQuery(self::SQL('create table user2group'));
 
-      // create initial users
-      $this->db->ExecuteQuery(self::SQL('insert into user'), array('root', 'The Administrator', 'root@dbwebb.se', 'root'));
+      // create initial users;
+      $password = $this->CreatePassword('root');
+      $this->db->ExecuteQuery(self::SQL('insert into user'), array(
+        'root', 
+        'The Administrator', 
+        'root@dbwebb.se', 
+        $password['algorithm'], 
+        $password['salt'], 
+        $password['password']
+      ));
       $idRootUser = $this->db->LastInsertId();;
-      $this->db->ExecuteQuery(self::SQL('insert into user'), array('doe', 'Jane Doe', 'doe@dbwebb.se', 'doe'));
+      $password = $this->CreatePassword('doe');
+      $this->db->ExecuteQuery(self::SQL('insert into user'), array(
+        'doe', 
+        'John/Jane Doe', 
+        'doe@dbwebb.se', 
+        $password['algorithm'], 
+        $password['salt'], 
+        $password['password']
+      ));
       $idDoeUser = $this->db->LastInsertId();
 
       // create initial groups
@@ -133,10 +151,18 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
     * @returns booelan true if match else false.
     */
   public function Login($acronymOrEmail, $password) {
-    $user = $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('check user password'), array($password, $acronymOrEmail, $acronymOrEmail));
+    $user = $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('get user'), array($acronymOrEmail, $acronymOrEmail));
     $user = (isset($user[0])) ? $user[0] : null;
+    if(!$user) {
+      return false;
+    } else if(!$this->CheckPassword($password, $user['salt'], $user['password'])) {
+      return false;
+    }
+    unset($user['algorithm']);
+    unset($user['salt']);
     unset($user['password']);
     if($user) {
+      $user['isAuthenticated'] = true;
       $user['groups'] = $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('get group memberships'), array($user['id']));
       foreach($user['groups'] as $val) {
         if($val['id'] == 1) {
@@ -172,6 +198,42 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
     $this->db->ExecuteQuery(self::SQL('update profile'), array($this['name'], $this['email'], $this['id']));
     $this->session->SetAuthenticatedUser($this->profile);
     return ($this->db->RowCount() === 1);
+  }
+
+
+  /**
+   * Create password.
+   *
+   * @param $plain string the password plain text to use as base.
+   * @param $salt boolean should  we use salt or not when creating the password? default is true.
+   * @returns array with 'salt' and 'password'.
+   */
+  public function CreatePassword($plain, $salt=true) {
+    if($salt) {
+      $salt = md5(microtime());
+      $password = md5($salt . $plain);
+    } else {
+      $salt = null;
+      $password = md5($plain);
+    }
+    return array('salt'=>$salt, 'password'=>$password);
+  }
+
+
+  /**
+   * Check if password matches.
+   *
+   * @param $plain string the password plain text to use as base.
+   * @param $salt string the user salted string to use to hash the password.
+   * @param $password string the hashed user password that should match.
+   * @returns boolean true if match, else false.
+   */
+  public function CheckPassword($plain, $salt=null, $password) {
+    if($salt) {
+      return $password === md5($salt . $plain);
+    } else {
+      return $password === md5($plain);
+    }
   }
 
 

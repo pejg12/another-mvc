@@ -78,8 +78,8 @@ class CCUser extends CObject implements IController {
     $form = new CFormUserLogin($this);
     $form->CheckIfSubmitted();
 
-    $this->views->SetTitle('Log in');
-    $this->views->AddInclude(__DIR__ . '/login.tpl.php', array('login_form'=>$form->GetHTML()));
+    $this->views->SetTitle('Log in')
+                ->AddInclude(__DIR__ . '/login.tpl.php', array('login_form'=>$form->GetHTML()));
   }
 
 
