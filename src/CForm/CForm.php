@@ -237,7 +237,7 @@ EOD;
    */
   public function UseNameAsDefaultLabel() {
     if(!isset($this['label'])) {
-      $this['label'] = ucfirst(strtolower(str_replace(array('-','_'), ' ', $this['name']))).':';
+      $this['label'] = ucfirst(strtolower(str_replace(array('-','_'), ' ', $this['name'])));
     }
   }
 
