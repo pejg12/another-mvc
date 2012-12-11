@@ -34,3 +34,17 @@ function exception_handler($e) {
   echo "Another MVC: Uncaught exception: <p>" . $e->getMessage() . "</p><pre>" . $e->getTraceAsString(), "</pre>";
 }
 set_exception_handler('exception_handler');
+
+
+/**
+ * Helper, include a file and store it in a string. Make $vars available to the included file.
+ */
+function getIncludeContents($filename, $vars=array()) {
+  if (is_file($filename)) {
+    ob_start();
+    extract($vars);
+    include $filename;
+    return ob_get_clean();
+  }
+  return false;
+}

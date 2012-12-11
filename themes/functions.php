@@ -94,9 +94,9 @@ function get_messages_from_session() {
 */
 function login_menu() {
   $amvc = CAmvc::Instance();
-  if($amvc->user->IsAuthenticated()) {
-    $items = "<li><a href='" . create_url('user/profile') . "'>My profile (" . $amvc->user->GetAcronym() . ")</a></li>";
-    if($amvc->user->IsAdministrator()) {
+  if($amvc->user['isAuthenticated']) {
+    $items = "<li><a href='" . create_url('user', 'profile') . "'>My profile (" . $amvc->user['acronym'] . ")</a></li>";
+    if($amvc->user['hasRoleAdministrator']) {
       $items .= "<li><a href='" . create_url('acp') . "'>Control Panel</a></li>";
     }
     $items .= "<li><a href='" . create_url('user', 'logout') . "'>Log out</a></li>";

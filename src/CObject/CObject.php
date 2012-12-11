@@ -72,4 +72,34 @@ class CObject {
     $this->RedirectTo($this->request->CreateUrl($controller, $method));
   }
 
+
+  /**
+   * Save a message in the session. Uses $this->session->AddMessage()
+   *
+   * @param $type string the type of message, for example: notice, info, success, warning, error.
+   * @param $message string the message.
+   * @param $alternative string the message if the $type is set to false, defaults to null.
+   */
+  protected function AddMessage($type, $message, $alternative=null) {
+    if($type === false) {
+      $type = 'error';
+      $message = $alternative;
+    } else if($type === true) {
+      $type = 'success';
+    }
+    $this->session->AddMessage($type, $message);
+  }
+
+
+  /**
+   * Create an url. Uses $this->request->CreateUrl()
+   *
+   * @param $urlOrController string the relative url or the controller
+   * @param $method string the method to use, $url is then the controller or empty for current
+   * @param $arguments string the extra arguments to send to the method
+   */
+  protected function CreateUrl($urlOrController=null, $method=null, $arguments=null) {
+    $this->request->CreateUrl($urlOrController, $method, $arguments);
+  }
+
 }
