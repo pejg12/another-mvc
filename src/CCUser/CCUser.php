@@ -21,8 +21,8 @@ class CCUser extends CObject implements IController {
   public function Index() {
     $this->views->SetTitle('User Controller');
     $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
-      'is_authenticated'=>$this->user->IsAuthenticated(),
-      'user'=>$this->user->GetProfile(),
+      'is_authenticated'=>$this->user['isAuthenticated'],
+      'user'=>$this->user,
     ));
   }
   
@@ -44,13 +44,38 @@ class CCUser extends CObject implements IController {
 
 
   /**
+   * Change the password.
+   */
+  public function DoChangePassword($form) {
+    if( $form['password']['value'] != $form['password1']['value'] ) {
+      $this->AddMessage('error', 'Passwords do not match.');
+    } elseif( empty($form['password']['value']) OR empty($form['password1']['value']) ) {
+      $this->AddMessage('error', 'Password is empty.');
+    } else {
+      $ret = $this->user->ChangePassword($form['password']['value']);
+      $this->AddMessage($ret, 'Saved new password.', 'Failed updating password.');
+    }
+    $this->RedirectToController('profile');
+  }
+
+
+  /**
+   * Save updates to profile information.
+   */
+  public function DoProfileSave($form) {
+    $this->user['name'] = $form['name']['value'];
+    $this->user['email'] = $form['email']['value'];
+    $ret = $this->user->Save();
+    $this->AddMessage($ret, 'Saved profile.', 'Failed saving profile.');
+    $this->RedirectToController('profile');
+  }
+
+
+  /**
     * Authenticate and login a user.
     */
   public function Login() {
-    $form = new CForm();
-    $form->AddElement('acronym', array('label'=>'Acronym or email:', 'type'=>'text'));
-    $form->AddElement('password', array('label'=>'Password:', 'type'=>'password'));
-    $form->AddElement('doLogin', array('value'=>'Login', 'type'=>'submit','callback'=>array($this, 'DoLogin')));
+    $form = new CFormUserLogin($this);
     $form->CheckIfSubmitted();
 
     $this->views->SetTitle('Log in');
@@ -62,9 +87,11 @@ class CCUser extends CObject implements IController {
    * Perform a login of the user as callback on a submitted form.
    */
   public function DoLogin($form) {
-    if($this->user->Login($form->GetValue('acronym'), $form->GetValue('password'))) {
+    if($this->user->Login($form['acronym']['value'], $form['password']['value'])) {
+      $this->AddMessage('success', "Welcome {$this->user['name']}.");
       $this->RedirectToController('profile');
     } else {
+      $this->AddMessage('error', "Failed to login, user does not exist or passwords do not match.");
       $this->RedirectToController('login');
     }
   }

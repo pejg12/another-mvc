@@ -4,7 +4,13 @@
 *
 * @package AnotherMVCCore
 */
-class CMUser extends CObject implements IHasSQL {
+class CMUser extends CObject implements IHasSQL, ArrayAccess {
+
+
+  /**
+   * Properties
+   */
+  public $profile = array();
 
 
   /**
@@ -12,7 +18,19 @@ class CMUser extends CObject implements IHasSQL {
     */
   public function __construct($amvc=null) {
     parent::__construct($amvc);
+    $profile = $this->session->GetAuthenticatedUser();
+    $this->profile = (is_null($profile) ? array() : $profile);
+    $this['isAuthenticated'] = (is_null($profile) ? false : true);
   }
+
+
+  /**
+   * Implementing ArrayAccess for $this->profile
+   */
+  public function offsetSet($offset, $value) { if (is_null($offset)) { $this->profile[] = $value; } else { $this->profile[$offset] = $value; }}
+  public function offsetExists($offset) { return isset($this->profile[$offset]); }
+  public function offsetUnset($offset) { unset($this->profile[$offset]); }
+  public function offsetGet($offset) { return isset($this->profile[$offset]) ? $this->profile[$offset] : null; }
 
 
   /**
@@ -34,13 +52,15 @@ class CMUser extends CObject implements IHasSQL {
         name TEXT, 
         email TEXT, 
         password TEXT, 
-        created DATETIME default (datetime('now'))
+        created DATETIME default (datetime('now')), 
+        updated DATETIME default NULL
       );",
       'create table group'      => "CREATE TABLE IF NOT EXISTS {$tableprefix}Groups (
         id INTEGER PRIMARY KEY, 
         acronym TEXT KEY, 
         name TEXT, 
-        created DATETIME default (datetime('now'))
+        created DATETIME default (datetime('now')), 
+        updated DATETIME default NULL
       );",
       'create table user2group' => "CREATE TABLE IF NOT EXISTS {$tableprefix}User2Groups (
         idUser INTEGER, 
@@ -55,6 +75,9 @@ class CMUser extends CObject implements IHasSQL {
       // select queries
       'check user password'     => "SELECT * FROM {$tableprefix}User WHERE password=? AND (acronym=? OR email=?);",
       'get group memberships'   => "SELECT * FROM {$tableprefix}Groups AS g INNER JOIN {$tableprefix}User2Groups AS ug ON g.id=ug.idGroups WHERE ug.idUser=?;",
+      // update queries
+      'update profile'          => "UPDATE {$tableprefix}User SET name=?, email=?, updated=datetime('now') WHERE id=?;",
+      'update password'         => "UPDATE {$tableprefix}User SET password=?, updated=datetime('now') WHERE id=?;",
       );
     if(!isset($queries[$key])) {
       throw new Exception("No such SQL query, key '$key' was not found.");
@@ -100,7 +123,7 @@ class CMUser extends CObject implements IHasSQL {
       die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
     }
   }
-  
+
 
   /**
     * Login by autenticate the user and password. Store user information in session if success.
@@ -123,63 +146,44 @@ class CMUser extends CObject implements IHasSQL {
           $user['hasRoleUser'] = true;
         }
       }
-      $this->session->SetAuthenticatedUser($user);
-      $this->session->AddMessage('success', "Welcome '{$user['name']}'.");
-    } else {
-      $this->session->AddMessage('error', "Could not login, user does not exists or password did not match.");
+      $this->profile = $user;
+      $this->session->SetAuthenticatedUser($this->profile);
     }
     return ($user != null);
   }
-  
+
 
   /**
     * Logout.
     */
   public function Logout() {
     $this->session->UnsetAuthenticatedUser();
-    $this->session->AddMessage('success', "You have logged out.");
-  }
-  
-
-  /**
-    * Does the session contain an authenticated user?
-    *
-    * @returns boolen true or false.
-    */
-  public function IsAuthenticated() {
-    return ($this->session->GetAuthenticatedUser() != false);
-  }
-  
-  
-  /**
-    * Get profile information on user.
-    *
-    * @returns array with user profile or null if anonymous user.
-    */
-  public function GetProfile() {
-    return $this->session->GetAuthenticatedUser();
+    $this->profile = array();
+    $this->AddMessage('success', "You have logged out.");
   }
 
 
   /**
-   * Get the user acronym.
+   * Save user profile to database and update user profile in session.
    *
-   * @returns string with user acronym or null
+   * @returns boolean true if success else false.
    */
-  public function GetAcronym() {
-    $profile = $this->GetProfile();
-    return isset($profile['acronym']) ? $profile['acronym'] : null;
+  public function Save() {
+    $this->db->ExecuteQuery(self::SQL('update profile'), array($this['name'], $this['email'], $this['id']));
+    $this->session->SetAuthenticatedUser($this->profile);
+    return ($this->db->RowCount() === 1);
   }
 
 
   /**
-   * Does the user have the admin role?
+   * Change user password.
    *
-   * @returns boolen true or false.
+   * @param $password string the new password
+   * @returns boolean true if success else false.
    */
-  public function IsAdministrator() {
-    $profile = $this->GetProfile();
-    return isset($profile['hasRoleAdmin']) ? $profile['hasRoleAdmin'] : null;
+  public function ChangePassword($password) {
+    $this->db->ExecuteQuery(self::SQL('update password'), array($password, $this['id']));
+    return ($this->db->RowCount() === 1);
   }
 
 }
