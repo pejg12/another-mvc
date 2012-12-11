@@ -73,4 +73,29 @@ EOD;
     return $html;
   }
 
+
+  /**
+   * Get the value of a element
+   */
+  public function GetValue($key) {
+    return (isset($_POST[$key])) ? $_POST[$key] : null;
+  }
+
+
+  /**
+   * Check if a form was submitted and perform validation and call callbacks
+   */
+  public function CheckIfSubmitted() {
+    $submitted = false;
+    if(!empty($_POST)) {
+      $submitted = true;
+      foreach($this->elements as $key => $val) {
+        if(isset($_POST[$key]) && isset($val['callback'])) {
+          call_user_func($val['callback'], $this);
+        }
+      }
+    }
+    return $submitted;
+  }
+
 }

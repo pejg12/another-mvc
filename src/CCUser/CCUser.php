@@ -42,18 +42,27 @@ class CCUser extends CObject implements IController {
   /**
     * Authenticate and login a user.
     */
-  public function Login($acronymOrEmail=null, $password=null) {
-    if($acronymOrEmail && $password) {
-      $this->user->Login($acronymOrEmail, $password);
-      $this->RedirectToController('profile');
-    }
+  public function Login() {
     $form = new CForm();
     $form->AddElement('acronym', array('label'=>'Acronym or email:', 'type'=>'text'));
     $form->AddElement('password', array('label'=>'Password:', 'type'=>'password'));
-    $form->AddElement('doLogin', array('value'=>'Login', 'type'=>'submit'));
+    $form->AddElement('doLogin', array('value'=>'Login', 'type'=>'submit','callback'=>array($this, 'DoLogin')));
+    $form->CheckIfSubmitted();
 
     $this->views->SetTitle('Log in');
     $this->views->AddInclude(__DIR__ . '/login.tpl.php', array('login_form'=>$form->GetHTML()));
+  }
+
+
+  /**
+   * Perform a login of the user as callback on a submitted form.
+   */
+  public function DoLogin($form) {
+    if($this->user->Login($form->GetValue('acronym'), $form->GetValue('password'))) {
+      $this->RedirectToController('profile');
+    } else {
+      $this->RedirectToController('login');
+    }
   }
 
 
