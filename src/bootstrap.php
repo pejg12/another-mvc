@@ -57,7 +57,7 @@ function htmlent($str, $flags = ENT_COMPAT) {
   * @param string text text to be converted.
   * @returns string the formatted text.
   */
-public static function MakeClickable($text) {
+function MakeClickable($text) {
   return preg_replace_callback(
     '#\b(?<![href|src]=[\'"])https?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#',
     create_function(
