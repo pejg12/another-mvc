@@ -13,7 +13,7 @@ ini_set('display_errors', 1);
 /*
 * Define session name
 */
-$amvc->config['session_name'] = "pejgmvckm4";
+$amvc->config['session_name'] = "pejgmvckm5";
 $amvc->config['session_key']  = "another-mvc";
 
 /*

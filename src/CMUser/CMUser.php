@@ -39,7 +39,7 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
     * @param string $key the string that is the key of the wanted SQL-entry in the array.
     */
   public static function SQL($key=null) {
-    $tableprefix = "mvckm4_";
+    $tableprefix = "mvckm5_";
     $queries = array(
       // drop tables
       'drop table user'         => "DROP TABLE IF EXISTS {$tableprefix}User;",
