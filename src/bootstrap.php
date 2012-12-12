@@ -201,7 +201,7 @@ function bbcode2html($text) {
 function mediawiki2html($text) {
   $search = array(
     // Text formatting, inline
-    '/\'\'\'(.+?)\'\'\'([^\'])/',       // '''bold'''
+    '/\'\'\'(.+?)\'\'\'([^\'])/',     // '''bold'''
     '/\'\'(.+?)\'\'/',                // ''italic''
 
     // Links, inline, case-insensitive
