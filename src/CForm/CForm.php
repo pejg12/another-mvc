@@ -224,7 +224,8 @@ class CFormElement implements ArrayAccess {
     $autofocus = ((isset($this['autofocus']) && $this['autofocus']) ? " autofocus='autofocus'" : null);
     $readonly  = ((isset($this['readonly']) && $this['readonly']) ? " readonly='readonly'" : null);
     $type      = (isset($this['type']) ? " type='{$this['type']}'" : null);
-    $value     = (isset($this['value']) ? " value='{$this['value']}'" : null);
+    $onlyValue = isset($this['value']) ? htmlentities($this['value'], ENT_COMPAT, $this->characterEncoding) : null;
+    $value     = isset($this['value']) ? " value='{$onlyValue}'" : null;
 
     $messages = null;
     if(isset($this['validation_messages'])) {
