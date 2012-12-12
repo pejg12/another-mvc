@@ -218,11 +218,12 @@ class CFormElement implements ArrayAccess {
 
     $id        = (isset($this['id']) ? $this['id'] : "form-element-{$this['name']}");
     $class     = (isset($this['class']) ? $this['class'] : null);
-    $class     = ((isset($class) OR isset($validates)) ? " class='{$class}{$validates}'" : null);
+    $class     = " class='{$class}{$validates}" . ('submit' == $this['type'] ? ' btn' : ' span5') . "'";
     $name      = " name='{$this['name']}'";
     $label     = (isset($this['label']) ? ($this['label'] . ((isset($this['required']) && $this['required']) ? "<span class='form-element-required'>*</span>" : null)) : null);
     $autofocus = ((isset($this['autofocus']) && $this['autofocus']) ? " autofocus='autofocus'" : null);
     $readonly  = ((isset($this['readonly']) && $this['readonly']) ? " readonly='readonly'" : null);
+    $rows      = (isset($this['rows']) ? " rows='{$this['rows']}'" : null);
     $type      = (isset($this['type']) ? " type='{$this['type']}'" : null);
     $onlyValue = isset($this['value']) ? htmlentities($this['value'], ENT_COMPAT, $this->characterEncoding) : null;
     $value     = isset($this['value']) ? " value='{$onlyValue}'" : null;
@@ -243,7 +244,7 @@ class CFormElement implements ArrayAccess {
       $label = null;
       $input = "<input id='$id'{$type}{$class}{$name}{$value} />";
     } else if($type && ($this['type'] == 'textarea')) {
-      $input = "<textarea id='$id'{$type}{$class}{$name}{$autofocus}{$readonly}>{$onlyValue}</textarea>";
+      $input = "<textarea id='$id'{$type}{$class}{$name}{$rows}{$autofocus}{$readonly}>{$onlyValue}</textarea>";
     } else {
       $input = "<input id='{$id}'{$type}{$class}{$name}{$value}{$autofocus}{$readonly} />";
     }
@@ -252,7 +253,7 @@ class CFormElement implements ArrayAccess {
       $label = "<label class='control-label' for='{$id}'>{$label}</label>\n";
     }
 
-    return "<div class='control-group{$status}'>\n" . $label . "<div class='controls'>\n" . $input . "\n{$messages}</div>\n</div>\n";
+    return "<div class='control-group{$status}'>\n" . $label . "<div class='controls controls-row'>\n" . $input . "\n{$messages}</div>\n</div>\n";
   }
 
 
