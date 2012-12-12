@@ -39,7 +39,10 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
     *
     * @param string $key the string that is the key of the wanted SQL-entry in the array.
     */
-  public static function SQL($key=null) {
+  public static function SQL($key=null, $args=null) {
+    $order_order  = isset($args['order-order']) ? $args['order-order'] : 'ASC';
+    $order_by     = isset($args['order-by'])    ? $args['order-by'] : 'id';  
+
     $tableprefix = "mvckm5_";
     $queries = array(
       'drop table content'      => "DROP TABLE IF EXISTS {$tableprefix}Content;",
@@ -57,7 +60,8 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
       );",
       'insert content'          => "INSERT INTO {$tableprefix}Content (slug,type,title,data,idUser) VALUES (?,?,?,?,?);",
       'select * by id'          => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE c.id=?;",
-      'select * by slug'         => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE c.slug=?;",
+      'select * by slug'        => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE c.slug=?;",
+      'select * by type'        => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE type=? ORDER BY {$order_by} {$order_order};",
       'select *'                => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id;",
       'update content'          => "UPDATE {$tableprefix}Content SET slug=?, type=?, title=?, data=?, updated=datetime('now') WHERE id=?;",
       );
@@ -76,7 +80,12 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
       $this->db->ExecuteQuery(self::SQL('drop table content'));
       $this->db->ExecuteQuery(self::SQL('create table content'));
       $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world', 'post', 'Hello World', 'This is a demo post.', $this->user['id']));
-      $this->AddMessage('success', 'Successfully created the database tables and created a default "Hello World" blog post, owned by you.');
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world-again', 'post', 'Hello World Again', 'This is another demo post.', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world-once-more', 'post', 'Hello World Once More', 'This is one more demo post.', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('home', 'page', 'Home page', 'This is a demo page, this could be your personal home-page.', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('about', 'page', 'About page', 'This is a demo page, this could be your personal about-page.', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('download', 'page', 'Download page', 'This is a demo page, this could be your personal download-page.', $this->user['id']));
+      $this->AddMessage('success', 'Successfully created the database tables and created a few default entries owned by you.');
     } catch(Exception$e) {
       die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
     }
@@ -92,17 +101,17 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
     $msg = null;
     if($this['id']) {
       $this->db->ExecuteQuery(self::SQL('update content'), array($this['slug'], $this['type'], $this['title'], $this['data'], $this['id']));
-      $msg = 'update';
+      $msg = 'updating';
     } else {
       $this->db->ExecuteQuery(self::SQL('insert content'), array($this['slug'], $this['type'], $this['title'], $this['data'], $this->user['id']));
       $this['id'] = $this->db->LastInsertId();
-      $msg = 'created';
+      $msg = 'creating';
     }
     $rowcount = $this->db->RowCount();
     if($rowcount) {
-      $this->AddMessage('success', "Successfully {$msg} content '{$this['slug']}'.");
+      $this->AddMessage('success', "Successful with {$msg} content '" . htmlEnt($this['slug']) . "'.");
     } else {
-      $this->AddMessage('error', "Failed to {$msg} content '{$this['slug']}'.");
+      $this->AddMessage('error', "Failed with {$msg} content '" . htmlEnt($this['slug']) . "'.");
     }
     return $rowcount === 1;
   }
@@ -131,10 +140,15 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
     *
     * @returns array with listing or null if empty.
     */
-  public function ListAll() {
+  public function ListAll($args=null) {
     try {
-      return $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('select *'));
-    } catch(Exception$e) {
+      if(isset($args) && isset($args['type'])) {
+        return $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('select * by type', $args), array($args['type']));
+      } else {
+        return $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('select *', $args));
+      }
+    } catch(Exception $e) {
+      echo $e;
       return null;
     }
   }
