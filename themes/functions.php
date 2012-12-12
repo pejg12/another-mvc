@@ -120,3 +120,11 @@ function get_gravatar($size=null) {
   $size  = ($size ? "?s=$size" : null);      // size defined?
   return "http://www.gravatar.com/avatar/{$email}.jpg{$size}";
 }
+
+
+/**
+ * Escape data to make it safe to write in the browser.
+ */
+function esc($str) {
+  return htmlEnt($str);
+}
