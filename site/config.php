@@ -46,6 +46,7 @@ $amvc->config['controllers'] = array(
   'guestbook' => array('enabled' => true,'class' => 'CCGuestbook'),
   'user'      => array('enabled' => true,'class' => 'CCUser'),
   'acp'       => array('enabled' => true,'class' => 'CCAdminControlPanel'),
+  'content'   => array('enabled' => true,'class' => 'CCContent'),
 );
 
 /**
