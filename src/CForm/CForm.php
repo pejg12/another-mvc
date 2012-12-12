@@ -43,16 +43,22 @@ class CForm implements ArrayAccess {
   /**
     * Return HTML for the form
     */
-  public function GetHTML($type=null) {
+  public function GetHTML($attributes=null) {
+    if(is_array($attributes)) {
+      $this->form = array_merge($this->form, $attributes);
+    }
     $id       = isset($this->form['id'])      ?     " id='{$this->form['id']}'"     : null;
-    $class    = isset($this->form['class'])   ?            $this->form['class']     : null;
+    $class    = isset($this->form['class'])   ?         " {$this->form['class']}"   : null;
     $name     = isset($this->form['name'])    ?   " name='{$this->form['name']}'"   : null;
     $action   = isset($this->form['action'])  ? " action='{$this->form['action']}'" : null;
     $method   = " method='post'";
 
-    $form_open = "<form class='form-horizontal {$class}' {$id}{$class}{$name}{$action}{$method}>";
+    $form_open = "<form class='form-horizontal{$class}' {$id}{$name}{$action}{$method}>";
 
-    if($type == 'form') {
+    if(
+      ($attributes == 'form')
+      OR (isset($attributes['start']) && $attributes['start'])
+    ) {
       return $form_open;
     }
 
@@ -63,6 +69,7 @@ class CForm implements ArrayAccess {
 {$elements}
 </fieldset>
 </form>
+
 EOD;
     return $html;
   }
@@ -104,17 +111,18 @@ EOD;
   /**
    * Check if a form was submitted and perform validation and call callbacks.
    *
-   * The form is stored in the session if validation fails. The page should then be redirected
-   * to the original form page, the form will populate from the session and should then be
-   * rendered again.
+   * The form is stored in the session if validation or callback fails. The
+   * page should then be redirected to the original form page, the form will
+   * populate from the session and should be rendered again.
    *
-   * @returns boolean true if validates, false if not validate, null if not submitted.
+   * @returns boolean true if submitted&validates and callbacks are successfull, false if not validate or callback fails, null if not submitted.
    */
   public function Check() {
     $validates = null;
+    $callbackStatus = null;
     $values = array();
     if(strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
-      unset($_SESSION['form-validation-failed']);
+      unset($_SESSION['form-failed']);
       $validates = true;
       foreach($this->elements as $element) {
         if(isset($_POST[$element['name']])) {
@@ -127,24 +135,38 @@ EOD;
             }
           }
           if(isset($element['callback']) && $validates) {
-             call_user_func($element['callback'], $this);
+            if(isset($element['callback-args'])) {
+              if(call_user_func_array($element['callback'], array_merge(array($this), $element['callback-args'])) === false) {
+                $callbackStatus = false;
+              }
+            } else {
+              if(call_user_func($element['callback'], $this) === false) {
+                $callbackStatus = false;
+              }
+            }
           }
         }
       }
-    } else if(isset($_SESSION['form-validation-failed'])) {
-      foreach($_SESSION['form-validation-failed'] as $key => $val) {
+    } else if(isset($_SESSION['form-failed'])) {
+      foreach($_SESSION['form-failed'] as $key => $val) {
         $this[$key]['value'] = $val['value'];
         if(isset($val['validation_messages'])) {
           $this[$key]['validation_messages'] = $val['validation_messages'];
           $this[$key]['validation-pass'] = false;
         }
       }
-      unset($_SESSION['form-validation-failed']);
+      unset($_SESSION['form-failed']);
     }
-    if($validates === false) {
-      $_SESSION['form-validation-failed'] = $values;
+    if(
+      ($validates === false)
+      OR ($callbackStatus === false)
+    ) {
+      $_SESSION['form-failed'] = $values;
     }
-    return $validates;
+    if($callbackStatus === false)
+      return false;
+    else 
+      return $validates;
   }
 
 } // end class
@@ -156,6 +178,7 @@ class CFormElement implements ArrayAccess {
    * Properties
    */
   public $attributes;
+  public $characterEncoding;
 
 
   /**
@@ -167,6 +190,11 @@ class CFormElement implements ArrayAccess {
   public function __construct($name, $attributes=array()) {
     $this->attributes = $attributes;   
     $this['name'] = $name;
+    if(is_callable('CAmvc::Instance()')) {
+      $this->characterEncoding = CAmvc::Instance()->config['character_encoding'];
+    } else {
+      $this->characterEncoding = 'UTF-8';
+    }
   }
 
 
@@ -204,31 +232,26 @@ class CFormElement implements ArrayAccess {
       foreach($this['validation_messages'] as $val) {
         $message .= "{$val} ";
       }
-      $messages = "\n<span class='help-inline'>{$message}</span>";
+      $messages = "<span class='help-inline'>{$message}</span>\n";
     }
 
     if($type && ($this['type'] == 'submit')) {
-      $html = <<<EOD
-
-<div class='control-group{$status}'>
-  <div class='controls'>
-    <input id='{$id}'{$type}{$class}{$name}{$value}{$autofocus}{$readonly} />
-  </div>
-</div>
-EOD;
-      return $html;
+      $label = null;
+      $input = "<input id='{$id}'{$type}{$class}{$name}{$value}{$autofocus}{$readonly} />";
+    } else if($type && ($this['type'] == 'hidden')) {
+      $label = null;
+      $input = "<input id='$id'{$type}{$class}{$name}{$value} />";
+    } else if($type && ($this['type'] == 'textarea')) {
+      $input = "<textarea id='$id'{$type}{$class}{$name}{$autofocus}{$readonly}>{$onlyValue}</textarea>";
     } else {
-      $html = <<<EOD
-
-<div class='control-group{$status}'>
-  <label class='control-label' for='{$id}'>{$label}</label>
-  <div class='controls'>
-    <input id='{$id}'{$type}{$class}{$name}{$value}{$autofocus}{$readonly} />{$messages}
-  </div>
-</div>
-EOD;
-      return $html;
+      $input = "<input id='{$id}'{$type}{$class}{$name}{$value}{$autofocus}{$readonly} />";
     }
+
+    if($label) {
+      $label = "<label class='control-label' for='{$id}'>{$label}</label>\n";
+    }
+
+    return "<div class='control-group{$status}'>\n" . $label . "<div class='controls'>\n" . $input . "\n{$messages}</div>\n</div>\n";
   }
 
 
@@ -303,6 +326,35 @@ class CFormElementText extends CFormElement {
     $this->UseNameAsDefaultLabel();
   }
 
+} // end class
+
+
+class CFormElementTextarea extends CFormElement {
+  /**
+   * Constructor
+   *
+   * @param string name of the element.
+   * @param array attributes to set to the element. Default is an empty array.
+   */
+  public function __construct($name, $attributes=array()) {
+    parent::__construct($name, $attributes);
+    $this['type'] = 'textarea';
+    $this->UseNameAsDefaultLabel();
+  }
+} // end class
+
+
+class CFormElementHidden extends CFormElement {
+  /**
+   * Constructor
+   *
+   * @param string name of the element.
+   * @param array attributes to set to the element. Default is an empty array.
+   */
+  public function __construct($name, $attributes=array()) {
+    parent::__construct($name, $attributes);
+    $this['type'] = 'hidden';
+  }
 } // end class
 
 
