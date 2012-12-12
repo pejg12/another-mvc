@@ -201,7 +201,7 @@ function bbcode2html($text) {
 function mediawiki2html($text) {
   $search = array(
     // Text formatting, inline
-    '/\'\'\'(.+?)\'\'\'[^\']/',       // '''bold'''
+    '/\'\'\'(.+?)\'\'\'([^\'])/',       // '''bold'''
     '/\'\'(.+?)\'\'/',                // ''italic''
 
     // Links, inline, case-insensitive
@@ -244,7 +244,7 @@ function mediawiki2html($text) {
     "/^[#\*]+ *(.+)$/m",                            // Wraps all list items to <li/>
     );
   $replace = array(
-    '<strong>$1</strong>',
+    '<strong>$1</strong>$2',
     '<em>$1</em>',
     '<img src="$1" alt="$2" />',
     '<img src="$1" alt="Oops, no alt text" />',
