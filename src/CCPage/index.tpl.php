@@ -1,7 +1,7 @@
 <?php if($content['id']):?>
-  <p><?=$content['data']?></p>
+  <p><?=$content->GetFilteredData()?></p>
   <p class='muted'>
-    ( <a href='<?=create_url("content/edit/{$content['id']}")?>'>edit</a>
+    ( <a href='<?=create_url('content', 'edit', $content['id'])?>'>edit</a>
     | <a href='<?=create_url("content")?>'>view all</a>
     )
   </p>

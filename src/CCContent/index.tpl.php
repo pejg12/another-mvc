@@ -7,7 +7,7 @@
     <li>
       <?=$val['id']?>, <?=$val['title']?> by <?=$val['owner']?>
       ( <a href='<?=create_url('content', 'edit', $val['id'])?>'>edit</a>
-      | <a href='<?=create_url("page/view/{$val['id']}")?>'>view</a>
+      | <a href='<?=create_url('page', 'view', $val['id'])?>'>view</a>
       )
     </li>
 <?php endforeach; ?>
