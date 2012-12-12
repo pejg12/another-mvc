@@ -80,12 +80,13 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
     try {
       $this->db->ExecuteQuery(self::SQL('drop table content'));
       $this->db->ExecuteQuery(self::SQL('create table content'));
-      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world', 'post', 'Hello World', 'This is a demo post.', 'plain', $this->user['id']));
-      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world-again', 'post', 'Hello World Again', 'This is another demo post.', 'plain', $this->user['id']));
-      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world-once-more', 'post', 'Hello World Once More', 'This is one more demo post.', 'plain', $this->user['id']));
-      $this->db->ExecuteQuery(self::SQL('insert content'), array('home', 'page', 'Home page', 'This is a demo page, this could be your personal home-page.', 'plain', $this->user['id']));
-      $this->db->ExecuteQuery(self::SQL('insert content'), array('about', 'page', 'About page', 'This is a demo page, this could be your personal about-page.', 'plain', $this->user['id']));
-      $this->db->ExecuteQuery(self::SQL('insert content'), array('download', 'page', 'Download page', 'This is a demo page, this could be your personal download-page.', 'plain', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world', 'post', 'Hello World', "This is a demo post.\n\nThis is another row in this demo post.", 'plain', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world-again', 'post', 'Hello World Again', "This is another demo post.\n\nThis is another row in this demo post.", 'plain', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world-once-more', 'post', 'Hello World Once More', "This is one more demo post.\n\nThis is another row in this demo post.", 'plain', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('home', 'page', 'Home page', "This is a demo page, this could be your personal home-page.\n\nLydia is a PHP-based MVC-inspired Content management Framework, watch the making of Lydia at: http://dbwebb.se/lydia/tutorial.", 'plain', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('about', 'page', 'About page', "This is a demo page, this could be your personal about-page.\n\nLydia is used as a tool to educate in MVC frameworks.", 'plain', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('download', 'page', 'Download page', "This is a demo page, this could be your personal download-page.\n\nYou can download your own copy of lydia from https://github.com/mosbth/lydia.", 'plain', $this->user['id']));
+      $this->db->ExecuteQuery(self::SQL('insert content'), array('bbcode', 'page', 'Page with BBCode', "This is a demo page with some BBCode-formatting.\n\n[b]Text in bold[/b] and [i]text in italic[/i] and [url=http://dbwebb.se]a link to dbwebb.se[/url]. You can also include images using bbcode, such as the lydia logo: [img]http://dbwebb.se/lydia/current/themes/core/logo_80x80.png[/img]", 'bbcode', $this->user['id']));
       $this->AddMessage('success', 'Successfully created the database tables and created a few default entries owned by you.');
     } catch(Exception$e) {
       die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
@@ -165,7 +166,9 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
     switch($filter) {
       /*case 'php': $data = nl2br(makeClickable(eval('?>'.$data))); break;
       case 'html': $data = nl2br(makeClickable($data)); break;*/
-      case 'plain': 
+      case 'bbcode': $data = nl2br(bbcode2html(htmlEnt($data))); break;
+      case 'mediawiki': $data = nl2br(mediawiki2html(htmlEnt($data))); break;
+      case 'plain': // fall through
       default: $data = nl2br(makeClickable(htmlEnt($data))); break;
     }
     return $data;

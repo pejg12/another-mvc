@@ -158,3 +158,119 @@ function formatDateTimeDiff($start, $startTimeZone=null, $end=null, $endTimeZone
   // Prepend 'since ' or whatever you like
   return $interval->format($format);
 }
+
+
+/**
+ * Helper, BBCode formatting converting to HTML.
+ *
+ * @param string text The text to be converted.
+ * @returns string the formatted text.
+ */
+function bbcode2html($text) {
+  $search = array( 
+    '/\[b\](.*?)\[\/b\]/is', 
+    '/\[i\](.*?)\[\/i\]/is', 
+    '/\[u\](.*?)\[\/u\]/is', 
+    '/\[img\](https?.*?)\[\/img\]/is', 
+    '/\[url\](https?.*?)\[\/url\]/is', 
+    '/\[url=(https?.*?)\](.*?)\[\/url\]/is' 
+    );
+  $replace = array( 
+    '<strong>$1</strong>', 
+    '<em>$1</em>', 
+    '<u>$1</u>', 
+    '<img src="$1" />', 
+    '<a href="$1">$1</a>', 
+    '<a href="$1">$2</a>' 
+    );
+  return preg_replace($search, $replace, $text);
+}
+
+
+/**
+* Helper, selected mediawiki formatting converted to HTML.
+*
+* @param string text The text to be converted.
+* @returns string the formatted text.
+* @todo lines indented with 1 space converted to <pre> or <code> instead, multiline span
+* @todo html tags <pre> and <nowiki> interpreted as plain text instead
+* @todo improve image formatting. image size? image class? bootstrap css classes: img-rounded, img-circle, img-polaroid
+* @todo improve nested list items. **:#*#* should be interpreted as 7 li items in nested ul/ul/dl/ol/ul/ol/ul lists
+* @todo tables? advanced but powerful.
+*/
+function mediawiki2html($text) {
+  $search = array(
+    // Text formatting, inline
+    '/\'\'\'(.+?)\'\'\'/',            // '''bold'''
+    '/\'\'(.+?)\'\'/',                // ''italic''
+
+    // Links, inline, case-insensitive
+    '/\[File:(https?.+?)\|(.*?)\]/i', // [File:http://example.org/file.jpg|Alternative text]
+    '/\[File:(https?.+?)\]/i',        // [File:http://example.org/file.jpg]
+    '/\[(https?.+?) (.+?)\]/i',       // [http://example.org Example]
+    '/\[(https?.+?)\]/i',             // [http://example.org]
+
+    // Headings, h6 to h1, block
+    '/^======(.+?)======$/m',         // ======Deepest heading======
+    '/^=====(.+?)=====$/m',           // =====So deep=====
+    '/^====(.+?)====$/m',             // ==== Probably the deepest you'll actually use ====
+    '/^===(.+)===$/m',                // === First subheading within articles ===
+    '/^==(.+?)==$/m',                 // == First heading within articles ==
+    '/^=(.+?)=$/m',                   // = Top heading, reserved for page =
+
+    // Horizontal rule, block
+    '/^-{4,}$/m',                     // --------------
+
+    /* WIKY: https://github.com/lahdekorpi/Wiky.php/blob/master/wiky.inc.php */
+    // WIKY Indentations (what he really means is Definition list)
+    "/[\n\r]: *.+([\n\r]:+.+)*/",                   // Indentation first pass
+    "/^:(?!:) *(.+)$/m",                            // Indentation second pass
+    "/([\n\r]:: *.+)+/",                            // Subindentation first pass
+    "/^:: *(.+)$/m",                                // Subindentation second pass
+
+    // WIKY Ordered list
+    "/[\n\r]?#.+([\n|\r]#.+)+/",                    // First pass, finding all blocks
+    "/[\n\r]#{3}(?!#) *(.+)(([\n\r]#{4,}.+)+)/",    // List item with sub items of 4 or more
+    "/[\n\r]#{2}(?!#) *(.+)(([\n\r]#{3,}.+)+)/",    // List item with sub items of 3 or more
+    "/[\n\r]#(?!#) *(.+)(([\n\r]#{2,}.+)+)/",       // List item with sub items of 2 or more
+
+    // WIKY Unordered list
+    "/[\n\r]?\*.+([\n|\r]\*.+)+/",                  // First pass, finding all blocks
+    "/[\n\r]\*{3}(?!\*) *(.+)(([\n\r]\*{4,}.+)+)/", // List item with sub items of 4 or more
+    "/[\n\r]\*{2}(?!\*) *(.+)(([\n\r]\*{3,}.+)+)/", // List item with sub items of 3 or more
+    "/[\n\r]\*(?!\*) *(.+)(([\n\r]\*{2,}.+)+)/",    // List item with sub items of 2 or more
+
+    // WIKY List items
+    "/^[#\*]+ *(.+)$/m",                            // Wraps all list items to <li/>
+    );
+  $replace = array(
+    '<strong>$1</strong>',
+    '<em>$1</em>',
+    '<img src="$1" alt="$2" />',
+    '<img src="$1" alt="Oops, no alt text" />',
+    '<a href="$1">$2</a>',
+    '<a href="$1">$1</a>',
+    '<h6>$1</h6>',
+    '<h5>$1</h5>',
+    '<h4>$1</h4>',
+    '<h3>$1</h3>',
+    '<h2>$1</h2>',
+    '<h1>$1</h1>',
+    '<hr />',
+    // WIKY Lists
+    "\n<dl>$0\n</dl>", // Newline is here to make the second pass easier
+    "<dd>$1</dd>",
+    "\n<dd><dl>$0\n</dl></dd>",
+    "<dd>$1</dd>",
+    "\n<ol>\n$0\n</ol>",
+    "\n<li>$1\n<ol>$2\n</ol>\n</li>",
+    "\n<li>$1\n<ol>$2\n</ol>\n</li>",
+    "\n<li>$1\n<ol>$2\n</ol>\n</li>",
+    "\n<ul>\n$0\n</ul>",
+    "\n<li>$1\n<ul>$2\n</ul>\n</li>",
+    "\n<li>$1\n<ul>$2\n</ul>\n</li>",
+    "\n<li>$1\n<ul>$2\n</ul>\n</li>",
+    "<li>$1</li>",
+    );
+  return preg_replace($search, $replace, $text);
+}
