@@ -21,7 +21,8 @@ class CMGuestbook extends CObject implements IHasSQL {
     * @param string $key the string that is the key of the wanted SQL-entry in the array.
     */
   public static function SQL($key=null) {
-    $table_gb = 'mvckm5_Guestbook';
+    $amvc = CAmvc::Instance();
+    $table_gb = $amvc->config['km'] . '_Guestbook';
     $queries = array(
       'create table guestbook'  => "
         CREATE TABLE IF NOT EXISTS {$table_gb} (

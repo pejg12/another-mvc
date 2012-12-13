@@ -43,7 +43,8 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess {
     $order_order  = isset($args['order-order']) ? $args['order-order'] : 'ASC';
     $order_by     = isset($args['order-by'])    ? $args['order-by'] : 'id';  
 
-    $tableprefix = "mvckm5_";
+    $amvc = CAmvc::Instance();
+    $tableprefix = $amvc->config['km'] . "_";
     $queries = array(
       'drop table content'      => "DROP TABLE IF EXISTS {$tableprefix}Content;",
       'create table content'    => "CREATE TABLE IF NOT EXISTS {$tableprefix}Content (
