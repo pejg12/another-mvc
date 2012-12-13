@@ -1,0 +1,86 @@
+/**
+* Description: Core theme for Another MVC
+*/
+
+
+/*-----------------------------------------------------------------------------
+ * Page structure (header, content, footer)
+ */
+
+html {
+/* Force scrollbar for centered websites */
+    overflow-y: scroll;
+}
+
+
+/*-----------------------------------------------------------------------------
+ * Bootstrap has navbar-static-top but not navbar-static-bottom.. It would
+ * probably look something like this? I reversed tops and bottoms, and removed
+ * the boxshadow because the bar won't always end up at the very bottom.
+ */
+
+.navbar-static-bottom .container {
+    width: 940px;
+}
+
+.navbar-static-bottom {
+    position: static;
+    margin-bottom: 0;
+    margin-top: 1em;
+}
+
+.navbar-static-bottom .navbar-inner {
+    padding-top: 1em;
+    text-align: center;
+    border-width: 1px 0 0 0;
+/* CSS3 border radius */
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+/* CSS3 box-shadow */
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+/* CSS3 gradients */
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(bottom, #ffffff, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, to(#ffffff), from(#f2f2f2));
+    background-image: -webkit-linear-gradient(bottom, #ffffff, #f2f2f2);
+    background-image: -o-linear-gradient(bottom, #ffffff, #f2f2f2);
+    background-image: linear-gradient(to top, #ffffff, #f2f2f2);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2f2f2', endColorstr='#ffffffff', GradientType=0);
+}
+
+
+/*-----------------------------------------------------------------------------
+ * Don't want the debug output centered...
+ */
+
+footer pre {
+    text-align: left;
+}
+
+/*-----------------------------------------------------------------------------
+ * Typography (h1, p, a)
+ */
+
+@size: 25px;
+
+aside h1,
+aside h2,
+aside h3 {
+  line-height: (@size * 0.8);
+}
+
+aside h1 {  font-size:  @size; }
+aside h2 {  font-size: (@size * 0.9); }
+aside h3 {  font-size: (@size * 0.8); }
+aside h4 {  font-size: (@size * 0.7); }
+aside h5 {  font-size: (@size * 0.6); }
+aside h6 {  font-size: (@size * 0.6); }
+
+aside h1 small {  font-size: (@size * 0.9); }
+aside h2 small {  font-size: (@size * 0.8); }
+aside h3 small {  font-size: (@size * 0.7); }
+aside h4 small {  font-size: (@size * 0.7); }
