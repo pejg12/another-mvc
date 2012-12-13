@@ -133,7 +133,7 @@ class CAmvc implements ISingleton {
     $themeUrl     = $this->request->base_url . "themes/{$themeName}";
     
     // Add stylesheet path to the $amvc->data array
-    $this->data['stylesheet'] = "{$themeUrl}/style.css";
+    $this->data['stylesheet'] = $themeUrl . "/" . $this->config['theme']['stylesheet'];
 
     // Include the global functions.php and the functions.php that are part of the theme
     $amvc = &$this;

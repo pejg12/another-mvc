@@ -50,14 +50,15 @@ $amvc->config['controllers'] = array(
   'content'   => array('enabled' => true,'class' => 'CCContent'),
   'blog'      => array('enabled' => true,'class' => 'CCBlog'),
   'page'      => array('enabled' => true,'class' => 'CCPage'),
+  'theme'     => array('enabled' => true,'class' => 'CCTheme'),
 );
 
 /**
 * Settings for the theme.
 */
 $amvc->config['theme'] = array(
-  // The name of the theme in the theme directory
-  'name'    => 'core',
+  'name'       => 'grid',            // The name of the theme directory
+  'stylesheet' => 'style.php',   // Main stylesheet to include in template files
 );
 
 /**
