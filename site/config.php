@@ -57,7 +57,7 @@ $amvc->config['controllers'] = array(
 * Settings for the theme.
 */
 $amvc->config['theme'] = array(
-  'name'       => 'grid',            // The name of the theme directory
+  'name'       => 'grid',        // The name of the theme directory
   'stylesheet' => 'style.php',   // Main stylesheet to include in template files
 );
 

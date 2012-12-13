@@ -96,10 +96,7 @@ function login_menu() {
   $amvc = CAmvc::Instance();
   if($amvc->user['isAuthenticated']) {
     $gravatarsize = 24;
-    $items = "<li><a href='" . create_url('user', 'profile') . "'>\n
-      <img src='" . get_gravatar($gravatarsize) . "' alt='Your gravatar' class='img-rounded' width='{$gravatarsize}' height='{$gravatarsize}' />\n
-      {$amvc->user['acronym']}'s profile\n
-      </a></li>\n";
+    $items = "<li><a href='" . create_url('user', 'profile') . "'><img src='" . get_gravatar($gravatarsize) . "' alt='Your gravatar' class='img-rounded' width='{$gravatarsize}' height='{$gravatarsize}' /> {$amvc->user['acronym']}'s profile</a></li>\n";
     if($amvc->user['hasRoleAdmin']) {
       $items .= "<li><a href='" . create_url('acp') . "'>Control Panel</a></li>\n";
     }

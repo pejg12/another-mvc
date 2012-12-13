@@ -21,6 +21,8 @@
  * 2012-04-18: First try.
  *
  */
+error_reporting(0);
+
 // Include the lessphp-compiler
 include dirname(__FILE__)."/lessphp/lessc.inc.php";
 

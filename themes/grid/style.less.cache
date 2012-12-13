@@ -1,4 +1,4 @@
-@import url('http://fonts.googleapis.com/css?family=Archivo+Narrow');
+a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:2296:"@import url('http://fonts.googleapis.com/css?family=Archivo+Narrow');
 body {
   width: 100%;
   *zoom: 1;
@@ -171,3 +171,4 @@ input[type='submit'] {
 input[type='text'] {
   height: 16px;
 }
+";s:5:"files";a:2:{s:67:"/var/www/localhost/htdocs/phpmvc/another-mvc/themes/grid/style.less";i:1355417147;s:73:"/var/www/localhost/htdocs/phpmvc/another-mvc/themes/grid/semantic.gs.less";i:1355414340;}s:7:"updated";i:1355417159;}

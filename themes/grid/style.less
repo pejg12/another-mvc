@@ -1,86 +1,138 @@
 /**
-* Description: Core theme for Another MVC
-*/
-
-
-/*-----------------------------------------------------------------------------
- * Page structure (header, content, footer)
+ * Description: Core theme for Another MVC
  */
 
+
+/** ---------------------------------------------------------------------------
+ * semantic.gs
+ */
+@import url('semantic.gs.less');
+
+@columns: 12;
+@column-width: 60;
+@gutter-width: 20;
+// Switch from pixels to percentages in the imported file above.
+
+@import url('http://fonts.googleapis.com/css?family=Archivo+Narrow');
+
+@grid-height: 24px;
+@font-size: (@grid-height / 1.5);
+
+/** ---------------------------------------------------------------------------
+ * Grid
+ */
+// * {outline: solid 1px silver;}
+
+header#top {
+  .column(12);
+  position: absolute; top: 0; left: 0;
+}
+
+header#top>nav {
+  .column(12);
+  &>ul {
+    position: absolute; top: 0; right: 0;
+    margin-top: 0;
+    margin-right: 0;
+    li {
+      list-style-type: none;
+      display: inline;
+      margin-left: 2ex;
+      a { text-decoration: none; }
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+body>header>h1 {
+  .column(12);
+  clear: both;
+  margin-bottom: @grid-height;
+}
+
+body>nav {
+  .column(2);
+  clear: left;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style-type: 0;
+      a { text-decoration: none; }
+      &:before { content: "» "; }
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+body>article {
+  .column(10);
+  clear: right;
+}
+
+body>footer {
+  .column(12);
+  clear: both;
+  margin-top: @grid-height;
+}
+
+/** ---------------------------------------------------------------------------
+ * Typography
+ */
 html {
-/* Force scrollbar for centered websites */
-    overflow-y: scroll;
+  font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+  color: #333;
 }
 
-
-/*-----------------------------------------------------------------------------
- * Bootstrap has navbar-static-top but not navbar-static-bottom.. It would
- * probably look something like this? I reversed tops and bottoms, and removed
- * the boxshadow because the bar won't always end up at the very bottom.
- */
-
-.navbar-static-bottom .container {
-    width: 940px;
+html:hover {
+  background: url('img/grid.png') left -6px repeat-y #fff;
 }
 
-.navbar-static-bottom {
-    position: static;
-    margin-bottom: 0;
-    margin-top: 1em;
+body {
+  font-size: @font-size;
+  line-height: @grid-height;
 }
 
-.navbar-static-bottom .navbar-inner {
-    padding-top: 1em;
-    text-align: center;
-    border-width: 1px 0 0 0;
-/* CSS3 border radius */
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-/* CSS3 box-shadow */
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-/* CSS3 gradients */
-    background-color: #fafafa;
-    background-image: -moz-linear-gradient(bottom, #ffffff, #f2f2f2);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, to(#ffffff), from(#f2f2f2));
-    background-image: -webkit-linear-gradient(bottom, #ffffff, #f2f2f2);
-    background-image: -o-linear-gradient(bottom, #ffffff, #f2f2f2);
-    background-image: linear-gradient(to top, #ffffff, #f2f2f2);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2f2f2', endColorstr='#ffffffff', GradientType=0);
+pre { font-size: (@font-size * 0.75); }
+
+/* Headers */
+
+h1, h2, h3, h4, h5, h6 { margin-bottom: @grid-height; }
+h1 { font-size:  @grid-height;        }
+h2 { font-size: (@grid-height * 0.9); }
+h3 { font-size: (@grid-height * 0.8); }
+h4 { font-size: (@grid-height * 0.7); }
+h5 { font-size: (@grid-height * 0.6); }
+h6 { font-size: (@grid-height * 0.6); }
+
+/* Paragraphs */
+
+p { margin-bottom: @grid-height; }
+p:first-of-type { margin-top: 0; }
+
+/* Lists */
+
+ul ul,
+ol ol { margin: 0 0 0 @column-width; }
+
+ul, ol { margin-bottom: @grid-height; }
+
+article ul { list-style-position: outside; }
+
+/* Other elements */
+
+pre { margin-bottom: @grid-height; }
+hr { margin-top: -2px; margin-bottom: @grid-height; }
+
+/* Forms */
+
+form,
+input,
+label,
+textarea {
+  margin-bottom: @grid-height;
 }
 
-
-/*-----------------------------------------------------------------------------
- * Don't want the debug output centered...
- */
-
-footer pre {
-    text-align: left;
-}
-
-/*-----------------------------------------------------------------------------
- * Typography (h1, p, a)
- */
-
-@size: 25px;
-
-aside h1,
-aside h2,
-aside h3 {
-  line-height: (@size * 0.8);
-}
-
-aside h1 {  font-size:  @size; }
-aside h2 {  font-size: (@size * 0.9); }
-aside h3 {  font-size: (@size * 0.8); }
-aside h4 {  font-size: (@size * 0.7); }
-aside h5 {  font-size: (@size * 0.6); }
-aside h6 {  font-size: (@size * 0.6); }
-
-aside h1 small {  font-size: (@size * 0.9); }
-aside h2 small {  font-size: (@size * 0.8); }
-aside h3 small {  font-size: (@size * 0.7); }
-aside h4 small {  font-size: (@size * 0.7); }
+input { margin: 0; padding: 0; }
+input[type='submit'] {  height: @grid-height; padding: 0 1ex;}
+input[type='text'] {  height: (@grid-height / 1.5);}
