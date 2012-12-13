@@ -197,12 +197,13 @@ function bbcode2html($text) {
 * @todo improve image formatting. image size? image class? bootstrap css classes: img-rounded, img-circle, img-polaroid
 * @todo improve nested list items. **:#*#* should be interpreted as 7 li items in nested ul/ul/dl/ol/ul/ol/ul lists
 * @todo tables? advanced but powerful.
+* @todo headers don't seem to work properly, might be an issue with forcing $
 */
 function mediawiki2html($text) {
   $search = array(
     // Text formatting, inline
     '/\'\'\'(.+?)\'\'\'([^\'])/',     // '''bold'''
-    '/\'\'(.+?)\'\'/',                // ''italic''
+    '/\'\'(.+?)\'\'([^\'])/',         // ''italic''
 
     // Links, inline, case-insensitive
     '/\[File:(https?.+?)\|(.*?)\]/i', // [File:http://example.org/file.jpg|Alternative text]
@@ -221,7 +222,7 @@ function mediawiki2html($text) {
     // Horizontal rule, block
     '/^-{4,}$/m',                     // --------------
 
-    /* WIKY: https://github.com/lahdekorpi/Wiky.php/blob/master/wiky.inc.php */
+    /* WIKY: https://github.com/lahdekorpi/Wiky.php */
     // WIKY Indentations (what he really means is Definition list)
     "/[\n\r]: *.+([\n\r]:+.+)*/",                   // Indentation first pass
     "/^:(?!:) *(.+)$/m",                            // Indentation second pass
@@ -245,7 +246,7 @@ function mediawiki2html($text) {
     );
   $replace = array(
     '<strong>$1</strong>$2',
-    '<em>$1</em>',
+    '<em>$1</em>$2',
     '<img src="$1" alt="$2" />',
     '<img src="$1" alt="Oops, no alt text" />',
     '<a href="$1">$2</a>',
