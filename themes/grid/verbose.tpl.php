@@ -27,8 +27,10 @@
     <header id='top'>
       <nav>
         <ul>
-          <li><a href="<?=create_url('index')?>">Home</a></li>
+          <li><code>&lt;header id='top'&gt;</code> <code>&lt;ul&gt;</code></li>
+          <li><code>&lt;li&gt;</code><a href="<?=create_url('index')?>">Home</a><code>&lt;/li&gt;</code></li>
 <?=login_menu()?>
+          <li><code>&lt;/ul&gt;</code> <code>&lt;/header&gt;</code></li>
         </ul>
       </nav>
     </header>
@@ -38,12 +40,14 @@
     </header>
 
     <nav>
+      <p><code>&lt;nav&gt;</code> <br /> <code>&lt;ul&gt;</code></p>
       <ul>
 <?php /* I know this code should not be in the theme, I'll move it later */ ?>
 <?php foreach(array_keys($amvc->config['controllers']) AS $controller) { ?>
-        <li><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a></li>
+        <li><code>&lt;li&gt;</code><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a><code>&lt;/li&gt;</code></li>
 <?php } ?>
       </ul>
+      <p><code>&lt;/ul&gt;</code> <br /> <code>&lt;/nav&gt;</code></p>
     </nav>
 
     <article>
@@ -54,8 +58,10 @@
     </article>
 
     <footer>
+      <p><code>&lt;footer&gt;</code></p>
       <?=$footer?>
       <?=get_debug()?>
+      <p><code>&lt;/footer&gt;</code></p>
     </footer>
 
   </body>

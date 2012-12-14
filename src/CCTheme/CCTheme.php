@@ -24,4 +24,16 @@ class CCTheme extends CObject implements IController {
   }
 
 
-} 
+  /**
+    * Display in a verbose manner what can be done with this controller.
+    */
+  public function Verbose() {
+    $this->config['theme']['template_file'] = 'verbose.tpl.php';
+    $this->views->SetTitle('Theme')
+                ->AddInclude(__DIR__ . '/verbose.tpl.php', array(
+                  'theme_name' => $this->config['theme']['name'],
+                ));
+  }
+
+
+}
