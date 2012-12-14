@@ -95,7 +95,7 @@ function get_messages_from_session() {
 function login_menu() {
   $amvc = CAmvc::Instance();
   if($amvc->user['isAuthenticated']) {
-    $gravatarsize = 24;
+    $gravatarsize = 18;
     $items = "<li><a href='" . create_url('user', 'profile') . "'><img src='" . get_gravatar($gravatarsize) . "' alt='Your gravatar' class='img-rounded' width='{$gravatarsize}' height='{$gravatarsize}' /> {$amvc->user['acronym']}'s profile</a></li>\n";
     if($amvc->user['hasRoleAdmin']) {
       $items .= "<li><a href='" . create_url('acp') . "'>Control Panel</a></li>\n";
