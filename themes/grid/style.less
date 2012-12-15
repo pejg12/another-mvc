@@ -11,48 +11,61 @@
 @columns: 12;
 @column-width: 60;
 @gutter-width: 20;
-// Switch from pixels to percentages in the imported file above.
 
-@import url('http://fonts.googleapis.com/css?family=Archivo+Narrow');
+// Utility variable — you should never need to modify this
+@gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
 
-@grid-height: 24px;
-@font-size: (@grid-height / 1.5);
+@media screen and (max-width: 980px) {
+}
+// Set @total-width to 100% for a fluid layout
+@total-width: @gridsystem-width;
+// @total-width: 100%;
+
+
 
 /** ---------------------------------------------------------------------------
  * Grid
  */
 // * {outline: solid 1px silver;}
 
-header#top {
-  .column(12);
-  position: absolute; top: 0; left: 0;
+@grid-height: 24px;
+@font-size: (@grid-height / 1.5);
+
+body {
+  .column(13);
+  padding: 0;
+  margin: 0;
 }
 
-header#top>nav {
+body>header {
   .column(12);
-  &>ul {
-    position: absolute; top: 0; right: 0;
-    margin-top: 0;
-    margin-right: 0;
-    li {
-      list-style-type: none;
-      display: inline;
-      margin-left: 2ex;
-      a { text-decoration: none; }
-      &:hover { text-decoration: underline; }
+  clear: both;
+  &:nth-child(2) {
+    margin-top: @grid-height;
+  }
+  margin-bottom: @grid-height;
+  &#top {
+    position: absolute; top: 0; left: 0;
+    &>nav {
+      &>ul {
+        position: absolute; top: 0; right: 0;
+        margin-top: 0;
+        margin-right: 0;
+        li {
+          list-style-type: none;
+          display: inline;
+          margin-left: 2ex;
+          a { text-decoration: none; }
+          &:hover { text-decoration: underline; }
+        }
+      }
     }
   }
 }
 
-body>header>h1 {
-  .column(12);
-  clear: both;
-  margin-bottom: @grid-height;
-}
-
 body>nav {
   .column(3);
-//   clear: left;
+  margin-bottom: @grid-height;
   ul {
     margin-left: 0;
     margin-right: 0;
@@ -66,9 +79,14 @@ body>nav {
   }
 }
 
+body>section,
+body>aside {
+  .column(3);
+  margin-bottom: @grid-height;
+}
+
 body>article {
   .column(9);
-//   clear: right;
   position: relative;
   margin-bottom: @grid-height;
 }
@@ -76,27 +94,39 @@ body>article {
 body>footer {
   .column(12);
   clear: both;
+  margin-bottom: @grid-height;
 }
 
-body>article>aside {
-  &.small {
-    .column(3);
-    margin-bottom: @grid-height;
+body>article .small {
+  .column(3);
+}
 
+body>header .small,
+body>footer .small {
+  .column(4);
+}
+
+.small,
+article>section.small,
+article>aside.small {
+  margin-bottom: @grid-height;
+
+  &,
+  &.left {
     float: left;
     margin-left: 0;
     margin-right: (@gutter-width * 1px);
+  }
 
-    &.right {
-      float: right;
-      margin-left: (@gutter-width * 1px);
-      margin-right: 0;
-    }
+  &.right {
+    float: right;
+    margin-left: (@gutter-width * 1px);
+    margin-right: 0;
+  }
 
-    &.middle {
-      margin-left: 0;
-      margin-right: 0;
-    }
+  &.middle {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -104,6 +134,7 @@ nav,
 header,
 footer,
 article,
+section,
 aside,
 h1,
 h2,
@@ -119,10 +150,21 @@ code {
   &:first-child { margin-top: 0; }
 }
 
+nav,
+article,
+footer,
+header,
+section,
+aside {
+  margin-bottom: @grid-height;
+  .clearfix;
+}
 
 /** ---------------------------------------------------------------------------
  * Typography
  */
+@import url('http://fonts.googleapis.com/css?family=Archivo+Narrow');
+
 html {
 //   font-family: Cambria, Georgia, "Times New Roman", Times, serif;
   font-family: 'Archivo Narrow', sans-serif;
@@ -193,8 +235,9 @@ input[type='text'] {  height: (@grid-height / 1.5);}
  */
 nav,
 article,
-aside,
 footer,
-header {
+header,
+section,
+aside {
   background-color: rgba(0, 0, 0, 0.1);
 }
