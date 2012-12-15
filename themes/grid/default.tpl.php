@@ -101,6 +101,8 @@
 
     <footer>
 <?=render_views('footer')?>
+<?=$footer?>
+<?=get_debug()?>
     </footer>
 
   </body>
