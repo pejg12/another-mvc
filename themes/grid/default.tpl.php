@@ -16,6 +16,13 @@
     <link rel="stylesheet" href="<?=$themeUrl?>/css/main.css">
     <link rel="stylesheet" href="<?=$stylesheet?>">
     <script src="<?=$themeUrl?>/js/vendor/modernizr-2.6.2.min.js"></script>
+
+<?php if(isset($inline_style)): ?>
+    <style>
+<?=$inline_style?>
+    </style>
+<?php endif; ?>
+
   </head>
   <body>
     <!--[if lt IE 7]>
@@ -35,80 +42,53 @@
 
     <header>
       <h1><?=$title?></h1>
-      <p>This is the page header paragraph.</p>
+<?php if(region_has_content('flash')): ?>
+<?=render_views('flash')?>
+<?php endif; ?>
     </header>
 
+<?php if(region_has_content('featured-left', 'featured-middle', 'featured-right')): ?>
     <header>
       <aside class='small left'>
-        <h1>Aside (left)</h1>
-        <p>Wrapped in a header.</p>
+<?=render_views('featured-left')?>&nbsp;
       </aside>
       <section class='small middle'>
-        <h1>Section (middle)</h1>
-        <p>Wrapped in a header.</p>
+<?=render_views('featured-middle')?>&nbsp;
       </section>
       <section class='small right'>
-        <h1>Section (right)</h1>
-        <p>Wrapped in a header.</p>
+<?=render_views('featured-right')?>&nbsp;
       </section>
     </header>
+<?php endif; ?>
 
-    <article id='primary'>
+    <article>
 <?=get_messages_from_session()?>
-<?=@$main?>
 <?=render_views('primary')?>
 
     </article>
 
-    <nav>
-      <h1>Navigation</h1>
-      <ul>
-<?php /* I know this code should not be in the theme, I'll move it later */ ?>
-<?php foreach(array_keys($amvc->config['controllers']) AS $controller) { ?>
-        <li><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a></li>
-<?php } ?>
-      </ul>
-    </nav>
-
-    <section id='sidebar'>
+<?php if(region_has_content('sidebar')): ?>
+    <section>
 <?=render_views('sidebar')?>
-      <h1>Section</h1>
-      <p>The sidebar contains elements nested inside of a <code>&lt;section&gt;</code> element.</p>
-
-      <section>
-        <h1>Section</h1>
-        <p>If they're not nested inside the section, they will fall out of the sidebar if it's taller than the <code>&lt;article&gt;</code> element.</p>
-      </section>
-
-      <aside>
-        <h1>Aside</h1>
-        <p>Nam gravida vestibulum mauris. Donec feugiat sagittis nulla non vehicula. Nulla et justo nec lectus pharetra scelerisque. Aliquam tristique blandit adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue accumsan metus eget pharetra. Curabitur eu rhoncus est. Nam eleifend metus in elit posuere dapibus. Mauris non ante vulputate nisl condimentum molestie.</p>
-      </aside>
-
-      <aside>
-        <h1>Aside</h1>
-        <p>Notice how this is still in the sidebar.</p>
-      </aside>
     </section>
+<?php endif; ?>
 
+<?php if(region_has_content('triptych-left', 'triptych-middle', 'triptych-right')): ?>
     <footer>
       <section class='small left'>
-        <h1>Section (left)</h1>
-        <p>Wrapped in a footer.</p>
+<?=render_views('triptych-left')?>&nbsp;
       </section>
       <section class='small middle'>
-        <h1>Section (middle)</h1>
-        <p>Wrapped in a footer.</p>
+<?=render_views('triptych-middle')?>&nbsp;
       </section>
       <aside class='small right'>
-        <h1>Aside (right)</h1>
-        <p>Wrapped in a footer.</p>
+<?=render_views('triptych-right')?>&nbsp;
       </aside>
     </footer>
+<?php endif; ?>
 
     <footer>
-      <?=$footer?>
-      <?=get_debug()?>
+<?=render_views('footer')?>
     </footer>
 
   </body>

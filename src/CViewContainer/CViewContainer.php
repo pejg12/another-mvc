@@ -106,4 +106,40 @@ class CViewContainer {
     return $this;
   }
 
+
+  /**
+   * Add inline style.
+   *
+   * @param $value string to be added as inline style.
+   * @returns $this.
+   */
+  public function AddStyle($value) {
+    if(isset($this->data['inline_style'])) {
+      $this->data['inline_style'] .= $value;
+    } else {
+      $this->data['inline_style'] = $value;
+    }
+    return $this;
+  }
+
+
+  /**
+   * Check if views for a specific region actually exists.
+   *
+   * @param $region string/array the theme region(s).
+   * @returns boolean true if region has views, else false.
+   */
+  public function RegionHasView($region) {
+    if(is_array($region)) {
+      foreach($region as $val) {
+        if(isset($this->views[$val])) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return(isset($this->views[$region]));
+    }
+  }
+
 }

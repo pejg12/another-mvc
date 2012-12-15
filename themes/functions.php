@@ -14,6 +14,17 @@ function render_views($region='default') {
   return CAmvc::Instance()->views->Render($region);
 }
 
+
+/**
+* Check if region has views. Accepts variable amount of arguments as regions.
+*
+* @param $region string the region to draw the content in.
+*/
+function region_has_content($region='default' /*...*/) {
+  return CAmvc::Instance()->views->RegionHasView(func_get_args());
+}
+
+
 /**
 * Print debuginformation from the framework.
 */
