@@ -1,1 +1,1 @@
-<p>This is the header paragraph.</p>
+<p>This is just a header paragraph.</p>

@@ -146,6 +146,9 @@ class CAmvc implements ISingleton {
     // Extract $amvc->data and $amvc->views->data to own variables and hand over to the template file
     extract($this->data);
     extract($this->views->GetData());
+    if(isset($this->config['theme']['data'])) {
+      extract($this->config['theme']['data']);
+    }
     $templateFile = (isset($this->config['theme']['template_file'])) ? $this->config['theme']['template_file'] : 'default.tpl.php';
     include("{$themePath}/{$templateFile}");
   }

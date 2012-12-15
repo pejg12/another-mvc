@@ -73,6 +73,12 @@ $amvc->config['theme'] = array(
     'triptych-right',   // optional
     'footer',
   ),
+  // Add static entries for use in the template file.
+  'data' => array(
+    'site_title' => 'Another MVC',
+    'slogan' => 'A PHP-based MVC-inspired CMF',
+    'footer' => '<p>Another MVC &copy; pejg12 (pejg12@student.bth.se) <br /> Fork of Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>',
+  ),
 );
 
 /**

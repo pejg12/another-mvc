@@ -41,11 +41,15 @@
     </header>
 
     <header>
-      <h1><?=$title?></h1>
-<?php if(region_has_content('flash')): ?>
-<?=render_views('flash')?>
-<?php endif; ?>
+      <h1><?=$site_title?></h1>
+      <p><?=$slogan?></p>
     </header>
+
+<?php if(region_has_content('flash')): ?>
+    <header>
+<?=render_views('flash')?>
+    </header>
+<?php endif; ?>
 
 <?php if(region_has_content('featured-left', 'featured-middle', 'featured-right')): ?>
     <header>
@@ -126,6 +130,7 @@
     <footer>
 <?=render_views('footer')?>
 <?=$footer?>
+<?=get_tools()?>
 <?=get_debug()?>
     </footer>
 
