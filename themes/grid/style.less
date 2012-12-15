@@ -2,6 +2,9 @@
  * Description: Core theme for Another MVC
  */
 
+html {
+  overflow-y: scroll;
+}
 
 /** ---------------------------------------------------------------------------
  * semantic.gs
@@ -21,8 +24,6 @@
 @total-width: @gridsystem-width;
 // @total-width: 100%;
 
-
-
 /** ---------------------------------------------------------------------------
  * Grid
  */
@@ -32,9 +33,10 @@
 @font-size: (@grid-height / 1.5);
 
 body {
-  .column(13);
+  width: @gridsystem-width;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  position: relative;
 }
 
 body>header {
