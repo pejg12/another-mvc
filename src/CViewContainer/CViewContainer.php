@@ -52,30 +52,58 @@ class CViewContainer {
   *
   * @param $file string path to the file to be included.
   * @param vars array containing the variables that should be avilable for the included file.
+  * @param $region string the theme region, uses string 'default' as default region.
+  * @returns $this.
   */
-  public function AddInclude($file, $variables=array()) {
+  public function AddInclude($file, $variables=array(), $region='default') {
     // variables must be saved together with $this->data so that we can pass along all the data
     foreach($variables AS $key => $value)
     {
       $this->SetVariable($key, $value);
     }
-    $this->views[] = array('type' => 'include', 'file' => $file, 'variables' => $this->data);
+    $this->views[$region][] = array('type' => 'include', 'file' => $file, 'variables' => $this->data);
     return $this;
   }
 
 
   /**
   * Render all views according to their type.
+  *
+  * @param $region string the region to render views for.
   */
-  public function Render() {
-    foreach($this->views as $view) {
+  public function Render($region='default') {
+    if(!isset($this->views[$region])) return;
+    foreach($this->views[$region] as $view) {
       switch($view['type']) {
         case 'include':
           extract($view['variables']);
           include($view['file']);
           break;
+        case 'string':
+          extract($view['variables']);
+          echo $view['string'];
+          break;
       }
     }
+  }
+
+
+  /**
+   * Add text and optional variables.
+   *
+   * @param $string string content to be displayed.
+   * @param $vars array containing the variables that should be avilable for the included file.
+   * @param $region string the theme region, uses string 'default' as default region.
+   * @returns $this.
+   */
+  public function AddString($string, $variables=array(), $region='default') {
+    // variables must be saved together with $this->data so that we can pass along all the data
+    foreach($variables AS $key => $value)
+    {
+      $this->SetVariable($key, $value);
+    }
+    $this->views[$region][] = array('type' => 'string', 'string' => $string, 'variables' => $this->data);
+    return $this;
   }
 
 }

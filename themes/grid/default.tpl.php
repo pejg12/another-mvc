@@ -53,10 +53,10 @@
       </section>
     </header>
 
-    <article>
+    <article id='primary'>
 <?=get_messages_from_session()?>
 <?=@$main?>
-<?=render_views()?>
+<?=render_views('primary')?>
 
     </article>
 
@@ -70,7 +70,8 @@
       </ul>
     </nav>
 
-    <section>
+    <section id='sidebar'>
+<?=render_views('sidebar')?>
       <h1>Section</h1>
       <p>The sidebar contains elements nested inside of a <code>&lt;section&gt;</code> element.</p>
 

@@ -36,4 +36,14 @@ class CCTheme extends CObject implements IController {
   }
 
 
+  /**
+   * Put content in some regions.
+   */
+  public function SomeRegions() {
+    $this->views->SetTitle('Theme display content for some regions')
+                ->AddString('This is the primary region', array(), 'primary')
+                ->AddString('This is the sidebar region', array(), 'sidebar');
+  }
+
+
 }
