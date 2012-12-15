@@ -151,6 +151,8 @@ p,
 ul,
 ol,
 li,
+blockquote,
+pre,
 code {
   &:first-child { margin-top: 0; }
 }
@@ -174,6 +176,7 @@ html {
 //   font-family: Cambria, Georgia, "Times New Roman", Times, serif;
   font-family: 'Archivo Narrow', sans-serif;
   color: #333;
+  background-color: #eee;
 }
 
 html:hover {
@@ -198,7 +201,10 @@ code {
 
 /* Headers */
 
-h1, h2, h3, h4, h5, h6 { margin-bottom: @grid-height; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Archivo Narrow', sans-serif;
+  margin-bottom: @grid-height;
+}
 h1 { font-size:  @grid-height;        }
 h2 { font-size: (@grid-height * 0.9); }
 h3 { font-size: (@grid-height * 0.8); }
@@ -212,15 +218,53 @@ p { margin-bottom: @grid-height; }
 
 /* Lists */
 
-ul ul,
-ol ol { margin: 0 0 0 (@column-width * 1px); }
+ul,
+ol {
+  margin-left: 0;
+  padding-left: (@gutter-width * 1px);
+  margin-bottom: @grid-height;
+  ul,
+  ol {
+    margin: 0 0 0 (@column-width * 1px);
+    padding: 0;
+    ul,
+    ol {
+      margin: 0 0 0 ((@column-width * 1px) + (@gutter-width * 1px));
+      padding: 0;
+      ul,
+      ol {
+        margin: 0 0 0 ((@column-width * 1px) + (@gutter-width * 1px));
+        padding: 0;
+      }
+    }
+  }
+}
 
-ul, ol { margin-bottom: @grid-height; }
+dl {
+  margin-left: 0;
+  margin-bottom: @grid-height;
+  dt {
+    font-weight: bold;
+  }
+  dd {
+    margin-left: ((@column-width * 1px) + (@gutter-width * 1px));
+  }
+}
 
 article ul { list-style-position: outside; }
 
 /* Other elements */
-hr { margin-top: -2px; margin-bottom: @grid-height; }
+
+hr {
+  margin-top: -2px;
+  margin-bottom: @grid-height;
+}
+
+blockquote {
+  margin-left: ((@column-width * 1px) + (@gutter-width * 1px));
+  margin-right: ((@column-width * 1px) + (@gutter-width * 1px));
+  margin-bottom: @grid-height;
+}
 
 /* Forms */
 

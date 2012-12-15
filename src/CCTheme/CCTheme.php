@@ -81,6 +81,18 @@ class CCTheme extends CObject implements IController {
 
 
   /**
+    * Display lots of various HTML elements to verify the CSS
+    */
+  public function Typography() {
+    $this->views->SetTitle('Theme')
+                ->AddInclude(__DIR__ . '/typography.tpl.php', array(
+                ), 'primary');
+
+    $this->views->AddStyle("nav,\narticle,\nfooter,\nheader,\nsection,\naside { background-color:rgba(0, 0, 0, 0.1); }\n");
+  }
+
+
+  /**
    * Put content in all regions.
    */
   public function AllRegions() {

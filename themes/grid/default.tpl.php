@@ -50,13 +50,25 @@
 <?php if(region_has_content('featured-left', 'featured-middle', 'featured-right')): ?>
     <header>
       <aside class='small left'>
-<?=render_views('featured-left')?>&nbsp;
+<?php if(region_has_content('featured-left')): ?>
+<?=render_views('featured-left')?>
+<?php else: ?>
+&nbsp;
+<?php endif; ?>
       </aside>
       <section class='small middle'>
-<?=render_views('featured-middle')?>&nbsp;
+<?php if(region_has_content('featured-middle')): ?>
+<?=render_views('featured-middle')?>
+<?php else: ?>
+&nbsp;
+<?php endif; ?>
       </section>
       <section class='small right'>
-<?=render_views('featured-right')?>&nbsp;
+<?php if(region_has_content('featured-right')): ?>
+<?=render_views('featured-right')?>
+<?php else: ?>
+&nbsp;
+<?php endif; ?>
       </section>
     </header>
 <?php endif; ?>
@@ -88,13 +100,25 @@
 <?php if(region_has_content('triptych-left', 'triptych-middle', 'triptych-right')): ?>
     <footer>
       <section class='small left'>
-<?=render_views('triptych-left')?>&nbsp;
+<?php if(region_has_content('triptych-left')): ?>
+<?=render_views('triptych-left')?>
+<?php else: ?>
+&nbsp;
+<?php endif; ?>
       </section>
       <section class='small middle'>
-<?=render_views('triptych-middle')?>&nbsp;
+<?php if(region_has_content('triptych-middle')): ?>
+<?=render_views('triptych-middle')?>
+<?php else: ?>
+&nbsp;
+<?php endif; ?>
       </section>
       <aside class='small right'>
-<?=render_views('triptych-right')?>&nbsp;
+<?php if(region_has_content('triptych-right')): ?>
+<?=render_views('triptych-right')?>
+<?php else: ?>
+&nbsp;
+<?php endif; ?>
       </aside>
     </footer>
 <?php endif; ?>
