@@ -63,15 +63,27 @@
 
     <article>
 <?=get_messages_from_session()?>
+<?=@$main?>
 <?=render_views('primary')?>
+<?=render_views()?>
 
     </article>
 
-<?php if(region_has_content('sidebar')): ?>
     <section>
+      <nav>
+        <h1>Navigation</h1>
+        <ul>
+      <?php /* I know this code should not be in the theme, I'll move it later */ ?>
+      <?php foreach(array_keys($amvc->config['controllers']) AS $controller) { ?>
+          <li><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a></li>
+      <?php } ?>
+        </ul>
+      </nav>
+<?php if(region_has_content('sidebar')): ?>
 <?=render_views('sidebar')?>
-    </section>
 <?php endif; ?>
+
+    </section>
 
 <?php if(region_has_content('triptych-left', 'triptych-middle', 'triptych-right')): ?>
     <footer>

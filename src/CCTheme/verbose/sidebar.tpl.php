@@ -1,15 +1,3 @@
-<?php $amvc = CAmvc::Instance(); ?>
-<nav>
-  <p><code>&lt;nav&gt;</code> <br /> <code>&lt;ul&gt;</code></p>
-  <ul>
-<?php /* I know this code should not be in the theme, I'll move it later */ ?>
-<?php foreach(array_keys($amvc->config['controllers']) AS $controller) { ?>
-    <li><code>&lt;li&gt;</code><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a><code>&lt;/li&gt;</code></li>
-<?php } ?>
-  </ul>
-  <p><code>&lt;/ul&gt;</code> <br /> <code>&lt;/nav&gt;</code></p>
-</nav>
-
 <p><code>&lt;section&gt;</code></p>
 <p><code>&lt;p&gt;</code>The sidebar contains elements nested inside of a <code>&lt;section&gt;</code> element.<code>&lt;/p&gt;</code></p>
 
