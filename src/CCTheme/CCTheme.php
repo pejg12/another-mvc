@@ -20,7 +20,7 @@ class CCTheme extends CObject implements IController {
     * Display what can be done with this controller.
     */
   public function Index() {
-    $this->views->SetTitle('Theme')
+    $this->views->SetTitle('Theme explained')
                 ->AddInclude(__DIR__ . '/quiet/primary.tpl.php', array(
                   'theme_name' => $this->config['theme']['name'],
                 ), 'primary')
@@ -44,7 +44,7 @@ class CCTheme extends CObject implements IController {
     */
   public function Verbose() {
     $this->config['theme']['template_file'] = 'verbose.tpl.php';
-    $this->views->SetTitle('Theme')
+    $this->views->SetTitle('Theme explained (verbosely)')
                 ->AddInclude(__DIR__ . '/verbose/primary.tpl.php', array(
                   'theme_name' => $this->config['theme']['name'],
                 ), 'primary')
@@ -66,7 +66,7 @@ class CCTheme extends CObject implements IController {
    * Put content in some regions.
    */
   public function SomeRegions() {
-    $this->views->SetTitle('Theme display content for some regions')
+    $this->views->SetTitle('Theme displaying some regions')
                 ->AddString('This is the primary region', array(), 'primary')
                 ->AddString('This is the sidebar region', array(), 'sidebar');
 
@@ -84,7 +84,7 @@ class CCTheme extends CObject implements IController {
     * Display lots of various HTML elements to verify the CSS
     */
   public function Typography() {
-    $this->views->SetTitle('Theme')
+    $this->views->SetTitle('Theme displaying typographical elements')
                 ->AddInclude(__DIR__ . '/typography.tpl.php', array(
                 ), 'primary');
 
@@ -96,7 +96,7 @@ class CCTheme extends CObject implements IController {
    * Put content in all regions.
    */
   public function AllRegions() {
-    $this->views->SetTitle('Theme display content for all regions');
+    $this->views->SetTitle('Theme displaying all regions');
     foreach($this->config['theme']['regions'] as $val) {
       $this->views->AddString("[\$region] => {$val}", array(), $val);
     }
