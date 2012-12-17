@@ -51,6 +51,7 @@ $amvc->config['controllers'] = array(
   'blog'      => array('enabled' => true,'class' => 'CCBlog'),
   'page'      => array('enabled' => true,'class' => 'CCPage'),
   'theme'     => array('enabled' => true,'class' => 'CCTheme'),
+  'modules'   => array('enabled' => true,'class' => 'CCModules'),
 );
 
 /**
