@@ -86,15 +86,15 @@
     </article>
 
     <section>
+<?php if(region_has_content('navbar')): ?>
       <nav>
         <h1>Navigation</h1>
         <ul>
-      <?php /* I know this code should not be in the theme, I'll move it later */ ?>
-      <?php foreach(array_keys($amvc->config['controllers']) AS $controller) { ?>
-          <li><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a></li>
-      <?php } ?>
+<?=render_views('navbar')?>
         </ul>
       </nav>
+<?php endif; ?>
+
 <?php if(region_has_content('sidebar')): ?>
 <?=render_views('sidebar')?>
 <?php endif; ?>

@@ -77,20 +77,21 @@
     </article>
 
     <section>
+
+<?php if(region_has_content('navbar')): ?>
       <nav>
         <p><code>&lt;nav&gt;</code> <br /> <code>&lt;ul&gt;</code></p>
         <ul>
-<?php /* I know this code should not be in the theme, I'll move it later */ ?>
-<?php foreach(array_keys($amvc->config['controllers']) AS $controller) { ?>
-          <li><code>&lt;li&gt;</code><a href="<?=create_url($controller)?>"><?=ucfirst($controller)?></a><code>&lt;/li&gt;</code></li>
-<?php } ?>
+<?=render_views('navbar')?>
         </ul>
         <p><code>&lt;/ul&gt;</code> <br /> <code>&lt;/nav&gt;</code></p>
       </nav>
+<?php endif; ?>
 
 <?php if(region_has_content('sidebar')): ?>
 <?=render_views('sidebar')?>
 <?php endif; ?>
+
     </section>
 
 <?php if(region_has_content('triptych-left', 'triptych-middle', 'triptych-right')): ?>

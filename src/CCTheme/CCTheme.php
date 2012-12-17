@@ -24,6 +24,7 @@ class CCTheme extends CObject implements IController {
                 ->AddInclude(__DIR__ . '/quiet/primary.tpl.php', array(
                   'theme_name' => basename($this->config['theme']['path']),
                 ), 'primary')
+                ->AddInclude(__DIR__ . '/quiet/navbar.tpl.php', array(), 'navbar')
                 ->AddInclude(__DIR__ . '/quiet/sidebar.tpl.php', array(), 'sidebar')
                 ->AddInclude(__DIR__ . '/quiet/footer.tpl.php', array(), 'footer')
                 ->AddInclude(__DIR__ . '/quiet/flash.tpl.php', array(), 'flash')
@@ -55,6 +56,7 @@ class CCTheme extends CObject implements IController {
                 ->AddInclude(__DIR__ . '/verbose/primary.tpl.php', array(
                   'theme_name' => basename($this->config['theme']['path']),
                 ), 'primary')
+                ->AddInclude(__DIR__ . '/verbose/navbar.tpl.php', array(), 'navbar')
                 ->AddInclude(__DIR__ . '/verbose/sidebar.tpl.php', array(), 'sidebar')
                 ->AddInclude(__DIR__ . '/verbose/footer.tpl.php', array(), 'footer')
                 ->AddInclude(__DIR__ . '/verbose/flash.tpl.php', array(), 'flash')
