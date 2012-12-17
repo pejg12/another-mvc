@@ -57,9 +57,12 @@ class CViewContainer {
   */
   public function AddInclude($file, $variables=array(), $region='default') {
     // variables must be saved together with $this->data so that we can pass along all the data
-    foreach($variables AS $key => $value)
+    if(is_array($variables))
     {
-      $this->SetVariable($key, $value);
+      foreach($variables AS $key => $value)
+      {
+        $this->SetVariable($key, $value);
+      }
     }
     $this->views[$region][] = array('type' => 'include', 'file' => $file, 'variables' => $this->data);
     return $this;
@@ -98,9 +101,12 @@ class CViewContainer {
    */
   public function AddString($string, $variables=array(), $region='default') {
     // variables must be saved together with $this->data so that we can pass along all the data
-    foreach($variables AS $key => $value)
+    if(is_array($variables))
     {
-      $this->SetVariable($key, $value);
+      foreach($variables AS $key => $value)
+      {
+        $this->SetVariable($key, $value);
+      }
     }
     $this->views[$region][] = array('type' => 'string', 'string' => $string, 'variables' => $this->data);
     return $this;
