@@ -22,7 +22,7 @@ class CCTheme extends CObject implements IController {
   public function Index() {
     $this->views->SetTitle('Theme explained')
                 ->AddInclude(__DIR__ . '/quiet/primary.tpl.php', array(
-                  'theme_name' => $this->config['theme']['name'],
+                  'theme_name' => basename($this->config['theme']['path']),
                 ), 'primary')
                 ->AddInclude(__DIR__ . '/quiet/sidebar.tpl.php', array(), 'sidebar')
                 ->AddInclude(__DIR__ . '/quiet/footer.tpl.php', array(), 'footer')
@@ -53,7 +53,7 @@ class CCTheme extends CObject implements IController {
     $this->config['theme']['template_file'] = 'verbose.tpl.php';
     $this->views->SetTitle('Theme explained (verbosely)')
                 ->AddInclude(__DIR__ . '/verbose/primary.tpl.php', array(
-                  'theme_name' => $this->config['theme']['name'],
+                  'theme_name' => basename($this->config['theme']['path']),
                 ), 'primary')
                 ->AddInclude(__DIR__ . '/verbose/sidebar.tpl.php', array(), 'sidebar')
                 ->AddInclude(__DIR__ . '/verbose/footer.tpl.php', array(), 'footer')

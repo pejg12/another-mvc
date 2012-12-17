@@ -64,12 +64,35 @@ $amvc->config['routing'] = array(
 );
 
 /**
-* Settings for the theme.
-*/
+ * Settings for the theme. The theme may have a parent theme.
+ *
+ * When a parent theme is used the parent's functions.php will be included
+ * before the current theme's functions.php. The parent stylesheet can be
+ * included in the current stylesheet by an @import clause. See
+ * site/themes/mytheme for an example of a child/parent theme. Template files
+ * can reside in the parent or current theme, the CLydia::ThemeEngineRender()
+ * looks for the template-file in the current theme first, then it looks in the
+ * parent theme.
+ *
+ * There are two useful theme helpers defined in themes/functions.php.
+ *   theme_url($url): Prepends the current theme url to $url to make an absolute url.
+ *   theme_parent_url($url): Prepends the parent theme url to $url to make an absolute url.
+ * 
+ * path: Path to current theme, relativly LYDIA_INSTALL_PATH, for example themes/grid or site/themes/mytheme.
+ * parent: Path to parent theme, same structure as 'path'. Can be left out or set to null.
+ * stylesheet: The stylesheet to include, always part of the current theme, use @import to include the parent stylesheet.
+ * template_file: Set the default template file, defaults to default.tpl.php.
+ * regions: Array with all regions that the theme supports.
+ * data: Array with data that is made available to the template file as variables.
+ *
+ * The name of the stylesheet is also appended to the data-array, as
+ * 'stylesheet' and made available to the template files.
+ */
 $amvc->config['theme'] = array(
-  'name'       => 'grid',        // The name of the theme directory
-  'stylesheet' => 'style.php',   // Main stylesheet to include in template files
-  'template_file' => 'default.tpl.php',   // Default template file, else use default.tpl.php
+  'path'            => 'site/themes/mytheme',
+  'parent'          => 'themes/grid',
+  'stylesheet'      => 'style.css',
+  'template_file'   => 'default.tpl.php',
   // A list of valid theme regions
   'regions' => array(
     'flash',            // optional
@@ -86,8 +109,8 @@ $amvc->config['theme'] = array(
   // Add static entries for use in the template file.
   'data' => array(
     'site_title' => 'Another MVC',
-    'slogan' => 'A PHP-based MVC-inspired CMF',
-    'footer' => '<p>Another MVC &copy; pejg12 (pejg12@student.bth.se) <br /> Fork of Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>',
+    'slogan'     => 'A PHP-based MVC-inspired CMF',
+    'footer'     => '<p>Another MVC &copy; pejg12 (pejg12@student.bth.se) <br /> Fork of Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>',
   ),
 );
 

@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="<?=$themeUrl?>/css/normalize.css">
     <link rel="stylesheet" href="<?=$themeUrl?>/css/main.css">
-    <link rel="stylesheet" href="<?=$stylesheet?>">
+    <link rel="stylesheet" href="<?=theme_url($stylesheet)?>">
     <script src="<?=$themeUrl?>/js/vendor/modernizr-2.6.2.min.js"></script>
 
 <?php if(isset($inline_style)): ?>

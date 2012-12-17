@@ -1,0 +1,38 @@
+/**
+* Description: Sample theme for site which extends the Anther MVC Grid theme.
+*/
+@import url('../../../themes/grid/style.css');
+
+@radius: 20px;
+@whitespace: #FFF;
+@background: #DEF;
+@border-color: #69F;
+
+html {
+  background-color: @whitespace;
+}
+
+body {
+  background-color: @whitespace;
+}
+
+body>header:first-child {
+  border-radius: @radius @radius 0 0;
+}
+
+body>header:nth-child(2) {
+  border-bottom: dotted 2px @border-color;
+}
+
+body>footer:last-child {
+  border-top: dotted 2px @border-color;
+  border-radius: 0 0 @radius @radius;
+}
+
+article,
+section,
+header,
+footer,
+aside {
+  background-color: @background;
+}
