@@ -146,6 +146,13 @@ class CAmvc implements ISingleton {
     $this->themeUrl = $themeUrl;
     $this->themeParentUrl = $parentUrl;
 
+    // Map menu to region if defined
+    if(is_array($this->config['theme']['menu_to_region'])) {
+      foreach($this->config['theme']['menu_to_region'] as $key => $val) {
+        $this->views->AddString($this->DrawMenu($key), null, $val);
+      }
+    }
+
     // Include the global functions.php and the functions.php that are part of the theme
     $amvc = &$this;
     // First the default Another MVC themes/functions.php
@@ -248,7 +255,31 @@ class CAmvc implements ISingleton {
    * @param $arguments string the extra arguments to send to the method
    */
   public function CreateUrl($urlOrController=null, $method=null, $arguments=null) {
-    $this->request->CreateUrl($urlOrController, $method, $arguments);
+    return $this->request->CreateUrl($urlOrController, $method, $arguments);
+  }
+
+
+  /**
+   * Draw HTML for a menu defined in $amvc->config['menus'].
+   *
+   * @param $menu string then key to the menu in the config-array.
+   * @returns string with the HTML representing the menu.
+   */
+  public function DrawMenu($menu) {
+    $items = null;
+    if(isset($this->config['menus'][$menu])) {
+      foreach($this->config['menus'][$menu] as $val) {
+        $selected = null;
+        if($val['url'] == $this->request->request || $val['url'] == $this->request->routed_from) {
+          $selected = " class='selected'";
+        }
+// $items .= "<li><code>" . print_r($this->CreateUrl($val['url']), true) . "</code></li>";
+        $items .= "<li><a {$selected} href='" . $this->CreateUrl($val['url']) . "'>{$val['label']}</a></li>\n";
+      }
+    } else {
+      throw new Exception('No such menu.');
+    }
+    return "<ul class='menu {$menu}'>\n{$items}</ul>\n";
   }
 
 } // end of class

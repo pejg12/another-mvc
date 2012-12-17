@@ -54,7 +54,9 @@ class CRequest {
     }
 
     // Check if url matches an entry in routing table
+    $routed_from = null;
     if(is_array($routing) && isset($routing[$request]) && $routing[$request]['enabled']) {
+      $routed_from = $request;
       $request = $routing[$request]['url'];
     }
 
@@ -80,6 +82,7 @@ class CRequest {
     $this->current_url  = $currentUrl;
     $this->request_uri  = $requestUri;
     $this->script_name  = $scriptName;
+    $this->routed_from  = $routed_from;
     $this->request      = $request;
     $this->splits       = $splits;
     $this->controller   = $controller;
@@ -134,8 +137,8 @@ class CRequest {
     }
     $url = trim($url, '/');
     $method = empty($method) ? null : '/' . trim($method, '/');
-    $arguments = empty($arguments) ? null : '/' . trim($arguments, '/');    
-    return $prepend . rtrim("$url$method$arguments", '/');
+    $arguments = empty($arguments) ? null : '/' . trim($arguments, '/');
+    return $prepend . rtrim("{$url}{$method}{$arguments}", '/');
   }
 
 } // end class

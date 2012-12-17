@@ -70,7 +70,7 @@ $amvc->config['routing'] = array(
  * before the current theme's functions.php. The parent stylesheet can be
  * included in the current stylesheet by an @import clause. See
  * site/themes/mytheme for an example of a child/parent theme. Template files
- * can reside in the parent or current theme, the CLydia::ThemeEngineRender()
+ * can reside in the parent or current theme, the CAmvc::ThemeEngineRender()
  * looks for the template-file in the current theme first, then it looks in the
  * parent theme.
  *
@@ -78,7 +78,7 @@ $amvc->config['routing'] = array(
  *   theme_url($url): Prepends the current theme url to $url to make an absolute url.
  *   theme_parent_url($url): Prepends the parent theme url to $url to make an absolute url.
  * 
- * path: Path to current theme, relativly LYDIA_INSTALL_PATH, for example themes/grid or site/themes/mytheme.
+ * path: Path to current theme, relativly AMVC_INSTALL_PATH, for example themes/grid or site/themes/mytheme.
  * parent: Path to parent theme, same structure as 'path'. Can be left out or set to null.
  * stylesheet: The stylesheet to include, always part of the current theme, use @import to include the parent stylesheet.
  * template_file: Set the default template file, defaults to default.tpl.php.
@@ -100,17 +100,39 @@ $amvc->config['theme'] = array(
     'featured-middle',  // optional
     'featured-right',   // optional
     'primary',
+    'navbar',
     'sidebar',
     'triptych-left',    // optional
     'triptych-middle',  // optional
     'triptych-right',   // optional
     'footer',
   ),
+  'menu_to_region' => array('navbar'=>'navbar'),
   // Add static entries for use in the template file.
   'data' => array(
     'site_title' => 'Another MVC',
     'slogan'     => 'A PHP-based MVC-inspired CMF',
     'footer'     => '<p>Another MVC &copy; pejg12 (pejg12@student.bth.se) <br /> Fork of Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>',
+  ),
+);
+
+/**
+* Define menus.
+*
+* Create hardcoded menus and map them to a theme region through $amvc->config['theme'].
+*/
+$amvc->config['menus'] = array(
+  'navbar' => array(
+    'home'      => array('label'=>'Home', 'url'=>'home'),
+    'modules'   => array('label'=>'Modules', 'url'=>'modules'),
+    'content'   => array('label'=>'Content', 'url'=>'content'),
+    'guestbook' => array('label'=>'Guestbook', 'url'=>'guestbook'),
+    'blog'      => array('label'=>'Blog', 'url'=>'blog'),
+  ),
+  'my-navbar' => array(
+    'home'      => array('label'=>'About Me', 'url'=>'my'),
+    'blog'      => array('label'=>'My Blog', 'url'=>'my/blog'),
+    'guestbook' => array('label'=>'Guestbook', 'url'=>'my/guestbook'),
   ),
 );
 
