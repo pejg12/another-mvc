@@ -55,6 +55,15 @@ $amvc->config['controllers'] = array(
 );
 
 /**
+* Define a routing table for urls.
+*
+* Route custom urls to a defined controller/method/arguments
+*/
+$amvc->config['routing'] = array(
+  'home' => array('enabled' => true, 'url' => 'index/index'),
+);
+
+/**
 * Settings for the theme.
 */
 $amvc->config['theme'] = array(

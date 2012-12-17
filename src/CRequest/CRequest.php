@@ -35,7 +35,7 @@ class CRequest {
    *
    * @param $baseUrl string use this as a hardcoded baseurl.
    */
-  public function Init($baseUrl = null) {
+  public function Init($baseUrl = null, $routing=null) {
     $requestUri = $_SERVER['REQUEST_URI'];
     $scriptName = $_SERVER['SCRIPT_NAME'];   
    
@@ -52,7 +52,12 @@ class CRequest {
     if($queryPos !== false) {
       $request = substr($request, 0, $queryPos);
     }
-   
+
+    // Check if url matches an entry in routing table
+    if(is_array($routing) && isset($routing[$request]) && $routing[$request]['enabled']) {
+      $request = $routing[$request]['url'];
+    }
+
     // Check if request is empty and querystring link is set
     if(empty($request) && isset($_GET['q'])) {
       $request = trim($_GET['q']);
