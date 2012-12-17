@@ -81,6 +81,10 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
     switch($action) {
       case 'install':
         try {
+          if(!$this->user['id'])
+          {
+            $this->user['id'] = 1;
+          }
           $this->db->ExecuteQuery(self::SQL('drop table content'));
           $this->db->ExecuteQuery(self::SQL('create table content'));
           $this->db->ExecuteQuery(self::SQL('insert content'), array('hello-world', 'post', 'Hello World', "This is a demo post.\n\nThis is another row in this demo post.", 'plain', $this->user['id']));

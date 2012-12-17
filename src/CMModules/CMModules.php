@@ -77,6 +77,10 @@ class CMModules extends CObject {
     */
   public function Install() {
     $allModules = $this->ReadAndAnalyse();
+    uksort($allModules, function($a, $b) {
+        return ($a == 'CMUser' ? -1 : ($b == 'CMUser' ? 1 : 0));
+      }
+    );
     $installed = array();
     foreach($allModules as $module) {
       if($module['isManageable']) {
