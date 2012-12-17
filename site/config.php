@@ -52,6 +52,7 @@ $amvc->config['controllers'] = array(
   'page'      => array('enabled' => true,'class' => 'CCPage'),
   'theme'     => array('enabled' => true,'class' => 'CCTheme'),
   'modules'   => array('enabled' => true,'class' => 'CCModules'),
+  'my'        => array('enabled' => true,'class' => 'CCMycontroller'),
 );
 
 /**
@@ -107,7 +108,7 @@ $amvc->config['theme'] = array(
     'triptych-right',   // optional
     'footer',
   ),
-  'menu_to_region' => array('navbar'=>'navbar'),
+  'menu_to_region' => array('my-navbar'=>'navbar'),
   // Add static entries for use in the template file.
   'data' => array(
     'site_title' => 'Another MVC',
