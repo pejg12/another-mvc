@@ -157,7 +157,7 @@ class CAmvc implements ISingleton {
   /**
    * Redirect to another url and store the session
    */
-  protected function RedirectTo($urlOrController=null, $method=null, $arguments=null) {
+  public function RedirectTo($urlOrController=null, $method=null, $arguments=null) {
     $amvc = CAmvc::Instance();
     if(isset($amvc->config['debug']['db-num-queries']) && $amvc->config['debug']['db-num-queries'] && isset($amvc->db)) {
       $this->session->SetFlash('database_numQueries', $this->db->GetNumQueries());
@@ -178,7 +178,7 @@ class CAmvc implements ISingleton {
    *
    * @param string method name the method, default is index method.
    */
-  protected function RedirectToController($method=null, $arguments=null) {
+  public function RedirectToController($method=null, $arguments=null) {
     $this->RedirectTo($this->request->controller, $method, $arguments);
   }
 
@@ -189,7 +189,7 @@ class CAmvc implements ISingleton {
    * @param string controller name the controller or null for current controller.
    * @param string method name the method, default is current method.
    */
-  protected function RedirectToControllerMethod($controller=null, $method=null, $arguments=null) {
+  public function RedirectToControllerMethod($controller=null, $method=null, $arguments=null) {
     $controller = is_null($controller) ? $this->request->controller : null;
     $method = is_null($method) ? $this->request->method : null;
     $this->RedirectTo($this->request->CreateUrl($controller, $method, $arguments));
@@ -203,7 +203,7 @@ class CAmvc implements ISingleton {
    * @param $message string the message.
    * @param $alternative string the message if the $type is set to false, defaults to null.
    */
-  protected function AddMessage($type, $message, $alternative=null) {
+  public function AddMessage($type, $message, $alternative=null) {
     if($type === false) {
       $type = 'error';
       $message = $alternative;
@@ -221,7 +221,7 @@ class CAmvc implements ISingleton {
    * @param $method string the method to use, $url is then the controller or empty for current
    * @param $arguments string the extra arguments to send to the method
    */
-  protected function CreateUrl($urlOrController=null, $method=null, $arguments=null) {
+  public function CreateUrl($urlOrController=null, $method=null, $arguments=null) {
     $this->request->CreateUrl($urlOrController, $method, $arguments);
   }
 
