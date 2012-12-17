@@ -40,6 +40,13 @@ class CCTheme extends CObject implements IController {
 
 
   /**
+    * Alias for the index page
+    */
+  public function Quiet() {
+    $this->Index();
+  }
+
+  /**
     * Display in a verbose manner what can be done with this controller.
     */
   public function Verbose() {
