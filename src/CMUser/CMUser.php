@@ -4,7 +4,7 @@
 *
 * @package AnotherMVCCore
 */
-class CMUser extends CObject implements IHasSQL, ArrayAccess {
+class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
@@ -90,56 +90,67 @@ class CMUser extends CObject implements IHasSQL, ArrayAccess {
 
 
   /**
-    * Init the database and create appropriate tables.
+    * Implementing interface IModule. Manage install/update/deinstall and equal actions.
+    *
+    * @param string $action what to do.
     */
-  public function Init() {
-    try {
-      // drop the old tables
-      $this->db->ExecuteQuery(self::SQL('drop table user'));
-      $this->db->ExecuteQuery(self::SQL('drop table group'));
-      $this->db->ExecuteQuery(self::SQL('drop table user2group'));
+  public function Manage($action=null) {
+    switch($action) {
+      case 'install':
+        try {
+          // drop the old tables
+          $this->db->ExecuteQuery(self::SQL('drop table user'));
+          $this->db->ExecuteQuery(self::SQL('drop table group'));
+          $this->db->ExecuteQuery(self::SQL('drop table user2group'));
 
-      // create new tables
-      $this->db->ExecuteQuery(self::SQL('create table user'));
-      $this->db->ExecuteQuery(self::SQL('create table group'));
-      $this->db->ExecuteQuery(self::SQL('create table user2group'));
+          // create new tables
+          $this->db->ExecuteQuery(self::SQL('create table user'));
+          $this->db->ExecuteQuery(self::SQL('create table group'));
+          $this->db->ExecuteQuery(self::SQL('create table user2group'));
 
-      // create initial users;
-      $password = $this->CreatePassword('root');
-      $this->db->ExecuteQuery(self::SQL('insert into user'), array(
-        'root', 
-        'The Administrator', 
-        'root@dbwebb.se', 
-        $password['algorithm'], 
-        $password['salt'], 
-        $password['password']
-      ));
-      $idRootUser = $this->db->LastInsertId();;
-      $password = $this->CreatePassword('doe');
-      $this->db->ExecuteQuery(self::SQL('insert into user'), array(
-        'doe', 
-        'John/Jane Doe', 
-        'doe@dbwebb.se', 
-        $password['algorithm'], 
-        $password['salt'], 
-        $password['password']
-      ));
-      $idDoeUser = $this->db->LastInsertId();
+          // create initial users;
+          $password = $this->CreatePassword('root');
+          $this->db->ExecuteQuery(self::SQL('insert into user'), array(
+            'root',
+            'The Administrator',
+            'root@dbwebb.se',
+            $password['algorithm'],
+            $password['salt'],
+            $password['password']
+          ));
+          $idRootUser = $this->db->LastInsertId();;
 
-      // create initial groups
-      $this->db->ExecuteQuery(self::SQL('insert into group'), array('admin', 'The Administrator Group'));
-      $idAdminGroup = $this->db->LastInsertId();
-      $this->db->ExecuteQuery(self::SQL('insert into group'), array('user', 'The User Group'));
-      $idUserGroup = $this->db->LastInsertId();
+          $password = $this->CreatePassword('doe');
+          $this->db->ExecuteQuery(self::SQL('insert into user'), array(
+            'doe',
+            'John/Jane Doe',
+            'doe@dbwebb.se',
+            $password['algorithm'],
+            $password['salt'],
+            $password['password']
+          ));
+          $idDoeUser = $this->db->LastInsertId();
 
-      // link initial users to groups
-      $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idAdminGroup));
-      $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idUserGroup));
-      $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idDoeUser,  $idUserGroup));
+          // create initial groups
+          $this->db->ExecuteQuery(self::SQL('insert into group'), array('admin', 'The Administrator Group'));
+          $idAdminGroup = $this->db->LastInsertId();
+          $this->db->ExecuteQuery(self::SQL('insert into group'), array('user', 'The User Group'));
+          $idUserGroup = $this->db->LastInsertId();
 
-      $this->session->AddMessage('success', 'Successfully created the database tables and created a default admin user as root:root and an ordinary user as doe:doe.');
-    } catch(Exception$e) {
-      die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
+          // link initial users to groups
+          $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idAdminGroup));
+          $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idUserGroup));
+          $this->db->ExecuteQuery(self::SQL('insert into user2group'), array($idDoeUser,  $idUserGroup));
+
+          return array('success', 'Successfully created the database tables and created a default admin user as root:root and an ordinary user as doe:doe.');
+        } catch(Exception$e) {
+          die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
+        }
+      break;
+
+      default:
+        throw new Exception('Unsupported action for this module.');
+      break;
     }
   }
 

@@ -25,4 +25,17 @@ class CCModules extends CObject implements IController {
                 ->AddInclude(__DIR__ . '/sidebar.tpl.php', array('modules'=>$allModules), 'sidebar');
   }
 
+
+  /**
+    * Install modules
+    */
+  public function Install() {
+    $modules = new CMModules();
+    $results = $modules->Install();
+    $allModules = $modules->ReadAndAnalyse();
+    $this->views->SetTitle('Install Modules')
+                ->AddInclude(__DIR__ . '/install.tpl.php', array('modules'=>$results), 'primary')
+                ->AddInclude(__DIR__ . '/sidebar.tpl.php', array('modules'=>$allModules), 'sidebar');
+  }
+
 } // end class
