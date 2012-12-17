@@ -61,11 +61,12 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
         FOREIGN KEY(idUser) REFERENCES User(id)
       );",
       'insert content'          => "INSERT INTO {$tableprefix}Content (slug,type,title,data,filter,idUser) VALUES (?,?,?,?,?,?);",
-      'select * by id'          => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE c.id=?;",
-      'select * by slug'        => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE c.slug=?;",
-      'select * by type'        => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE type=? ORDER BY {$order_by} {$order_order};",
-      'select *'                => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id;",
+      'select * by id'          => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE c.id=? AND deleted IS NULL;",
+      'select * by slug'        => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE c.slug=? AND deleted IS NULL;",
+      'select * by type'        => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE type=? AND deleted IS NULL ORDER BY {$order_by} {$order_order};",
+      'select *'                => "SELECT c.*, u.acronym as owner FROM {$tableprefix}Content AS c INNER JOIN {$tableprefix}User as u ON c.idUser=u.id WHERE deleted IS NULL;",
       'update content'          => "UPDATE {$tableprefix}Content SET slug=?, type=?, title=?, data=?, filter=?, updated=datetime('now') WHERE id=?;",
+      'update content as deleted' => "UPDATE {$tableprefix}Content SET deleted=datetime('now') WHERE id=?;",
       );
     if(!isset($queries[$key])) {
       throw new Exception("No such SQL query, key '$key' was not found.");
@@ -131,6 +132,25 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
       $this->AddMessage('error', "Failed with {$msg} content '" . htmlEnt($this['slug']) . "'.");
     }
     return $rowcount === 1;
+  }
+
+
+  /**
+   * Delete content. Set its deletion date to enable trashbin functionality.
+   *
+   * @returns boolean true if success else false.
+   */
+  public function Delete() {
+    if($this['id']) {
+      $this->db->ExecuteQuery(self::SQL('update content as deleted'), array($this['id']));
+    }
+    $rowcount = $this->db->RowCount();
+    if($rowcount) {
+      $this->AddMessage('success', "Successfully set content '" . htmlEnt($this['slug']) . "' as deleted.");
+    } else {
+      $this->AddMessage('error', "Failed to set content '" . htmlEnt($this['slug']) . "' as deleted.");
+    }
+    return ($rowcount === 1);
   }
 
 
