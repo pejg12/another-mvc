@@ -3,7 +3,7 @@
 <p>All Another MVC modules.</p>
 <ul>
 <?php foreach($modules as $module): ?>
-  <li><?=$module['name']?></li>
+  <li><a href='<?=create_url('', 'view', $module['name']);?>'><?=$module['name']?></a></li>
 <?php endforeach; ?>
 </ul>
 </section>
@@ -15,7 +15,7 @@
 <ul>
 <?php foreach($modules as $module): ?>
   <?php if($module['isAmvcCore']): ?>
-  <li><?=$module['name']?></li>
+  <li><a href='<?=create_url('', 'view', $module['name']);?>'><?=$module['name']?></a></li>
   <?php endif; ?>
 <?php endforeach; ?>
 </ul>
@@ -28,7 +28,7 @@
 <ul>
 <?php foreach($modules as $module): ?>
   <?php if($module['isAmvcCMF']): ?>
-  <li><?=$module['name']?></li>
+  <li><a href='<?=create_url('', 'view', $module['name']);?>'><?=$module['name']?></a></li>
   <?php endif; ?>
 <?php endforeach; ?>
 </ul>
@@ -41,7 +41,7 @@
 <ul>
 <?php foreach($modules as $module): ?>
   <?php if($module['isModel']): ?>
-  <li><?=$module['name']?></li>
+  <li><a href='<?=create_url('', 'view', $module['name']);?>'><?=$module['name']?></a></li>
   <?php endif; ?>
 <?php endforeach; ?>
 </ul>
@@ -54,7 +54,7 @@
 <ul>
 <?php foreach($modules as $module): ?>
   <?php if($module['isController']): ?>
-  <li><?=$module['name']?></li>
+  <li><a href='<?=create_url('', 'view', $module['name']);?>'><?=$module['name']?></a></li>
   <?php endif; ?>
 <?php endforeach; ?>
 </ul>
@@ -67,7 +67,7 @@
 <ul>
 <?php foreach($modules as $module): ?>
   <?php if($module['hasSQL']): ?>
-  <li><?=$module['name']?></li>
+  <li><a href='<?=create_url('', 'view', $module['name']);?>'><?=$module['name']?></a></li>
   <?php endif; ?>
 <?php endforeach; ?>
 </ul>
@@ -80,7 +80,7 @@
 <ul>
 <?php foreach($modules as $module): ?>
   <?php if(!($module['isController'] || $module['isAmvcCore'] || $module['isAmvcCMF'])): ?>
-  <li><?=$module['name']?></li>
+  <li><a href='<?=create_url('', 'view', $module['name']);?>'><?=$module['name']?></a></li>
   <?php endif; ?>
 <?php endforeach; ?>
 </ul>

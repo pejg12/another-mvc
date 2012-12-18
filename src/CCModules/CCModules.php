@@ -38,4 +38,27 @@ class CCModules extends CObject implements IController {
                 ->AddInclude(__DIR__ . '/sidebar.tpl.php', array('modules'=>$allModules), 'sidebar');
   }
 
+
+  /**
+   * Show a module and its parts.
+   */
+  public function View($module=null) {
+    $modules = new CMModules();
+    $controllers = $modules->AvailableControllers();
+    $allModules = $modules->ReadAndAnalyse();
+
+    $this->views->SetTitle('Manage Modules')
+                ->AddInclude(__DIR__ . '/sidebar.tpl.php', array('modules'=>$allModules), 'sidebar');
+
+    if(!$module)
+    {
+      $this->views->AddString('Please choose a module.', array(), 'primary');
+      return;
+    }
+
+    if(!preg_match('/^C[a-zA-Z]+$/', $module)) {throw new Exception('Invalid characters in module name.');}
+    $aModule = $modules->ReadAndAnalyseModule($module);
+    $this->views->AddInclude(__DIR__ . '/view.tpl.php', array('module'=>$aModule), 'primary');
+  }
+
 } // end class
