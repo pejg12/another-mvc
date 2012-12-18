@@ -13,7 +13,7 @@ ini_set('display_errors', 1);
 /*
  * Define session name
  */
-$amvc->config['km'] = "mvckm6";
+$amvc->config['km'] = "mvckm7";
 $amvc->config['session_name'] = "pejg" . $amvc->config['km'];
 $amvc->config['session_key']  = "another-mvc";
 
@@ -52,7 +52,6 @@ $amvc->config['controllers'] = array(
   'page'      => array('enabled' => true,'class' => 'CCPage'),
   'theme'     => array('enabled' => true,'class' => 'CCTheme'),
   'modules'   => array('enabled' => true,'class' => 'CCModules'),
-  'my'        => array('enabled' => true,'class' => 'CCMycontroller'),
 );
 
 /**
@@ -90,8 +89,8 @@ $amvc->config['routing'] = array(
  * 'stylesheet' and made available to the template files.
  */
 $amvc->config['theme'] = array(
-  'path'            => 'site/themes/mytheme',
-  'parent'          => 'themes/grid',
+  'path'            => 'themes/grid',
+  //'parent'          => 'themes/grid',
   'stylesheet'      => 'style.css',
   'template_file'   => 'default.tpl.php',
   // A list of valid theme regions
@@ -101,14 +100,14 @@ $amvc->config['theme'] = array(
     'featured-middle',  // optional
     'featured-right',   // optional
     'primary',
-    'navbar',
+    'navbar',           // optional
     'sidebar',
     'triptych-left',    // optional
     'triptych-middle',  // optional
     'triptych-right',   // optional
     'footer',
   ),
-  'menu_to_region' => array('my-navbar'=>'navbar'),
+  'menu_to_region' => array('navbar'=>'navbar'),
   // Add static entries for use in the template file.
   'data' => array(
     'site_title' => 'Another MVC',
@@ -126,14 +125,9 @@ $amvc->config['menus'] = array(
   'navbar' => array(
     'home'      => array('label'=>'Home', 'url'=>'home'),
     'modules'   => array('label'=>'Modules', 'url'=>'modules'),
-    'content'   => array('label'=>'Content', 'url'=>'content'),
     'guestbook' => array('label'=>'Guestbook', 'url'=>'guestbook'),
+    'content'   => array('label'=>'Content', 'url'=>'content'),
     'blog'      => array('label'=>'Blog', 'url'=>'blog'),
-  ),
-  'my-navbar' => array(
-    'home'      => array('label'=>'About Me', 'url'=>'my'),
-    'blog'      => array('label'=>'My Blog', 'url'=>'my/blog'),
-    'guestbook' => array('label'=>'Guestbook', 'url'=>'my/guestbook'),
   ),
 );
 
@@ -158,6 +152,7 @@ $amvc->config['debug']['display-core'] = FALSE;
 $amvc->config['debug']['db-num-queries'] = FALSE;
 $amvc->config['debug']['db-queries'] = FALSE;
 $amvc->config['debug']['session'] = FALSE;
+$amvc->config['debug']['timer'] = TRUE;
 
 /**
  * Set database(s).

@@ -37,6 +37,9 @@ function get_debug() {
   if(isset($amvc->config['debug']['db-queries']) && $amvc->config['debug']['db-queries'] && isset($amvc->db)) {
     $html .= "<p>Database made the following queries.</p><pre>" . implode('<br/><br/>', $amvc->db->GetQueries()) . "</pre>";
   }
+  if(isset($amvc->config['debug']['timer']) && $amvc->config['debug']['timer']) {
+    $html .= "<p>Page was loaded in " . round(microtime(true) - $amvc->timer['first'], 5)*1000 . " ms.</p>";
+  }
   if(isset($amvc->config['debug']['display-core']) && $amvc->config['debug']['display-core']) {
     $html .= "<hr><h3>Debuginformation</h3><p>The content of CAmvc:</p><pre>" . htmlent(print_r($amvc, true)) . "</pre>";
   }
