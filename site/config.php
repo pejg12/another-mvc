@@ -158,7 +158,7 @@ $amvc->config['debug']['timer'] = TRUE;
  * Set database(s).
  */
 $filepath = AMVC_SITE_PATH . '/data/.ht.sqlite';
-$amvc->config['database'][0]['writable'] = is_writable($filepath);
+$amvc->config['database'][0]['writable'] = is_writable(dirname($filepath));
 if($amvc->config['database'][0]['writable']) {
   $amvc->config['database'][0]['dsn'] = 'sqlite:' . $filepath;
 }
