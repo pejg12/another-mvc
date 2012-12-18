@@ -75,7 +75,7 @@ function create_url($urlOrController=null, $method=null, $arguments=null) {
  * Prepend the theme_url, which is the url to the current theme directory.
  */
 function theme_url($url) {
-  return create_url(CAmvc::Instance()->themeUrl . "/{$url}");
+  return trim(create_url(CAmvc::Instance()->themeUrl . "/{$url}"), '/');
 }
 
 
@@ -86,7 +86,11 @@ function theme_url($url) {
  * @returns string the absolute url.
  */
 function theme_parent_url($url) {
-  return create_url(CAmvc::Instance()->themeParentUrl . "/{$url}");
+  if(isset(CAmvc::Instance()->config['theme']['parent']))
+  {
+    return trim(create_url(CAmvc::Instance()->themeParentUrl . "/{$url}"), '/');
+  }
+  return theme_url($url);
 }
 
 

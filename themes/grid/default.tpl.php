@@ -12,8 +12,8 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <link rel="stylesheet" href="<?=$themeUrl?>/css/normalize.css">
-    <link rel="stylesheet" href="<?=$themeUrl?>/css/main.css">
+    <link rel="stylesheet" href="<?=theme_parent_url('css/normalize.css')?>">
+    <link rel="stylesheet" href="<?=theme_parent_url('css/main.css')?>">
     <link rel="stylesheet" href="<?=theme_url($stylesheet)?>">
     <script src="<?=$themeUrl?>/js/vendor/modernizr-2.6.2.min.js"></script>
 
