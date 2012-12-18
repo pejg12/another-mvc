@@ -3,29 +3,34 @@
  */
 @import url('../../../themes/grid/style.css');
 
+@grid-height: 24px;
+
 @radius: 20px;
 @whitespace: #FFF;
-@background: #DEF;
-@border-color: #69F;
+@background-color: #DEF;
+@border-color: #9CF;
+@border-height: 1px;
 
 html {
-  background-color: @whitespace;
+  background-color: @background-color;
 }
 
 body {
-  background-color: @whitespace;
+  background-color: @background-color;
 }
 
 body>header:first-child {
-  border-radius: @radius @radius 0 0;
+  background-color: transparent;
 }
 
 body>header:nth-child(2) {
-  border-bottom: dotted 2px @border-color;
+  margin-top: @grid-height;
+  border-radius: @radius @radius 0 0;
 }
 
 body>footer:last-child {
-  border-top: dotted 2px @border-color;
+  border-top: solid @border-height @border-color;
+  margin-top: (@grid-height - @border-height);
   border-radius: 0 0 @radius @radius;
 }
 
@@ -34,9 +39,17 @@ section,
 header,
 footer,
 aside {
-  background-color: @background;
+  background-color: @background-color !important;
 }
 
 nav .selected {
   font-weight: bold;
+}
+
+article {
+  h1,
+  h2 {
+    border-bottom: solid @border-height @border-color;
+    margin-bottom: (@grid-height - 1px);
+  }
 }
