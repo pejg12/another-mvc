@@ -18,3 +18,5 @@
 <?php endforeach; ?>
   </tbody>
 </table>
+
+<p>If CMUser was successfully installed, you should <a href='<?=create_url('user', 'login')?>'>log in</a> or <a href='<?=create_url('user', 'create')?>'>create a new user</a>.</p>
