@@ -18,7 +18,7 @@ class CMModules extends CObject {
    *
    * @returns array list of controllers (key) and an array of methods
    */
-  public function AvailableControllers() { 
+  public function AvailableControllers() {
     $controllers = array();
     foreach($this->config['controllers'] as $key => $val) {
       if($val['enabled']) {
@@ -40,11 +40,11 @@ class CMModules extends CObject {
 
 
   /**
-    * Read and analyse all modules.
-    *
-    * @returns array with a entry for each module with the module name as the
-    *                key. Returns boolean false if $src can not be opened.
-    */
+   * Read and analyse all modules.
+   *
+   * @returns array with a entry for each module with the module name as the
+   *                key. Returns boolean false if $src can not be opened.
+   */
   public function ReadAndAnalyse() {
     $src = AMVC_INSTALL_PATH.'/src';
     if(!$dir = dir($src)) throw new Exception('Could not open the directory.');
@@ -71,10 +71,10 @@ class CMModules extends CObject {
 
 
   /**
-    * Install all modules.
-    *
-    * @returns array with a entry for each module and the result from installing it.
-    */
+   * Install all modules.
+   *
+   * @returns array with a entry for each module and the result from installing it.
+   */
   public function Install() {
     $allModules = $this->ReadAndAnalyse();
     uksort($allModules, function($a, $b) {

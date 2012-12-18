@@ -1,9 +1,9 @@
 <?php
 /**
-* Parse the request and identify controller, method and arguments.
-*
-* @package AntoherMVCCore
-*/
+ * Parse the request and identify controller, method and arguments.
+ *
+ * @package AntoherMVCCore
+ */
 class CRequest {
 
   /**
@@ -21,7 +21,7 @@ class CRequest {
    * clean        = 1      => controller/method/arg1/arg2/arg3
    * querystring  = 2      => index.php?q=controller/method/arg1/arg2/arg3
    *
-   * @param boolean $urlType integer 
+   * @param boolean $urlType integer
    */
   public function __construct($urlType=0) {
     $this->cleanUrl       = ($urlType == 1 ? true : false);
@@ -37,8 +37,8 @@ class CRequest {
    */
   public function Init($baseUrl = null, $routing=null) {
     $requestUri = $_SERVER['REQUEST_URI'];
-    $scriptName = $_SERVER['SCRIPT_NAME'];   
-   
+    $scriptName = $_SERVER['SCRIPT_NAME'];
+
     // Compare REQUEST_URI and SCRIPT_NAME as long they match, leave the rest as current request.
     $i=0;
     $len = min(strlen($requestUri), strlen($scriptName));
@@ -46,7 +46,7 @@ class CRequest {
       $i++;
     }
     $request = trim(substr($requestUri, $i), '/');
- 
+
     // Remove the ?-part from the query when analysing controller/metod/arg1/arg2
     $queryPos = strpos($request, '?');
     if($queryPos !== false) {
@@ -65,18 +65,18 @@ class CRequest {
       $request = trim($_GET['q']);
     }
     $splits = explode('/', $request);
-   
+
     // Set controller, method and arguments
     $controller =  !empty($splits[0]) ? $splits[0] : 'index';
     $method     =  !empty($splits[1]) ? $splits[1] : 'index';
     $arguments  = $splits;
     unset($arguments[0], $arguments[1]); // remove controller & method part from argument list
-   
+
     // Prepare to create current_url and base_url
     $currentUrl = $this->GetCurrentUrl();
     $parts      = parse_url($currentUrl);
     $baseUrl    = !empty($baseUrl) ? $baseUrl : "{$parts['scheme']}://{$parts['host']}" . (isset($parts['port']) ? ":{$parts['port']}" : '') . rtrim(dirname($scriptName), '/');
-   
+
     // Store it
     $this->base_url     = rtrim($baseUrl, '/') . '/';
     $this->current_url  = $currentUrl;
@@ -115,17 +115,17 @@ class CRequest {
     if(!empty($url) && (strpos($url, '://') || $url[0] == '/')) {
       return $url;
     }
-    
+
     // Get current controller if empty and method or arguments choosen
     if(empty($url) && (!empty($method) || !empty($arguments))) {
       $url = $this->controller;
     }
-    
+
     // Get current method if empty and arguments choosen
     if(empty($method) && !empty($arguments)) {
       $method = $this->method;
     }
-    
+
     // Create url according to configured style
     $prepend = $this->base_url;
     if($this->cleanUrl) {

@@ -1,23 +1,23 @@
 <?php
 /**
-* A user controller  to manage login and view edit the user profile.
-*
-* @package AnotherMVCCore
-*/
+ * A user controller  to manage login and view edit the user profile.
+ *
+ * @package AnotherMVCCore
+ */
 class CCUser extends CObject implements IController {
 
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct() {
     parent::__construct();
   }
 
 
   /**
-    * Show profile information of the user.
-    */
+   * Show profile information of the user.
+   */
   public function Index() {
     $this->views->SetTitle('User Controller');
     $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
@@ -25,7 +25,7 @@ class CCUser extends CObject implements IController {
       'user'=>$this->user,
     ));
   }
-  
+
 
   /**
    * View and edit user profile.
@@ -75,8 +75,8 @@ class CCUser extends CObject implements IController {
 
 
   /**
-    * Authenticate and login a user.
-    */
+   * Authenticate and login a user.
+   */
   public function Login() {
     $form = new CFormUserLogin($this);
     if($form->Check() === false) {
@@ -117,7 +117,7 @@ class CCUser extends CObject implements IController {
       $this->RedirectToController('Create');
     }
     $this->views->SetTitle('Create user')
-                ->AddInclude(__DIR__ . '/create.tpl.php', array('form' => $form->GetHTML()));     
+                ->AddInclude(__DIR__ . '/create.tpl.php', array('form' => $form->GetHTML()));
   }
 
 
@@ -149,17 +149,17 @@ class CCUser extends CObject implements IController {
 
 
   /**
-    * Logout a user.
-    */
+   * Logout a user.
+   */
   public function Logout() {
     $this->user->Logout();
     $this->RedirectToController();
   }
-  
+
 
   /**
-    * Init the user database.
-    */
+   * Init the user database.
+   */
   public function Init() {
     $this->user->Init();
     $this->RedirectToController();

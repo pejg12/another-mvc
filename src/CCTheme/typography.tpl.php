@@ -66,22 +66,22 @@
 <h5>Header 5 and definition list</h5>
 <dl>
    <dt>Definition list</dt>
-   <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+   <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
 commodo consequat.</dd>
    <dt>Lorem ipsum dolor sit amet</dt>
-   <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+   <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
 commodo consequat.</dd>
 </dl>
 
 <blockquote><p>Blockquote. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
 
 <pre>Pre and code
-<code>#header h1 a { 
-    display: block; 
-    width: 300px; 
-    height: 80px; 
+<code>#header h1 a {
+    display: block;
+    width: 300px;
+    height: 80px;
 }</code></pre>
 
 <p>Elements below this <code>&lt;hr&gt;</code> breaks the vertical grid.</p>

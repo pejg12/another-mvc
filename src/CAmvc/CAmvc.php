@@ -1,15 +1,14 @@
 <?php
-
 /**
-* Main class for Another MVC, holds everything.
-*
-* @package AnotherMVCCore
-*/
+ * Main class for Another MVC, holds everything.
+ *
+ * @package AnotherMVCCore
+ */
 class CAmvc implements ISingleton {
 
   /**
-  * Members
-  */
+   * Members
+   */
   private static $instance = null;
   public $config = array();
   public $request;
@@ -21,11 +20,11 @@ class CAmvc implements ISingleton {
   public $user;
 
   /**
-  * Constructor
-  */
+   * Constructor
+   */
   protected function __construct() {
     // time page generation
-    $this->timer['first'] = microtime(true); 
+    $this->timer['first'] = microtime(true);
 
     // include the site specific config.php and create a ref to $amvc to be used by config.php
     $amvc = &$this;
@@ -36,7 +35,7 @@ class CAmvc implements ISingleton {
     session_start();
     $this->session = new CSession($this->config['session_key']);
     $this->session->PopulateFromSession();
-  
+
     // Set default charset
     ini_set('default_charset', strtolower($amvc->config['character_encoding']));
 
@@ -56,9 +55,9 @@ class CAmvc implements ISingleton {
   }
 
   /**
-  * Singleton pattern. Get the instance of the latest created object or create a new one.
-  * @return CAmvc The instance of this class.
-  */
+   * Singleton pattern. Get the instance of the latest created object or create a new one.
+   * @return CAmvc The instance of this class.
+   */
   public static function Instance() {
     if(self::$instance == null) {
         self::$instance = new CAmvc();
@@ -67,8 +66,8 @@ class CAmvc implements ISingleton {
   }
 
   /**
-    * Frontcontroller, check url and route to controllers.
-    */
+   * Frontcontroller, check url and route to controllers.
+   */
   public function FrontControllerRoute() {
     // Take current url and divide it in controller, method and parameters
     $this->request = new CRequest($this->config['url_type']);
@@ -89,7 +88,7 @@ class CAmvc implements ISingleton {
       $classExists          = class_exists($className);
     }
 
-	// Check if controller has a callable method in the controller class, if then call it
+    // Check if controller has a callable method in the controller class, if then call it
     if($controllerExists && $controllerEnabled && $classExists) {
       $rc = new ReflectionClass($className);
       if($rc->implementsInterface('IController')) {
@@ -116,8 +115,8 @@ class CAmvc implements ISingleton {
   }
 
   /**
-  * ThemeEngineRender, renders the reply of the request.
-  */
+   * ThemeEngineRender, renders the reply of the request.
+   */
   public function ThemeEngineRender() {
     // Save to session before output anything
     $this->session->StoreInSession();
@@ -273,7 +272,6 @@ class CAmvc implements ISingleton {
         if($val['url'] == $this->request->request || $val['url'] == $this->request->routed_from) {
           $selected = " class='selected'";
         }
-// $items .= "<li><code>" . print_r($this->CreateUrl($val['url']), true) . "</code></li>";
         $items .= "<li><a {$selected} href='" . $this->CreateUrl($val['url']) . "'>{$val['label']}</a></li>\n";
       }
     } else {

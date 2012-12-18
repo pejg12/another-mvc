@@ -1,13 +1,13 @@
 <?php
 /**
-* Bootstrapping, setting up and loading the core.
-*
-* @package AnotherMVCCore
-*/
+ * Bootstrapping, setting up and loading the core.
+ *
+ * @package AnotherMVCCore
+ */
 
 /**
-* Enable auto-load of class declarations.
-*/
+ * Enable auto-load of class declarations.
+ */
 function autoload($aClassName) {
   $classFile = "/src/{$aClassName}/{$aClassName}.php";
    $file1 = AMVC_INSTALL_PATH . $classFile;
@@ -21,8 +21,8 @@ function autoload($aClassName) {
 spl_autoload_register('autoload');
 
 /**
-* Set a default exception handler and enable logging in it.
-*/
+ * Set a default exception handler and enable logging in it.
+ */
 function exception_handler($e) {
   echo "Another MVC: Uncaught exception: <p>" . $e->getMessage() . "</p><pre>" . $e->getTraceAsString(), "</pre>";
 }
@@ -44,19 +44,19 @@ function getIncludeContents($filename, $vars=array()) {
 
 
 /**
-* Helper, wrap html_entites with correct character encoding
-*/
+ * Helper, wrap html_entites with correct character encoding
+ */
 function htmlent($str, $flags = ENT_COMPAT) {
   return htmlentities($str, $flags, CAmvc::Instance()->config['character_encoding']);
 }
 
 
 /**
-  * Make clickable links from URLs in text.
-  *
-  * @param string text text to be converted.
-  * @returns string the formatted text.
-  */
+ * Make clickable links from URLs in text.
+ *
+ * @param string text text to be converted.
+ * @returns string the formatted text.
+ */
 function MakeClickable($text) {
   return preg_replace_callback(
     '#\b(?<![href|src]=[\'"])https?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#',
@@ -70,7 +70,7 @@ function MakeClickable($text) {
 
 
 /**
- * Helper, interval formatting of times. Needs PHP5.3. 
+ * Helper, interval formatting of times. Needs PHP5.3.
  *
  * All times in database is UTC so this function assumes the starttime to be in UTC, if not otherwise
  * stated.
@@ -167,38 +167,38 @@ function formatDateTimeDiff($start, $startTimeZone=null, $end=null, $endTimeZone
  * @returns string the formatted text.
  */
 function bbcode2html($text) {
-  $search = array( 
-    '/\[b\](.*?)\[\/b\]/is', 
-    '/\[i\](.*?)\[\/i\]/is', 
-    '/\[u\](.*?)\[\/u\]/is', 
-    '/\[img\](https?.*?)\[\/img\]/is', 
-    '/\[url\](https?.*?)\[\/url\]/is', 
-    '/\[url=(https?.*?)\](.*?)\[\/url\]/is' 
+  $search = array(
+    '/\[b\](.*?)\[\/b\]/is',
+    '/\[i\](.*?)\[\/i\]/is',
+    '/\[u\](.*?)\[\/u\]/is',
+    '/\[img\](https?.*?)\[\/img\]/is',
+    '/\[url\](https?.*?)\[\/url\]/is',
+    '/\[url=(https?.*?)\](.*?)\[\/url\]/is'
     );
-  $replace = array( 
-    '<strong>$1</strong>', 
-    '<em>$1</em>', 
-    '<u>$1</u>', 
-    '<img src="$1" />', 
-    '<a href="$1">$1</a>', 
-    '<a href="$1">$2</a>' 
+  $replace = array(
+    '<strong>$1</strong>',
+    '<em>$1</em>',
+    '<u>$1</u>',
+    '<img src="$1" />',
+    '<a href="$1">$1</a>',
+    '<a href="$1">$2</a>'
     );
   return preg_replace($search, $replace, $text);
 }
 
 
 /**
-* Helper, selected mediawiki formatting converted to HTML.
-*
-* @param string text The text to be converted.
-* @returns string the formatted text.
-* @todo lines indented with 1 space converted to <pre> or <code> instead, multiline span
-* @todo html tags <pre> and <nowiki> interpreted as plain text instead
-* @todo improve image formatting. image size? image class? bootstrap css classes: img-rounded, img-circle, img-polaroid
-* @todo improve nested list items. **:#*#* should be interpreted as 7 li items in nested ul/ul/dl/ol/ul/ol/ul lists
-* @todo tables? advanced but powerful.
-* @todo headers don't seem to work properly, might be an issue with forcing $
-*/
+ * Helper, selected mediawiki formatting converted to HTML.
+ *
+ * @param string text The text to be converted.
+ * @returns string the formatted text.
+ * @todo lines indented with 1 space converted to <pre> or <code> instead, multiline span
+ * @todo html tags <pre> and <nowiki> interpreted as plain text instead
+ * @todo improve image formatting. image size? image class? bootstrap css classes: img-rounded, img-circle, img-polaroid
+ * @todo improve nested list items. **:#*#* should be interpreted as 7 li items in nested ul/ul/dl/ol/ul/ol/ul lists
+ * @todo tables? advanced but powerful.
+ * @todo headers don't seem to work properly, might be an issue with forcing $
+ */
 function mediawiki2html($text) {
   $search = array(
     // Text formatting, inline

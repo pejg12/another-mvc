@@ -1,33 +1,33 @@
 <?php
 /**
-* A model for a guestbok, to show off some basic controller & model-stuff.
-*
-* @package AnotherMVCCore
-*/
+ * A model for a guestbok, to show off some basic controller & model-stuff.
+ *
+ * @package AnotherMVCCore
+ */
 class CMGuestbook extends CObject implements IHasSQL, IModule {
 
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct() {
     parent::__construct();
   }
 
 
   /**
-    * Implementing interface IHasSQL. Encapsulate all SQL used by this class.
-    *
-    * @param string $key the string that is the key of the wanted SQL-entry in the array.
-    */
+   * Implementing interface IHasSQL. Encapsulate all SQL used by this class.
+   *
+   * @param string $key the string that is the key of the wanted SQL-entry in the array.
+   */
   public static function SQL($key=null) {
     $amvc = CAmvc::Instance();
     $table_gb = $amvc->config['km'] . '_Guestbook';
     $queries = array(
       'create table guestbook'  => "
         CREATE TABLE IF NOT EXISTS {$table_gb} (
-          id INTEGER PRIMARY KEY, 
-          entry TEXT, 
+          id INTEGER PRIMARY KEY,
+          entry TEXT,
           created DATETIME default (datetime('now'))
         );",
       'insert into guestbook'   => "INSERT INTO {$table_gb} (entry) VALUES (?);",
@@ -42,8 +42,8 @@ class CMGuestbook extends CObject implements IHasSQL, IModule {
 
 
   /**
-    * Implementing interface IModule. Manage install/update/deinstall and equal actions.
-    */
+   * Implementing interface IModule. Manage install/update/deinstall and equal actions.
+   */
   public function Manage($action=null) {
     switch($action) {
       case 'install':
@@ -60,11 +60,11 @@ class CMGuestbook extends CObject implements IHasSQL, IModule {
       break;
     }
   }
-  
+
 
   /**
-    * Add a new entry to the guestbook and save to database.
-    */
+   * Add a new entry to the guestbook and save to database.
+   */
   public function Add($entry) {
     $this->db->ExecuteQuery(self::SQL('insert into guestbook'), array($entry));
     $this->session->AddMessage('success', 'Successfully inserted new message.');
@@ -72,27 +72,27 @@ class CMGuestbook extends CObject implements IHasSQL, IModule {
       die('Failed to insert new guestbook item into database.');
     }
   }
-  
+
 
   /**
-    * Delete all entries from the guestbook and database.
-    */
+   * Delete all entries from the guestbook and database.
+   */
   public function DeleteAll() {
     $this->db->ExecuteQuery(self::SQL('delete from guestbook'));
     $this->session->AddMessage('info', 'Removed all messages from the database table.');
   }
-  
-  
+
+
   /**
-    * Read all entries from the guestbook & database.
-    */
+   * Read all entries from the guestbook & database.
+   */
   public function ReadAll() {
     try {
       return $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('select * from guestbook'));
     } catch(Exception $e) {
-      return array();   
+      return array();
     }
   }
 
-  
+
 } // end class

@@ -1,23 +1,23 @@
 <?php
 /**
-* A page controller to display a page, for example an about-page, displays content labelled as "page".
-*
-* @package AnotherMVCCore
-*/
+ * A page controller to display a page, for example an about-page, displays content labelled as "page".
+ *
+ * @package AnotherMVCCore
+ */
 class CCPage extends CObject implements IController {
 
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct() {
     parent::__construct();
   }
 
 
   /**
-    * Display an empty page.
-    */
+   * Display an empty page.
+   */
   public function Index() {
     $content = new CMContent();
     $this->views->SetTitle('Page')
@@ -28,10 +28,10 @@ class CCPage extends CObject implements IController {
 
 
   /**
-    * Display a page.
-    *
-    * @param $id integer the id of the page.
-    */
+   * Display a page.
+   *
+   * @param $id integer the id of the page.
+   */
   public function View($id=null) {
     $content = new CMContent($id);
     $this->views->SetTitle('Page: '.htmlEnt($content['title']))

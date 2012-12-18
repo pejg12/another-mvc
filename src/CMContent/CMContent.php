@@ -1,20 +1,20 @@
 <?php
 /**
-* A model for content stored in database.
-*
-* @package AnotherMVCCore
-*/
+ * A model for content stored in database.
+ *
+ * @package AnotherMVCCore
+ */
 class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
   /**
-    * Properties
-    */
+   * Properties
+   */
   public $data;
 
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct($id=null) {
     parent::__construct();
     if($id) {
@@ -26,8 +26,8 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Implementing ArrayAccess for $this->data
-    */
+   * Implementing ArrayAccess for $this->data
+   */
   public function offsetSet($offset, $value) { if (is_null($offset)) { $this->data[] = $value; } else { $this->data[$offset] = $value; }}
   public function offsetExists($offset) { return isset($this->data[$offset]); }
   public function offsetUnset($offset) { unset($this->data[$offset]); }
@@ -35,29 +35,29 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Implementing interface IHasSQL. Encapsulate all SQL used by this class.
-    *
-    * @param string $key the string that is the key of the wanted SQL-entry in the array.
-    */
+   * Implementing interface IHasSQL. Encapsulate all SQL used by this class.
+   *
+   * @param string $key the string that is the key of the wanted SQL-entry in the array.
+   */
   public static function SQL($key=null, $args=null) {
     $order_order  = isset($args['order-order']) ? $args['order-order'] : 'ASC';
-    $order_by     = isset($args['order-by'])    ? $args['order-by'] : 'id';  
+    $order_by     = isset($args['order-by'])    ? $args['order-by'] : 'id';
 
     $amvc = CAmvc::Instance();
     $tableprefix = $amvc->config['km'] . "_";
     $queries = array(
       'drop table content'      => "DROP TABLE IF EXISTS {$tableprefix}Content;",
       'create table content'    => "CREATE TABLE IF NOT EXISTS {$tableprefix}Content (
-        id INTEGER PRIMARY KEY, 
-        slug TEXT KEY, 
-        type TEXT, 
-        title TEXT, 
-        data TEXT, 
-        filter TEXT, 
-        idUser INT, 
-        created DATETIME default (datetime('now')), 
-        updated DATETIME default NULL, 
-        deleted DATETIME default NULL, 
+        id INTEGER PRIMARY KEY,
+        slug TEXT KEY,
+        type TEXT,
+        title TEXT,
+        data TEXT,
+        filter TEXT,
+        idUser INT,
+        created DATETIME default (datetime('now')),
+        updated DATETIME default NULL,
+        deleted DATETIME default NULL,
         FOREIGN KEY(idUser) REFERENCES User(id)
       );",
       'insert content'          => "INSERT INTO {$tableprefix}Content (slug,type,title,data,filter,idUser) VALUES (?,?,?,?,?,?);",
@@ -76,8 +76,8 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Init the database and create appropriate tables.
-    */
+   * Init the database and create appropriate tables.
+   */
   public function Manage($action=null) {
     switch($action) {
       case 'install':
@@ -111,10 +111,10 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Save content. If it has a id, use it to update current entry or else insert new entry.
-    *
-    * @returns boolean true if success else false.
-    */
+   * Save content. If it has a id, use it to update current entry or else insert new entry.
+   *
+   * @returns boolean true if success else false.
+   */
   public function Save() {
     $msg = null;
     if($this['id']) {
@@ -136,10 +136,10 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-   * Delete content. Set its deletion date to enable trashbin functionality.
-   *
-   * @returns boolean true if success else false.
-   */
+  * Delete content. Set its deletion date to enable trashbin functionality.
+  *
+  * @returns boolean true if success else false.
+  */
   public function Delete() {
     if($this['id']) {
       $this->db->ExecuteQuery(self::SQL('update content as deleted'), array($this['id']));
@@ -155,11 +155,11 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Load content by id.
-    *
-    * @param id integer the id of the content.
-    * @returns boolean true if success else false.
-    */
+   * Load content by id.
+   *
+   * @param id integer the id of the content.
+   * @returns boolean true if success else false.
+   */
   public function LoadById($id) {
     $res = $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('select * by id'), array($id));
     if(empty($res)) {
@@ -173,10 +173,10 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * List all content.
-    *
-    * @returns array with listing or null if empty.
-    */
+   * List all content.
+   *
+   * @returns array with listing or null if empty.
+   */
   public function ListAll($args=null) {
     try {
       if(isset($args) && isset($args['type'])) {

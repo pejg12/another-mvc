@@ -1,9 +1,9 @@
 <?php
 /**
-* A guestbook controller as an example to show off some basic controller and model-stuff.
-*
-* @package AnotherMVCCore
-*/
+ * A guestbook controller as an example to show off some basic controller and model-stuff.
+ *
+ * @package AnotherMVCCore
+ */
 class CCGuestbook extends CObject implements IController {
 
   private $model;
@@ -16,7 +16,7 @@ class CCGuestbook extends CObject implements IController {
     parent::__construct();
     $this->model = new CMGuestbook();
   }
- 
+
 
   /**
    * Implementing interface IController. All controllers must have an index action.
@@ -40,7 +40,7 @@ class CCGuestbook extends CObject implements IController {
     }
     elseif(isset($_POST['doClear'])) {
       $this->model->DeleteAll();
-    }           
+    }
     elseif(isset($_POST['doCreate'])) {
       $this->model->Init();
     }

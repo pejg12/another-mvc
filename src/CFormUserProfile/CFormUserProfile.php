@@ -1,14 +1,14 @@
 <?php
 /**
-* A form for editing the user profile.
-*
-* @package AnotherMVCCore
-*/
+ * A form for editing the user profile.
+ *
+ * @package AnotherMVCCore
+ */
 class CFormUserProfile extends CForm {
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct($object, $user) {
     parent::__construct();
     $this->AddElement(new CFormElementText('acronym', array('readonly'=>true, 'value'=>$user['acronym'])))

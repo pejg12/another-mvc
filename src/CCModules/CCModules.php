@@ -27,8 +27,8 @@ class CCModules extends CObject implements IController {
 
 
   /**
-    * Install modules
-    */
+   * Install modules
+   */
   public function Install() {
     $modules = new CMModules();
     $results = $modules->Install();

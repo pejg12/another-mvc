@@ -1,18 +1,18 @@
 <?php
 /**
-* Sample controller for a site builder.
-*/
+ * Sample controller for a site builder.
+ */
 class CCMycontroller extends CObject implements IController {
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct() { parent::__construct(); }
 
 
   /**
-    * The page about me
-    */
+   * The page about me
+   */
   public function Index() {
     $content = new CMContent(5);
     $this->views->SetTitle(htmlEnt($content['title']))
@@ -23,8 +23,8 @@ class CCMycontroller extends CObject implements IController {
 
 
   /**
-    * The blog.
-    */
+   * The blog.
+   */
   public function Blog() {
     $content = new CMContent();
     $this->views->SetTitle('My blog')
@@ -35,8 +35,8 @@ class CCMycontroller extends CObject implements IController {
 
 
   /**
-    * The guestbook.
-    */
+   * The guestbook.
+   */
   public function Guestbook() {
     $guestbook = new CMGuestbook();
     $form = new CFormMyGuestbook($guestbook);
@@ -60,18 +60,18 @@ class CCMycontroller extends CObject implements IController {
 
 
 /**
-* Form for the guestbook
-*/
+ * Form for the guestbook
+ */
 class CFormMyGuestbook extends CForm {
 
   /**
-    * Properties
-    */
+   * Properties
+   */
   private $object;
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct($object) {
     parent::__construct();
     $this->objecyt = $object;
@@ -81,8 +81,8 @@ class CFormMyGuestbook extends CForm {
 
 
   /**
-    * Callback to add the form content to database.
-    */
+   * Callback to add the form content to database.
+   */
   public function DoAdd($form, $object) {
     return $object->Add(strip_tags($form['data']['value']));
   }

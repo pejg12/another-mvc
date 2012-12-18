@@ -1,7 +1,7 @@
 <?php
 /**
  * Controller for development and testing purpose, helpful methods for the developer.
- * 
+ *
  * @package AnotherMVCCore
  */
 class CCDeveloper extends CObject implements IController {
@@ -14,33 +14,33 @@ class CCDeveloper extends CObject implements IController {
   }
 
   /**
-    * Implementing interface IController. All controllers must have an index action.
+   * Implementing interface IController. All controllers must have an index action.
    */
-  public function Index() {  
+  public function Index() {
     $this->Menu();
   }
 
 
   /**
-    * Create a list of links in the supported ways.
+   * Create a list of links in the supported ways.
    */
-  public function Links() {  
+  public function Links() {
     $this->Menu();
-    
+
     $url = 'developer/links';
     $current      = $this->request->CreateUrl($url);
 
     $this->request->cleanUrl = false;
-    $this->request->querystringUrl = false;    
+    $this->request->querystringUrl = false;
     $default = $this->request->CreateUrl($url);
-    
+
     $this->request->cleanUrl = true;
-    $clean = $this->request->CreateUrl($url);    
-    
+    $clean = $this->request->CreateUrl($url);
+
     $this->request->cleanUrl = false;
-    $this->request->querystringUrl = true;    
+    $this->request->querystringUrl = true;
     $querystring = $this->request->CreateUrl($url);
-    
+
     $this->data['main'] .= <<<EOD
 <h2>CRequest::CreateUrl()</h2>
 <p>Here is a list of urls created using above method with various settings. All links should lead to
@@ -57,16 +57,16 @@ EOD;
 
 
   /**
-    * Create a method that shows the menu, same for all methods
+   * Create a method that shows the menu, same for all methods
    */
-  private function Menu() {  
+  private function Menu() {
     $menu = array('developer', 'developer/index', 'developer/links', 'developer/displayobject', 'developer/display-object', 'developer/display_object');
-    
+
     $html = null;
     foreach($menu as $val) {
-      $html .= "<li><a href='" . $this->request->CreateUrl($val) . "'>$val</a>";  
+      $html .= "<li><a href='" . $this->request->CreateUrl($val) . "'>$val</a>";
     }
-    
+
     $this->data['title'] = "The Developer Controller";
     $this->data['main'] = <<<EOD
 <p>This is what you can do for now:</p>
@@ -76,17 +76,17 @@ $html
 EOD;
   }
 
-	/**
-	* Display all items of the CObject.
-	*/
-	public function DisplayObject() {
-		$this->Menu();
+   /**
+    * Display all items of the CObject.
+    */
+    public function DisplayObject() {
+        $this->Menu();
 
-		$this->data['main'] .= <<<EOD
-		<h2>Dumping content of CDeveloper</h2>
-		<p>Here is the content of the controller, including properties from CObject which holds access to common resources in CAmvc.</p>
+        $this->data['main'] .= <<<EOD
+        <h2>Dumping content of CDeveloper</h2>
+        <p>Here is the content of the controller, including properties from CObject which holds access to common resources in CAmvc.</p>
 EOD;
-		$this->data['main'] .= '<pre>' . htmlent(print_r($this, true)) . '</pre>';
-	}
-  
-}  
+        $this->data['main'] .= '<pre>' . htmlent(print_r($this, true)) . '</pre>';
+    }
+
+}

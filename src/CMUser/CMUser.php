@@ -1,9 +1,9 @@
 <?php
 /**
-* A model for an authenticated user.
-*
-* @package AnotherMVCCore
-*/
+ * A model for an authenticated user.
+ *
+ * @package AnotherMVCCore
+ */
 class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
@@ -14,8 +14,8 @@ class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct($amvc=null) {
     parent::__construct($amvc);
     $profile = $this->session->GetAuthenticatedUser();
@@ -34,10 +34,10 @@ class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Implementing interface IHasSQL. Encapsulate all SQL used by this class.
-    *
-    * @param string $key the string that is the key of the wanted SQL-entry in the array.
-    */
+   * Implementing interface IHasSQL. Encapsulate all SQL used by this class.
+   *
+   * @param string $key the string that is the key of the wanted SQL-entry in the array.
+   */
   public static function SQL($key=null) {
     $amvc = CAmvc::Instance();
     $tableprefix = $amvc->config['km'] . "_";
@@ -48,27 +48,27 @@ class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
       'drop table user2group'   => "DROP TABLE IF EXISTS {$tableprefix}User2Groups;",
       // create tables
       'create table user'       => "CREATE TABLE IF NOT EXISTS {$tableprefix}User (
-        id INTEGER PRIMARY KEY, 
-        acronym TEXT KEY, 
-        name TEXT, 
-        email TEXT, 
-        algorithm TEXT, 
+        id INTEGER PRIMARY KEY,
+        acronym TEXT KEY,
+        name TEXT,
+        email TEXT,
+        algorithm TEXT,
         salt TEXT,
-        password TEXT, 
-        created DATETIME default (datetime('now')), 
+        password TEXT,
+        created DATETIME default (datetime('now')),
         updated DATETIME default NULL
       );",
       'create table group'      => "CREATE TABLE IF NOT EXISTS {$tableprefix}Groups (
-        id INTEGER PRIMARY KEY, 
-        acronym TEXT KEY, 
-        name TEXT, 
-        created DATETIME default (datetime('now')), 
+        id INTEGER PRIMARY KEY,
+        acronym TEXT KEY,
+        name TEXT,
+        created DATETIME default (datetime('now')),
         updated DATETIME default NULL
       );",
       'create table user2group' => "CREATE TABLE IF NOT EXISTS {$tableprefix}User2Groups (
-        idUser INTEGER, 
-        idGroups INTEGER, 
-        created DATETIME default (datetime('now')), 
+        idUser INTEGER,
+        idGroups INTEGER,
+        created DATETIME default (datetime('now')),
         PRIMARY KEY(idUser, idGroups)
       );",
       // insert queries
@@ -90,10 +90,10 @@ class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Implementing interface IModule. Manage install/update/deinstall and equal actions.
-    *
-    * @param string $action what to do.
-    */
+   * Implementing interface IModule. Manage install/update/deinstall and equal actions.
+   *
+   * @param string $action what to do.
+   */
   public function Manage($action=null) {
     switch($action) {
       case 'install':
@@ -156,12 +156,12 @@ class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Login by autenticate the user and password. Store user information in session if success.
-    *
-    * @param string $acronymOrEmail the emailadress or user acronym.
-    * @param string $password the password that should match the acronym or emailadress.
-    * @returns booelan true if match else false.
-    */
+   * Login by autenticate the user and password. Store user information in session if success.
+   *
+   * @param string $acronymOrEmail the emailadress or user acronym.
+   * @param string $password the password that should match the acronym or emailadress.
+   * @returns booelan true if match else false.
+   */
   public function Login($acronymOrEmail, $password) {
     $user = $this->db->ExecuteSelectQueryAndFetchAll(self::SQL('get user'), array($acronymOrEmail, $acronymOrEmail));
     $user = (isset($user[0])) ? $user[0] : null;
@@ -192,8 +192,8 @@ class CMUser extends CObject implements IHasSQL, IModule, ArrayAccess {
 
 
   /**
-    * Logout.
-    */
+   * Logout.
+   */
   public function Logout() {
     $this->session->UnsetAuthenticatedUser();
     $this->profile = array();

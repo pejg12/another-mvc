@@ -2,7 +2,7 @@
 <?=$login_form->GetHTML('form')?>
   <fieldset>
     <?=$login_form['acronym']->GetHTML()?>
-    <?=$login_form['password']->GetHTML()?> 
+    <?=$login_form['password']->GetHTML()?>
     <?=$login_form['login']->GetHTML()?>
     <?php if($allow_create_user) : ?>
       <div class='controls btn form-action-link'>

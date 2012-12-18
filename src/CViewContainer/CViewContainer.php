@@ -1,35 +1,35 @@
 <?php
 /**
-* A container to hold a bunch of views.
-*
-* @package AnotherMVCCore
-*/
+ * A container to hold a bunch of views.
+ *
+ * @package AnotherMVCCore
+ */
 class CViewContainer {
 
   /**
-  * Members
-  */
+   * Members
+   */
   private $data = array();
   private $views = array();
 
 
   /**
-  * Constructor
-  */
+   * Constructor
+   */
   public function __construct() { ; }
 
 
   /**
-  * Getters.
-  */
+   * Getters.
+   */
   public function GetData() { return $this->data; }
 
 
   /**
-  * Set the title of the page.
-  *
-  * @param $value string to be set as title.
-  */
+   * Set the title of the page.
+   *
+   * @param $value string to be set as title.
+   */
   public function SetTitle($value) {
     $this->SetVariable('title', $value);
     return $this;
@@ -37,10 +37,10 @@ class CViewContainer {
 
 
   /**
-  * Set any variable that should be available for the theme engine.
-  *
-  * @param $value string to be set as title.
-  */
+   * Set any variable that should be available for the theme engine.
+   *
+   * @param $value string to be set as title.
+   */
   public function SetVariable($key, $value) {
     $this->data[$key] = $value;
     return $this;
@@ -48,13 +48,13 @@ class CViewContainer {
 
 
   /**
-  * Add a view as file to be included and optional variables.
-  *
-  * @param $file string path to the file to be included.
-  * @param vars array containing the variables that should be avilable for the included file.
-  * @param $region string the theme region, uses string 'default' as default region.
-  * @returns $this.
-  */
+   * Add a view as file to be included and optional variables.
+   *
+   * @param $file string path to the file to be included.
+   * @param vars array containing the variables that should be avilable for the included file.
+   * @param $region string the theme region, uses string 'default' as default region.
+   * @returns $this.
+   */
   public function AddInclude($file, $variables=array(), $region='default') {
     // variables must be saved together with $this->data so that we can pass along all the data
     if(is_array($variables))
@@ -70,10 +70,10 @@ class CViewContainer {
 
 
   /**
-  * Render all views according to their type.
-  *
-  * @param $region string the region to render views for.
-  */
+   * Render all views according to their type.
+   *
+   * @param $region string the region to render views for.
+   */
   public function Render($region='default') {
     if(!isset($this->views[$region])) return;
     foreach($this->views[$region] as $view) {

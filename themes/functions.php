@@ -1,58 +1,58 @@
 <?php
 /**
-* Helpers for theming, available for all themes in their template files and functions.php.
-* This file is included right before the themes own functions.php
-*/
+ * Helpers for theming, available for all themes in their template files and functions.php.
+ * This file is included right before the themes own functions.php
+ */
 
 
 /**
-* Render all views.
-*
-* @param $region string the region to draw the content in.
-*/
+ * Render all views.
+ *
+ * @param $region string the region to draw the content in.
+ */
 function render_views($region='default') {
   return CAmvc::Instance()->views->Render($region);
 }
 
 
 /**
-* Check if region has views. Accepts variable amount of arguments as regions.
-*
-* @param $region string the region to draw the content in.
-*/
+ * Check if region has views. Accepts variable amount of arguments as regions.
+ *
+ * @param $region string the region to draw the content in.
+ */
 function region_has_content($region='default' /*...*/) {
   return CAmvc::Instance()->views->RegionHasView(func_get_args());
 }
 
 
 /**
-* Print debuginformation from the framework.
-*/
+ * Print debuginformation from the framework.
+ */
 function get_debug() {
-  $amvc = CAmvc::Instance(); 
+  $amvc = CAmvc::Instance();
   $html = null;
   if(isset($amvc->config['debug']['db-num-queries']) && $amvc->config['debug']['db-num-queries'] && isset($amvc->db)) {
     $html .= "<p>Database made " . $amvc->db->GetNumQueries() . " queries.</p>";
-  }   
+  }
   if(isset($amvc->config['debug']['db-queries']) && $amvc->config['debug']['db-queries'] && isset($amvc->db)) {
     $html .= "<p>Database made the following queries.</p><pre>" . implode('<br/><br/>', $amvc->db->GetQueries()) . "</pre>";
-  }   
+  }
   if(isset($amvc->config['debug']['display-core']) && $amvc->config['debug']['display-core']) {
     $html .= "<hr><h3>Debuginformation</h3><p>The content of CAmvc:</p><pre>" . htmlent(print_r($amvc, true)) . "</pre>";
-  }   
+  }
   if(isset($amvc->config['debug']['session']) && $amvc->config['debug']['session']) {
     $html .= "<hr><h3>SESSION</h3><p>The content of CAmvc->session:</p><pre>" . htmlent(print_r($amvc->session, true)) . "</pre>";
     $html .= "<p>The content of \$_SESSION:</p><pre>" . htmlent(print_r($_SESSION, true)) . "</pre>";
-  }   
+  }
   return $html;
 }
 
 
 /**
-* Prepend the base_url.
-*/
+ * Prepend the base_url.
+ */
 function base_url($url) {
-	return $amvc->request->base_url . trim($url, '/');
+  return $amvc->request->base_url . trim($url, '/');
 }
 
 
@@ -77,27 +77,27 @@ function theme_url($url) {
 
 
 /**
-* Prepend the theme_parent_url, which is the url to the parent theme directory.
-*
-* @param $url string the url-part to prepend.
-* @returns string the absolute url.
-*/
+ * Prepend the theme_parent_url, which is the url to the parent theme directory.
+ *
+ * @param $url string the url-part to prepend.
+ * @returns string the absolute url.
+ */
 function theme_parent_url($url) {
   return create_url(CAmvc::Instance()->themeParentUrl . "/{$url}");
 }
 
 
 /**
-* Return the current url.
-*/
+ * Return the current url.
+ */
 function current_url() {
-	return $amvc->request->current_url;
+  return $amvc->request->current_url;
 }
 
 
 /**
-* Get messages stored in flash-session.
-*/
+ * Get messages stored in flash-session.
+ */
 function get_messages_from_session() {
   $messages = CAmvc::Instance()->session->GetMessages();
   $html = null;
@@ -113,8 +113,8 @@ function get_messages_from_session() {
 
 
 /**
-* Login menu. Creates a menu which reflects if user is logged in or not.
-*/
+ * Login menu. Creates a menu which reflects if user is logged in or not.
+ */
 function login_menu() {
   $amvc = CAmvc::Instance();
   if($amvc->user['isAuthenticated']) {
@@ -132,8 +132,8 @@ function login_menu() {
 
 
 /**
-* Get a gravatar based on the user's email.
-*/
+ * Get a gravatar based on the user's email.
+ */
 function get_gravatar($size=null) {
   $email = CAmvc::Instance()->user['email']; // user email
   $email = md5(strtolower(trim($email)));    // hash for gravatar

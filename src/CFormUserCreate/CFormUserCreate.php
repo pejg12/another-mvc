@@ -1,9 +1,9 @@
 <?php
 /**
-* A form for creating a new user.
-*
-* @package AnotherMVCCore
-*/
+ * A form for creating a new user.
+ *
+ * @package AnotherMVCCore
+ */
 class CFormUserCreate extends CForm {
 
   /**

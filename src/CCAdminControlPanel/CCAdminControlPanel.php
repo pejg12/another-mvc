@@ -1,7 +1,7 @@
  <?php
 /**
  * Admin Control Panel to manage admin stuff.
- * 
+ *
  * @package AnotherMVCCore
  */
 class CCAdminControlPanel extends CObject implements IController {

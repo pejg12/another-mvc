@@ -1,7 +1,7 @@
 <?php
 /**
  * A form to login the user profile.
- * 
+ *
  * @package AnotherMVCCore
  */
 class CFormUserLogin extends CForm {

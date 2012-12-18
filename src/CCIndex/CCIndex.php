@@ -1,21 +1,21 @@
 <?php
 /**
-* Standard controller layout.
-*
-* @package AnotherMVCCore
-*/
+ * Standard controller layout.
+ *
+ * @package AnotherMVCCore
+ */
 class CCIndex extends CObject implements IController {
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct() {
       parent::__construct();
   }
 
   /**
-    * Implementing interface IController. All controllers must have an index action.
-    */
+   * Implementing interface IController. All controllers must have an index action.
+   */
   public function Index() {
     $modules = new CMModules();
     $controllers = $modules->AvailableControllers();

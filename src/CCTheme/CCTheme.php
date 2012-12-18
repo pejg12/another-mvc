@@ -1,15 +1,15 @@
 <?php
 /**
-* A test controller for themes.
-*
-* @package AnotherMVCCore
-*/
+ * A test controller for themes.
+ *
+ * @package AnotherMVCCore
+ */
 class CCTheme extends CObject implements IController {
 
 
   /**
-    * Constructor
-    */
+   * Constructor
+   */
   public function __construct() {
     parent::__construct();
     $this->views->AddStyle("body:hover { background: url('" . $this->request->base_url . "themes/grid/img/grid_12_60_20.png') left top repeat-y #fff; }\n");
@@ -17,8 +17,8 @@ class CCTheme extends CObject implements IController {
 
 
   /**
-    * Display what can be done with this controller.
-    */
+   * Display what can be done with this controller.
+   */
   public function Index() {
     $this->views->SetTitle('Theme explained')
                 ->AddInclude(__DIR__ . '/quiet/primary.tpl.php', array(
@@ -41,15 +41,15 @@ class CCTheme extends CObject implements IController {
 
 
   /**
-    * Alias for the index page
-    */
+   * Alias for the index page
+   */
   public function Quiet() {
     $this->Index();
   }
 
   /**
-    * Display in a verbose manner what can be done with this controller.
-    */
+   * Display in a verbose manner what can be done with this controller.
+   */
   public function Verbose() {
     $this->config['theme']['template_file'] = 'verbose.tpl.php';
     $this->views->SetTitle('Theme explained (verbosely)')
@@ -90,8 +90,8 @@ class CCTheme extends CObject implements IController {
 
 
   /**
-    * Display lots of various HTML elements to verify the CSS
-    */
+   * Display lots of various HTML elements to verify the CSS
+   */
   public function Typography() {
     $this->views->SetTitle('Theme displaying typographical elements')
                 ->AddInclude(__DIR__ . '/typography.tpl.php', array(

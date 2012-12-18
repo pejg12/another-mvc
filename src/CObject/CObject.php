@@ -1,9 +1,9 @@
 <?php
 /**
-* Holding a instance of CAmvc to enable use of $this in subclasses.
-*
-* @package AnotherMVCCore
-*/
+ * Holding a instance of CAmvc to enable use of $this in subclasses.
+ *
+ * @package AnotherMVCCore
+ */
 class CObject {
 
    public $amvc;
