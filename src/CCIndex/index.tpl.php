@@ -141,6 +141,6 @@ class CCMyController extends CObject implements IController {
   &lt;p&gt;404: No such page exists.&lt;/p&gt;
 &lt;?php endif; ?&gt;</pre>
 </blockquote>
-<p>As you can see, this is an ordinary PHP file. It has access to the <code>$content</code> variable because we sent it in the second parameter to the <code>$this->views->AddInclude()</code> method in the controller.</p>
+<p>As you can see, this is an ordinary PHP file. It has access to the <code>$content</code> variable because we sent it in the second parameter to the <code>$this->views->AddInclude()</code> method in the controller. It uses the method <code>GetFilteredData()</code> to fetch the content of the page from the database, filtered using the filter you defined when you created the page (or whatever filter was defined for the sample).</p>
 <p>Following the same steps, you should be able to create the method <code>Blog()</code>, displaying your blog posts in the file <code>blog.tpl.php</code>. For further help, study the <code>Index()</code> method in the built-in blog controller <code>src/CCBlog/CCBlog.php</code> and its HTML output <code>src/CCBlog/index.tpl.php</code>.</p>
 <p>Note that you do not need to enable individual methods, only the controllers. Since <code>CCMyController</code> is already enabled in <code>site/config.php</code>, users will automatically be able to access the <code>Blog()</code> method by visiting <code>http://example.com/my/blog</code>.</p>
