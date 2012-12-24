@@ -4,30 +4,32 @@
  *
  */
 
-/*
+/**
  * Set level of error reporting
  */
-error_reporting(-1);
-ini_set('display_errors', 1);
+error_reporting(-1);            // recommended settings are -1 for development and 0 for production
+ini_set('display_errors', 1);   // recommended settings are  1 for development and 0 for production
 
-/*
+/**
  * Define session name
+ * This makes a difference if you run several sites on the same server;
+ * each site should have unique names
  */
-$amvc->config['km'] = "mvckm7";
+$amvc->config['km'] = "mvckm8"; // a prefix/suffix used to make sure database tables and session names are unique for this installation
 $amvc->config['session_name'] = "pejg" . $amvc->config['km'];
 $amvc->config['session_key']  = "another-mvc";
 
-/*
+/**
  * Define server timezone
  */
 $amvc->config['timezone'] = 'Europe/Stockholm';
 
-/*
+/**
  * Define internal character encoding
  */
 $amvc->config['character_encoding'] = 'UTF-8';
 
-/*
+/**
  * Define language
  */
 $amvc->config['language'] = 'en';
@@ -107,6 +109,7 @@ $amvc->config['theme'] = array(
     'triptych-right',   // optional
     'footer',
   ),
+  // 'menu_to_region' => array('name of menu' => 'name of region')
   'menu_to_region' => array('navbar'=>'navbar'),
   // Add static entries for use in the template file.
   'data' => array(
@@ -129,6 +132,9 @@ $amvc->config['menus'] = array(
     'content'   => array('label'=>'Content', 'url'=>'content'),
     'blog'      => array('label'=>'Blog', 'url'=>'blog'),
   ),
+  'my-navbar' => array(
+    'name'      => array('label'=>'Example', 'url'=>'controller/method'),
+  ),
 );
 
 /**
@@ -147,6 +153,7 @@ $amvc->config['url_type'] = 1;
 
 /**
  * Determine debug settings
+ * These may be a serious security threat and should always be set to FALSE once development is completed.
  */
 $amvc->config['debug']['display-core'] = FALSE;
 $amvc->config['debug']['db-num-queries'] = FALSE;
@@ -156,10 +163,10 @@ $amvc->config['debug']['timer'] = TRUE;
 
 /**
  * Set database(s).
+ * The 'dsn' should not be set unless the database is writable.
  */
 $filepath = AMVC_SITE_PATH . '/data/.ht.sqlite';
-$amvc->config['database'][0]['writable'] = is_writable(dirname($filepath));
-if($amvc->config['database'][0]['writable']) {
+if(is_writable(dirname($filepath))) {
   $amvc->config['database'][0]['dsn'] = 'sqlite:' . $filepath;
 }
 
