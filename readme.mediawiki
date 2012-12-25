@@ -1,13 +1,15 @@
-Another MVC is an '''MVC CMF''' written in '''PHP''', following the [https://github.com/mosbth/lydia Lydia tutorial].
+Another MVC is a '''Model-View-Controller Content Managment Framework''' written in '''PHP''', following the [https://github.com/mosbth/lydia Lydia tutorial].
 
-== Download ==
+= Download =
+
 You can download Another MVC from GitHub.
 
  git clone git://github.com/pejg12/another-mvc.git
 
 You can review its source directly on GitHub: <a href='https://github.com/pejg12/another-mvc'>https://github.com/pejg12/another-mvc</a>
 
-== Installation ==
+= Installation =
+
 After you have downloaded Another MVC you have to make the data directory writable. This is the place where Another MVC needs to be able to write and create files. On Linux you could use the <code>chmod</code> command to do this.
 
  chmod 777 another-mvc/site/data
@@ -18,16 +20,20 @@ If you can see the Index Controller in your own installation, it is better to fo
 
 Finally, Another MVC has some modules that need to be initialized. You can do this through a controller. Point your browser to modules/install (i.e. <code>http://example.com/modules/install</code>).
 
-== Configuration ==
+= Configuration =
+
 After installing Another MVC, you will of course need to configure it to suit your needs. The configuration file can be found in <code>site/config.php</code> and contains further instructions and information about all the settings.
 
-== Customization ==
+= Customization =
+
 To make your new site look like yours, you will need to configure the theme. Simple changes are made in <code>site/config.php</code> and more advanced theming (HTML and CSS) are made in <code>themes/</code> or <code>site/themes/</code>. For more advanced theming it is recommended that you create a new directory in <code>site/themes/</code> and specify a <code>parent</code> in <code>site/config.php</code> instead of modifying the original theme.
 
-=== Logo ===
+== Logo ==
+
 To change the site logo, open up <code>site/config.php</code> in your text editor and change the bolded text of this code.
 
-=== Title ===
+== Title ==
+
 To change the site title, open up <code>site/config.php</code> in your text editor and change the <code>site_title</code> config from <code>Another MVC</code> to whatever your site's title should be.
 
  $amvc->config['theme'] = array(
@@ -38,7 +44,8 @@ To change the site title, open up <code>site/config.php</code> in your text edit
    ),
  );>
 
-=== Footer ===
+== Footer ==
+
 To change the site footer, open up <code>site/config.php</code> in your text editor and change the <code>footer</code> config from the Another MVC copyright notice to whatever your site's footer should be.
 
  $amvc->config['theme'] = array(
@@ -49,7 +56,8 @@ To change the site footer, open up <code>site/config.php</code> in your text edi
    ),
  );>
 
-=== Navigation ===
+== Navigation ==
+
 To change the site navigation menu, open up <code>site/config.php</code> in your text editor and locate the below code.
 
  $amvc->config['theme'] = array(
@@ -68,15 +76,17 @@ In the code above, the first <code>my-navbar</code> has to be identical to the s
 
 Inside of the <code>my-navbar</code> array you may add any number of menu items, each with a unique <code>name</code>. The <code>name</code> can be anything as it is not used in the actual code and will not be seen by anyone except the developer. The <code>label</code> (defined to <code>Example</code> above) is what your website visitors will click on, and the <code>url</code> (defined to <code>controller/method</code> above) is what url the link will go to. The above example will output HTML similar to this: <br /> <code><a href='http://example.com/controller/method'>Example</a></code>
 
-== New content ==
+= New content =
+
 Another MVC has built-in support for blog entries and simple page creation using the website GUI. If you have not done so already, make sure to install these modules by visiting modules/install. This will create a few sample blog entries and pages which can be deleted or modified by you.
 
-Once the modules have been installed, visit content to view and modify the sample content. You will see a list of all content, blog posts and pages mixed together, with links to edit or view each entry. Below this list there will be an option to initiate the database (this will delete all current content and replace it with the built-in sample content) as well as an option to create new content. It is recommended that you view the sample content first, then delete it, then create your own new content.
+Once the modules have been installed, visit content (i.e. <code>http://example.com/content</code>) to view and modify the sample content. You will see a list of all content, blog posts and pages mixed together, with links to edit or view each entry. Below this list there will be an option to initiate the database (this will delete all current content and replace it with the built-in sample content) as well as an option to create new content. It is recommended that you view the sample content first, then delete it, then create your own new content.
 
-Before you create any content, make sure you are logged in as the correct user. It is possible to create a brand new user for yourself unless this option has been turned off in <code>site/config.php</code>, but if you initiate the database all the new users will be deleted.
+Before you create any content, make sure you are logged in as the correct user. It is possible to create a brand new user for yourself unless this option has been turned off in <code>site/config.php</code>, but keep in mind that if you initiate the CMUser module all the new users will be deleted.
 
-=== New blog ===
-Another MVC only supports one blog per site, so if you want your own unique blog you will first have to delete the sample blog entries. Visit blog, click the edit link below each entry, then click the Delete button at the bottom of the form.
+== New blog ==
+
+Another MVC only supports one blog per site, so if you want your own unique blog you will first have to delete the sample blog entries. Visit blog (i.e. <code>http://example.com/blog</code>), click the edit link below each entry, then click the Delete button at the bottom of the form.
 
 To create a new blog post, visit content, then click Create new content.
 
@@ -85,7 +95,7 @@ To create a new blog post, visit content, then click Create new content.
 * The '''Content''' is your entire blog post.
 * The '''Type''' must be <code>post</code> for all blog entries.
 * The '''Filter''' defines how you want your blog post to be filtered. The options are <code>plain</code>, <code>htmlpurify</code>, <code>bbcode</code> and <code>mediawiki</code>.
-** '''<code>plain</code>''' should be used whenever your post contains only text and no markup. All markup will displayed as code for the visitor.
+** '''<code>plain</code>''' should be used whenever your post contains only text and no markup. All markup will be displayed as code for the visitor.
 ** '''<code>htmlpurify</code>''' should accept all HTML except what might be considered harmful to the site and its visitors. This can be used to format your post with headers, images, and advanced designs. This is probably more useful for content pages than blog posts. [http://en.wikipedia.org/wiki/HTML Learn about HTML]
 *: HTML example: <code>This is a <strong>bold</strong> word.</code>
 ** '''<code>bbcode</code>''' might be familiar from various forums, and is a simple markup for formatting text. [http://en.wikipedia.org/wiki/BBCode Learn about BBCode]
@@ -94,12 +104,14 @@ To create a new blog post, visit content, then click Create new content.
 *: MediaWiki example: <code>This is a '''bold''' word.</code>
 </li></ul>
 
-=== New page ===
+== New page ==
+
 Instead of deleting the sample pages, it is recommended that you edit their content to reflect your site. To edit old pages you must visit content and then click on the edit link next to the page you want to modify.
 
 To create a new page, simply visit content and click Create new content, follow the instructions for blog posts (above) to fill out the form, but in the '''Type''' field you must enter <code>page</code> instead.
 
-== Your own controller ==
+= Your own controller =
+
 A custom title, maybe custom CSS and personal blog posts&mdash;these are all important details to customize your website for yourself, but they're not enough. You will also need to add your own controllers to make use of Another MVC as intended.
 
 Create a new directory in <code>site/src/</code> and then create a file with the same name as the directory (plus the PHP file extension). For example, create the directory <code>site/src/CCMyController/</code> and then the file <code>site/src/CCMyController/CCMyController.php</code>.
@@ -145,7 +157,7 @@ Now, create the file <code>site/src/CCMyController/about.tpl.php</code> and writ
    <p><?php echo $content->GetFilteredData(); ?></p>
  <?php else: ?>
    <p>404: No such page exists.</p>
- <?php endif; ?>>
+ <?php endif; ?>
 
 As you can see, this is an ordinary PHP file. It has access to the <code>$content</code> variable because we sent it in the second parameter to the <code>$this->views->AddInclude()</code> method in the controller. It uses the method <code>GetFilteredData()</code> to fetch the content of the page from the database, filtered using the filter you defined when you modified the content (or whatever filter was defined for the sample).
 
