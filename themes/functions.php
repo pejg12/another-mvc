@@ -55,7 +55,7 @@ function get_debug() {
  * Prepend the base_url.
  */
 function base_url($url=null) {
-  return $amvc->request->base_url . trim($url, '/');
+  return CAmvc::Instance()->request->base_url . trim($url, '/');
 }
 
 
@@ -98,7 +98,7 @@ function theme_parent_url($url) {
  * Return the current url.
  */
 function current_url() {
-  return $amvc->request->current_url;
+  return CAmvc::Instance()->request->current_url;
 }
 
 
