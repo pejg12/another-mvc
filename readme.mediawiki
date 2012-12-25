@@ -1,23 +1,22 @@
-== another-mvc ==
-An '''MVC CMF''' written in '''PHP''', following the [https://github.com/mosbth/lydia Lydia tutorial].
+Another MVC is an '''MVC CMF''' written in '''PHP''', following the [https://github.com/mosbth/lydia Lydia tutorial].
 
 === Download ===
-You can download Another MVC from github.
+You can download Another MVC from GitHub.
 
  git clone git://github.com/pejg12/another-mvc.git
 
-You can review its source directly on github: <a href='https://github.com/pejg12/another-mvc'>https://github.com/pejg12/another-mvc</a>
+You can review its source directly on GitHub: <a href='https://github.com/pejg12/another-mvc'>https://github.com/pejg12/another-mvc</a>
 
 === Installation ===
-First you have to make the data directory writable. This is the place where Another MVC needs to be able to write and create files.
+After you have downloaded Another MVC you have to make the data directory writable. This is the place where Another MVC needs to be able to write and create files.
 
  chmod 777 another-mvc/site/data
 
-Secondly, Another MVC used mod_rewrite. If you see this page (the Index Controller) from your own installation, but no other links are working, that means your server has specific needs for <code>.htaccess</code> instructions. Contact your server admin for help on how to make your <code>.htaccess</code> file work with mod_rewrite.
+Secondly, Another MVC used mod_rewrite. If you can see the Index Controller from your own installation, but no other links are working, that means your server has specific needs for <code>.htaccess</code> instructions. Contact your server admin for help on how to make your <code>.htaccess</code> file work with mod_rewrite.
 
-Finally, Another MVC has some modules that need to be initialized. You can do this through a controller. Point your browser to the following link.
+If you can see the Index Controller in your own installation, it is better to follow the rest of the instructions from that page instead of this readme, because there will be links to help guide you through the steps. The paragraph below will mention modules/install, but the Index Controller of your own installation will have a link directly to it.
 
- <a href='<?=create_url('modules', 'install')?>'>modules/install</a>
+Finally, Another MVC has some modules that need to be initialized. You can do this through a controller. Point your browser to modules/install (i.e. <code>http://example.com/modules/install</code>).
 
 === Configuration ===
 After installing Another MVC, you will of course need to configure it to suit your needs. The configuration file can be found in <code>site/config.php</code> and contains further instructions and information about all the settings.
@@ -34,7 +33,7 @@ To change the site title, open up <code>site/config.php</code> in your text edit
  $amvc->config['theme'] = array(
    /* ... */
    'data' => array(
-     'site_title' => '<strong>Another MVC</strong>',
+     'site_title' => ' '''Another MVC''' ',
      /* ... */
    ),
  );>
@@ -46,7 +45,7 @@ To change the site footer, open up <code>site/config.php</code> in your text edi
    /* ... */
    'data' => array(
      /* ... */
-     'footer' => '<strong>&lt;p&gt;Another MVC &amp;copy; pejg12 (pejg12@student.bth.se) &lt;br /&gt; Fork of Lydia &amp;copy; Mikael Roos (mos@dbwebb.se)&lt;/p&gt;</strong>',
+     'footer' => ' '''<p>Another MVC &copy; pejg12 (pejg12@student.bth.se) <br /> Fork of Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>''' ',
    ),
  );>
 
@@ -55,49 +54,49 @@ To change the site navigation menu, open up <code>site/config.php</code> in your
 
  $amvc->config['theme'] = array(
    /* ... */
-   'menu_to_region' => array('<strong>my-navbar</strong>'=>'navbar'),
+   'menu_to_region' => array(' '''my-navbar''' '=>'navbar'),
    /* ... */
  );
-
+ 
  $amvc->config['menus'] = array(
-   '<strong>my-navbar</strong>' => array(
-     '<strong>name</strong>' => array('label'=>'<strong>Example</strong>', 'url'=>'<strong>controller/method</strong>'),
+   ' '''my-navbar''' ' => array(
+     ' '''name''' ' => array('label'=>' '''Example''' ', 'url'=>' '''controller/method''' '),
    ),
  );>
 
 In the code above, the first <code>my-navbar</code> has to be identical to the second <code>my-navbar</code>, because this is where Another MVC is told which menu to display. There can be many menus defined, but only one of them is displayed at any given time. If you change the name of your menu, you will need to make sure to map the new name in the <code>menu_to_region</code> config.
 
-Inside of the <code>my-navbar</code> array you may add any number of menu items, each with a unique <code>name</code>. The <code>name</code> can be anything as it is not used in the actual code and will not be seen by anyone except the developer. The <code>label</code> (defined to <code><strong>Example</strong></code> above) is what your website visitors will click on, and the <code>url</code> (defined to <code><strong>controller/method</strong></code> above) is what url the link will go to. The above example will output HTML similar to this: <br /> <code>&lt;a href='http://example.com/controller/method'&gt;Example&lt;/a&gt;</code>
+Inside of the <code>my-navbar</code> array you may add any number of menu items, each with a unique <code>name</code>. The <code>name</code> can be anything as it is not used in the actual code and will not be seen by anyone except the developer. The <code>label</code> (defined to <code>'''Example'''</code> above) is what your website visitors will click on, and the <code>url</code> (defined to <code>'''controller/method'''</code> above) is what url the link will go to. The above example will output HTML similar to this: <br /> <code><a href='http://example.com/controller/method'>Example</a></code>
 
 === New content ===
-Another MVC has built-in support for blog entries and simple page creation using the website GUI. If you have not done so already, make sure to install these modules by visiting <a href='<?=create_url('modules', 'install')?>'>modules/install</a>. This will create a few sample blog entries and pages which can be deleted or modified by you.
+Another MVC has built-in support for blog entries and simple page creation using the website GUI. If you have not done so already, make sure to install these modules by visiting modules/install. This will create a few sample blog entries and pages which can be deleted or modified by you.
 
-Once the modules have been installed, visit <a href='<?=create_url('content')?>'>content</a> to view and modify the sample content. You will see a list of all content, blog posts and pages mixed together, with links to edit or view each entry. Below this list there will be an option to initiate the database (this will delete all current content and replace it with the built-in sample content) as well as an option to create new content. It is recommended that you view the sample content first, then delete it, then create your own new content.
+Once the modules have been installed, visit content to view and modify the sample content. You will see a list of all content, blog posts and pages mixed together, with links to edit or view each entry. Below this list there will be an option to initiate the database (this will delete all current content and replace it with the built-in sample content) as well as an option to create new content. It is recommended that you view the sample content first, then delete it, then create your own new content.
 
-Before you create any content, make sure you are <a href='<?=create_url('user', 'profile')?>'>logged in</a> as the correct user. It is possible to <a href='<?=create_url('user', 'create')?>'>create</a> a brand new user for yourself unless this option has been turned off in <code>site/config.php</code>, but if you initiate the database all the new users will be deleted.
+Before you create any content, make sure you are logged in as the correct user. It is possible to create a brand new user for yourself unless this option has been turned off in <code>site/config.php</code>, but if you initiate the database all the new users will be deleted.
 
 ==== New blog ====
-Another MVC only supports one blog per site, so if you want your own unique blog you will first have to delete the sample blog entries. Visit <a href='<?=create_url('blog')?>'>blog</a>, click the edit link below each entry, then click the Delete button at the bottom of the form.
+Another MVC only supports one blog per site, so if you want your own unique blog you will first have to delete the sample blog entries. Visit blog, click the edit link below each entry, then click the Delete button at the bottom of the form.
 
-To create a new blog post, visit <a href='<?=create_url('content')?>'>content</a>, then click <a href='<?=create_url('content', 'create')?>'>Create new content</a>.
+To create a new blog post, visit content, then click Create new content.
 
-* The <strong>Title</strong> should be a human-readable title of the post, such as <code>We're 5 Years Ahead!</code>.</li>
-* The <strong>Slug</strong> is often a version of the human-readable title which consists of nothing but lowercase letters, digits and dashes, such as <code>were-5-years-ahead</code>.</li>
-* The <strong>Content</strong> is your entire blog post.</li>
-* The <strong>Type</strong> must be <code>post</code> for all blog entries.</li>
-* The <strong>Filter</strong> defines how you want your blog post to be filtered. The options are <code>plain</code>, <code>htmlpurify</code>, <code>bbcode</code> and <code>mediawiki</code>.
-** <code><strong>plain</strong></code> should be used whenever your post contains only text and no markup. All markup will displayed as code for the visitor.</li>
-** <code><strong>htmlpurify</strong></code> should accept all HTML except what might be considered harmful to the site and its visitors. This can be used to format your post with headers, images, and advanced designs. This is probably more useful for content pages than blog posts. <a href='http://en.wikipedia.org/wiki/HTML'>Learn about HTML</a>
-*: HTML example: <code>This is a &lt;strong&gt;bold&lt;/strong&gt; word.</code></li>
-** <code><strong>bbcode</strong></code> might be familiar from various forums, and is a simple markup for formatting text. <a href='http://en.wikipedia.org/wiki/BBCode'>Learn about BBCode</a>
-*: BBCode example: <code>This is a [b]bold[/b] word.</code></li>
-** <code><strong>mediawiki</strong></code> might be familiar if you have ever edited Wikipedia or Wikia articles, and is also a very simple markup for formatting text. Another MVC's mediawiki filter is very limited compared to the real implementation. <a href='http://en.wikipedia.org/wiki/Help:Wiki_markup'>Learn about MediaWiki markup</a>
-*: MediaWiki example: <code>This is a '''bold''' word.</code></li>
+* The '''Title''' should be a human-readable title of the post, such as <code>We're 5 Years Ahead!</code>.
+* The '''Slug''' is often a version of the human-readable title which consists of nothing but lowercase letters, digits and dashes, such as <code>were-5-years-ahead</code>.
+* The '''Content''' is your entire blog post.
+* The '''Type''' must be <code>post</code> for all blog entries.
+* The '''Filter''' defines how you want your blog post to be filtered. The options are <code>plain</code>, <code>htmlpurify</code>, <code>bbcode</code> and <code>mediawiki</code>.
+** <code>'''plain'''</code> should be used whenever your post contains only text and no markup. All markup will displayed as code for the visitor.
+** <code>'''htmlpurify'''</code> should accept all HTML except what might be considered harmful to the site and its visitors. This can be used to format your post with headers, images, and advanced designs. This is probably more useful for content pages than blog posts. [http://en.wikipedia.org/wiki/HTML Learn about HTML]
+*: HTML example: <code>This is a <strong>bold</strong> word.</code>
+** <code>'''bbcode'''</code> might be familiar from various forums, and is a simple markup for formatting text. [http://en.wikipedia.org/wiki/BBCode Learn about BBCode]
+*: BBCode example: <code>This is a [b]bold[/b] word.</code>
+** <code>'''mediawiki'''</code> might be familiar if you have ever edited Wikipedia or Wikia articles, and is also a very simple markup for formatting text. Another MVC's mediawiki filter is very limited compared to the real implementation. [http://en.wikipedia.org/wiki/Help:Wiki_markup Learn about MediaWiki markup]
+*: MediaWiki example: <code>This is a '''bold''' word.</code>
 
 ==== New page ====
-Instead of deleting the sample pages, it is recommended that you edit their content to reflect your site. To edit old pages you must visit <a href='<?=create_url('content')?>'>content</a> and then click on the edit link next to the page you want to modify.
+Instead of deleting the sample pages, it is recommended that you edit their content to reflect your site. To edit old pages you must visit content and then click on the edit link next to the page you want to modify.
 
-To create a new page, simply visit <a href='<?=create_url('content')?>'>content</a> and click <a href='<?=create_url('content', 'create')?>'>Create new content</a>, follow the instructions for blog posts (above) to fill out the form, but in the <strong>Type</strong> field you must enter <code>page</code> instead.
+To create a new page, simply visit content and click Create new content, follow the instructions for blog posts (above) to fill out the form, but in the '''Type''' field you must enter <code>page</code> instead.
 
 === Your own controller ===
 A custom title, maybe custom CSS and personal blog posts&mdash;these are all important details to customize your website for yourself, but they're not enough. You will also need to add your own controllers to make use of Another MVC as intended.
@@ -106,7 +105,7 @@ Create a new directory in <code>site/src/</code> and then create a file with the
 
 All controllers should implement the <code>IController</code> interface, which means they also need to define an <code>Index()</code> method, and to gain access to the core variables all controllers should also extend <code>CObject</code>. Add this code to your <code>CCMyController.php</code> file:
 
- &lt;?php
+ <?php
  class CCMyController extends CObject implements IController {
    public function Index() {
    }
@@ -116,36 +115,36 @@ To use your new controller (although it doesn't do anything yet) you will need t
 
  $amvc->config['controllers'] = array(
    /* ... */
-   '<strong>my</strong>' => array('enabled' => <strong>true</strong>,'class' => '<strong>CCMyController</strong>'),
+   ''''my'''' => array('enabled' => '''true''','class' => ''''CCMyController''''),
  );>
 
 The name of the controller (defined as <code>my</code> above) is what the user will see in the url. If they go to <code>http://example.com/my</code> then Another MVC will try to load the <code>Index()</code> method of the controller <code>CCMyController/CCMyController.php</code>. If you ever want to disable the controller, just change <code>true</code> to <code>false</code>.
 
 Now, let's let your <code>Index()</code> method load the sample About page. Go back to your <code>CCMyController.php</code> file and modify it as below.
 
- &lt;?php
+ <?php
  class CCMyController extends CObject implements IController {
-   public function Index() {<strong>
-     $content = new CMContent(5);
-
-     $this->views->SetTitle(htmlEnt($content['title']));
-
-     $this->views->AddInclude(__DIR__ . '/about.tpl.php', array(
-       'content' => $content,
-     ));
-   </strong>}
+   public function Index() {
+     '''$content = new CMContent(5);'''
+ 
+     '''$this->views->SetTitle(htmlEnt($content['title']));'''
+ 
+     '''$this->views->AddInclude(__DIR__ . '/about.tpl.php', array('''
+       ''''content' => $content,'''
+     '''));'''
+   }
  }>
 
 This will first load the content with id 5 (which is the id of the sample About page) into the variable <code>$content</code>. It then proceeds to set the page HTML title to a safely escaped version of the About page's title, using the <code>$this->views->SetTitle()</code> and <code>htmlEnt()</code> methods. Lastly it will include the file <code>about.tpl.php</code> (we'll get to that in a bit), making sure that this file has access to the <code>$content</code> variable.
 
 Now, create the file <code>site/src/CCMyController/about.tpl.php</code> and write the HTML for displaying your content.
 
- &lt;?php if($content['id']): ?&gt;
-   &lt;h1&gt;&lt;?php echo $content['title']; ?&gt;&lt;/h1&gt;
-   &lt;p&gt;&lt;?php echo $content-&gt;GetFilteredData(); ?&gt;&lt;/p&gt;
- &lt;?php else: ?&gt;
-   &lt;p&gt;404: No such page exists.&lt;/p&gt;
- &lt;?php endif; ?&gt;>
+ <?php if($content['id']): ?>
+   <h1><?php echo $content['title']; ?></h1>
+   <p><?php echo $content->GetFilteredData(); ?></p>
+ <?php else: ?>
+   <p>404: No such page exists.</p>
+ <?php endif; ?>>
 
 As you can see, this is an ordinary PHP file. It has access to the <code>$content</code> variable because we sent it in the second parameter to the <code>$this->views->AddInclude()</code> method in the controller. It uses the method <code>GetFilteredData()</code> to fetch the content of the page from the database, filtered using the filter you defined when you modified the content (or whatever filter was defined for the sample).
 
