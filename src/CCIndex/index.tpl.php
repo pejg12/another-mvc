@@ -81,16 +81,22 @@ $amvc->config['menus'] = array(
 <p>Another MVC only supports one blog per site, so if you want your own unique blog you will first have to delete the sample blog entries. Visit <a href='<?=create_url('blog')?>'>blog</a>, click the edit link below each entry, then click the Delete button at the bottom of the form.</p>
 <p>To create a new blog post, visit <a href='<?=create_url('content')?>'>content</a>, then click <a href='<?=create_url('content', 'create')?>'>Create new content</a>.</p>
 <ul>
-<li>The <strong>Title</strong> should be a human-readable title of the post, such as <code>We're 5 Years Ahead!</code>.</li>
-<li>The <strong>Slug</strong> is often a version of the human-readable title which consists of nothing but lowercase letters, digits and dashes, such as <code>were-5-years-ahead</code>.</li>
-<li>The <strong>Content</strong> is your entire blog post.</li>
-<li>The <strong>Type</strong> must be <code>post</code> for all blog entries.</li>
-<li>The <strong>Filter</strong> defines how you want your blog post to be filtered. The options are <code>plain</code>, <code>htmlpurify</code>, <code>bbcode</code> and <code>mediawiki</code>. If your post only contains pure text, the <code>plain</code> filter should be suitable, as it makes sure all special characters are shown as-is with no interpretation. However, if you want to bold your text, or use headers that are actually headers, you can use one of three markup languages (<a href='http://en.wikipedia.org/wiki/HTML'>HTML</a>, <a href='http://en.wikipedia.org/wiki/BBCode'>BBCode</a> or a limited interpretation of the <a href='http://en.wikipedia.org/wiki/Help:Wiki_markup'>MediaWiki markup</a>) to do this. The <code>htmlpurify</code> filter should accept all HTML except what might be considered harmful to the site, while the <code>bbcode</code> and <code>mediawiki</code> filters are very limited to text formatting only. You might be familiar with BBCode from various forums, and the MediaWiki markup is what is used to edit Wikipedia and Wikia articles. Examples of bold text:
-  <ul>
-    <li><code>This is a &lt;strong&gt;bold&lt;/strong&gt; word.</code> (HTML)</li>
-    <li><code>This is a [b]bold[/b] word.</code> (BBCode)</li>
-    <li><code>This is a '''bold''' word.</code> (MediaWiki markup)</li>
-  </ul></li>
+  <li>The <strong>Title</strong> should be a human-readable title of the post, such as <code>We're 5 Years Ahead!</code>.</li>
+  <li>The <strong>Slug</strong> is often a version of the human-readable title which consists of nothing but lowercase letters, digits and dashes, such as <code>were-5-years-ahead</code>.</li>
+  <li>The <strong>Content</strong> is your entire blog post.</li>
+  <li>The <strong>Type</strong> must be <code>post</code> for all blog entries.</li>
+  <li>
+    The <strong>Filter</strong> defines how you want your blog post to be filtered. The options are <code>plain</code>, <code>htmlpurify</code>, <code>bbcode</code> and <code>mediawiki</code>.
+    <ul>
+      <li><code><strong>plain</strong></code> should be used whenever your post contains only text and no markup. All markup will displayed as code for the visitor.</li>
+      <li><code><strong>htmlpurify</strong></code> should accept all HTML except what might be considered harmful to the site and its visitors. This can be used to format your post with headers, images, and advanced designs. This is probably more useful for content pages than blog posts. <a href='http://en.wikipedia.org/wiki/HTML'>Learn about HTML</a>
+      <br />HTML example: <code>This is a &lt;strong&gt;bold&lt;/strong&gt; word.</code></li>
+      <li><code><strong>bbcode</strong></code> might be familiar from various forums, and is a simple markup for formatting text. <a href='http://en.wikipedia.org/wiki/BBCode'>Learn about BBCode</a>
+      <br />BBCode example: <code>This is a [b]bold[/b] word.</code></li>
+      <li><code><strong>mediawiki</strong></code> might be familiar if you have ever edited Wikipedia or Wikia articles, and is also a very simple markup for formatting text. Another MVC's mediawiki filter is very limited compared to the real implementation. <a href='http://en.wikipedia.org/wiki/Help:Wiki_markup'>Learn about MediaWiki markup</a>
+      <br />MediaWiki example: <code>This is a '''bold''' word.</code></li>
+    </ul>
+  </li>
 </ul>
 
 <h3>New page</h3>
@@ -100,7 +106,8 @@ $amvc->config['menus'] = array(
 <h2>Your own controller</h2>
 <p>A custom title, maybe custom CSS and personal blog posts&mdash;these are all important details to customize your website for yourself, but they're not enough. You will also need to add your own controllers to make use of Another MVC as intended.</p>
 
-<p>Create a new directory in <code>site/src/</code> and then create a file with the same name as the directory (plus the PHP file extension). For example, create the directory <code>site/src/CCMyController/</code> and then the file <code>site/src/CCMyController/CCMyController.php</code>. All controllers should implement the <code>IController</code> interface, which means they also need to define an <code>Index()</code> method, and to gain access to the core variables all controllers should also extend <code>CObject</code>. Add this code to your <code>CCMyController.php</code> file:</p>
+<p>Create a new directory in <code>site/src/</code> and then create a file with the same name as the directory (plus the PHP file extension). For example, create the directory <code>site/src/CCMyController/</code> and then the file <code>site/src/CCMyController/CCMyController.php</code>.</p>
+<p>All controllers should implement the <code>IController</code> interface, which means they also need to define an <code>Index()</code> method, and to gain access to the core variables all controllers should also extend <code>CObject</code>. Add this code to your <code>CCMyController.php</code> file:</p>
 <blockquote>
 <pre>&lt;?php
 class CCMyController extends CObject implements IController {
@@ -116,7 +123,7 @@ class CCMyController extends CObject implements IController {
 );</pre>
 </blockquote>
 <p>The name of the controller (defined as <code>my</code> above) is what the user will see in the url. If they go to <code>http://example.com/my</code> then Another MVC will try to load the <code>Index()</code> method of the controller <code>CCMyController/CCMyController.php</code>. If you ever want to disable the controller, just change <code>true</code> to <code>false</code>.</p>
-<p>Now, let's let your <code>Index()</code> method load the sample About page. Go back to your <code>CCMyController.php</code> file and modify it.</p>
+<p>Now, let's let your <code>Index()</code> method load the sample About page. Go back to your <code>CCMyController.php</code> file and modify it as below.</p>
 <blockquote>
 <pre>&lt;?php
 class CCMyController extends CObject implements IController {
@@ -141,6 +148,6 @@ class CCMyController extends CObject implements IController {
   &lt;p&gt;404: No such page exists.&lt;/p&gt;
 &lt;?php endif; ?&gt;</pre>
 </blockquote>
-<p>As you can see, this is an ordinary PHP file. It has access to the <code>$content</code> variable because we sent it in the second parameter to the <code>$this->views->AddInclude()</code> method in the controller. It uses the method <code>GetFilteredData()</code> to fetch the content of the page from the database, filtered using the filter you defined when you created the page (or whatever filter was defined for the sample).</p>
-<p>Following the same steps, you should be able to create the method <code>Blog()</code>, displaying your blog posts in the file <code>blog.tpl.php</code>. For further help, study the <code>Index()</code> method in the built-in blog controller <code>src/CCBlog/CCBlog.php</code> and its HTML output <code>src/CCBlog/index.tpl.php</code>.</p>
+<p>As you can see, this is an ordinary PHP file. It has access to the <code>$content</code> variable because we sent it in the second parameter to the <code>$this->views->AddInclude()</code> method in the controller. It uses the method <code>GetFilteredData()</code> to fetch the content of the page from the database, filtered using the filter you defined when you modified the content (or whatever filter was defined for the sample).</p>
+<p>Following the same steps, you should be able to create the method <code>Blog()</code>, displaying your blog posts in the file <code>blog.tpl.php</code>. For further help, study the <code>Index()</code> method in the built-in blog controller <code>src/CCBlog/CCBlog.php</code> and its HTML <code>src/CCBlog/index.tpl.php</code>. The main difference is that instead of fetching specifically id 5 you do not send any arguments to the CMContent object.</p>
 <p>Note that you do not need to enable individual methods, only the controllers. Since <code>CCMyController</code> is already enabled in <code>site/config.php</code>, users will automatically be able to access the <code>Blog()</code> method by visiting <code>http://example.com/my/blog</code>.</p>
