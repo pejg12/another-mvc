@@ -66,7 +66,7 @@ To change the site navigation menu, open up <code>site/config.php</code> in your
 
 In the code above, the first <code>my-navbar</code> has to be identical to the second <code>my-navbar</code>, because this is where Another MVC is told which menu to display. There can be many menus defined, but only one of them is displayed at any given time. If you change the name of your menu, you will need to make sure to map the new name in the <code>menu_to_region</code> config.
 
-Inside of the <code>my-navbar</code> array you may add any number of menu items, each with a unique <code>name</code>. The <code>name</code> can be anything as it is not used in the actual code and will not be seen by anyone except the developer. The <code>label</code> (defined to <code>'''Example'''</code> above) is what your website visitors will click on, and the <code>url</code> (defined to <code>'''controller/method'''</code> above) is what url the link will go to. The above example will output HTML similar to this: <br /> <code><a href='http://example.com/controller/method'>Example</a></code>
+Inside of the <code>my-navbar</code> array you may add any number of menu items, each with a unique <code>name</code>. The <code>name</code> can be anything as it is not used in the actual code and will not be seen by anyone except the developer. The <code>label</code> (defined to '''<code>Example</code>''' above) is what your website visitors will click on, and the <code>url</code> (defined to '''<code>controller/method</code>''' above) is what url the link will go to. The above example will output HTML similar to this: <br /> <code><a href='http://example.com/controller/method'>Example</a></code>
 
 === New content ===
 Another MVC has built-in support for blog entries and simple page creation using the website GUI. If you have not done so already, make sure to install these modules by visiting modules/install. This will create a few sample blog entries and pages which can be deleted or modified by you.
@@ -85,12 +85,12 @@ To create a new blog post, visit content, then click Create new content.
 * The '''Content''' is your entire blog post.
 * The '''Type''' must be <code>post</code> for all blog entries.
 * The '''Filter''' defines how you want your blog post to be filtered. The options are <code>plain</code>, <code>htmlpurify</code>, <code>bbcode</code> and <code>mediawiki</code>.
-** <code>'''plain'''</code> should be used whenever your post contains only text and no markup. All markup will displayed as code for the visitor.
-** <code>'''htmlpurify'''</code> should accept all HTML except what might be considered harmful to the site and its visitors. This can be used to format your post with headers, images, and advanced designs. This is probably more useful for content pages than blog posts. [http://en.wikipedia.org/wiki/HTML Learn about HTML]
+** '''<code>plain</code>''' should be used whenever your post contains only text and no markup. All markup will displayed as code for the visitor.
+** '''<code>htmlpurify</code>''' should accept all HTML except what might be considered harmful to the site and its visitors. This can be used to format your post with headers, images, and advanced designs. This is probably more useful for content pages than blog posts. [http://en.wikipedia.org/wiki/HTML Learn about HTML]
 *: HTML example: <code>This is a <strong>bold</strong> word.</code>
-** <code>'''bbcode'''</code> might be familiar from various forums, and is a simple markup for formatting text. [http://en.wikipedia.org/wiki/BBCode Learn about BBCode]
+** '''<code>bbcode</code>''' might be familiar from various forums, and is a simple markup for formatting text. [http://en.wikipedia.org/wiki/BBCode Learn about BBCode]
 *: BBCode example: <code>This is a [b]bold[/b] word.</code>
-** <code>'''mediawiki'''</code> might be familiar if you have ever edited Wikipedia or Wikia articles, and is also a very simple markup for formatting text. Another MVC's mediawiki filter is very limited compared to the real implementation. [http://en.wikipedia.org/wiki/Help:Wiki_markup Learn about MediaWiki markup]
+** '''<code>mediawiki</code>''' might be familiar if you have ever edited Wikipedia or Wikia articles, and is also a very simple markup for formatting text. Another MVC's mediawiki filter is very limited compared to the real implementation. [http://en.wikipedia.org/wiki/Help:Wiki_markup Learn about MediaWiki markup]
 *: MediaWiki example: <code>This is a '''bold''' word.</code>
 
 ==== New page ====
