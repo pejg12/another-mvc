@@ -9,12 +9,12 @@
 <p>You can review its source directly on github: <a href='https://github.com/pejg12/another-mvc'>https://github.com/pejg12/another-mvc</a></p>
 
 <h2>Installation</h2>
-<p>First you have to make the data directory writable. This is the place where Another MVC needs to be able to write and create files.</p>
+<p>After you have downloaded Another MVC you have to make the data directory writable. This is the place where Another MVC needs to be able to write and create files. On Linux you could use the <code>chmod</code> command to do this.</p>
 <blockquote>
   <pre>chmod 777 another-mvc/site/data</pre>
 </blockquote>
 
-<p>Secondly, Another MVC used mod_rewrite. If you see this page (the Index Controller) from your own installation, but no other links are working, that means your server has specific needs for <code>.htaccess</code> instructions. Contact your server admin for help on how to make your <code>.htaccess</code> file work with mod_rewrite.</p>
+<p>Secondly, Another MVC uses mod_rewrite. If you see this page (the Index Controller) from your own installation, but no other links are working, that means your server has specific needs for <code>.htaccess</code> instructions. Contact your server admin for help on how to make your <code>.htaccess</code> file work with mod_rewrite.</p>
 
 <p>Finally, Another MVC has some modules that need to be initialized. You can do this through a controller. Point your browser to the following link.</p>
 <blockquote>
@@ -75,7 +75,7 @@ $amvc->config['menus'] = array(
 <h2>New content</h2>
 <p>Another MVC has built-in support for blog entries and simple page creation using the website GUI. If you have not done so already, make sure to install these modules by visiting <a href='<?=create_url('modules', 'install')?>'>modules/install</a>. This will create a few sample blog entries and pages which can be deleted or modified by you.</p>
 <p>Once the modules have been installed, visit <a href='<?=create_url('content')?>'>content</a> to view and modify the sample content. You will see a list of all content, blog posts and pages mixed together, with links to edit or view each entry. Below this list there will be an option to initiate the database (this will delete all current content and replace it with the built-in sample content) as well as an option to create new content. It is recommended that you view the sample content first, then delete it, then create your own new content.</p>
-<p>Before you create any content, make sure you are <a href='<?=create_url('user', 'profile')?>'>logged in</a> as the correct user. It is possible to <a href='<?=create_url('user', 'create')?>'>create</a> a brand new user for yourself unless this option has been turned off in <code>site/config.php</code>, but if you initiate the database all the new users will be deleted.</p>
+<p>Before you create any content, make sure you are <a href='<?=create_url('user', 'profile')?>'>logged in</a> as the correct user. It is possible to <a href='<?=create_url('user', 'create')?>'>create</a> a brand new user for yourself unless this option has been turned off in <code>site/config.php</code>, but keep in mind that if you initiate the CMUser module all the new users will be deleted.</p>
 
 <h3>New blog</h3>
 <p>Another MVC only supports one blog per site, so if you want your own unique blog you will first have to delete the sample blog entries. Visit <a href='<?=create_url('blog')?>'>blog</a>, click the edit link below each entry, then click the Delete button at the bottom of the form.</p>
@@ -88,7 +88,7 @@ $amvc->config['menus'] = array(
   <li>
     The <strong>Filter</strong> defines how you want your blog post to be filtered. The options are <code>plain</code>, <code>htmlpurify</code>, <code>bbcode</code> and <code>mediawiki</code>.
     <ul>
-      <li><code><strong>plain</strong></code> should be used whenever your post contains only text and no markup. All markup will displayed as code for the visitor.</li>
+      <li><code><strong>plain</strong></code> should be used whenever your post contains only text and no markup. All markup will be displayed as code for the visitor.</li>
       <li><code><strong>htmlpurify</strong></code> should accept all HTML except what might be considered harmful to the site and its visitors. This can be used to format your post with headers, images, and advanced designs. This is probably more useful for content pages than blog posts. <a href='http://en.wikipedia.org/wiki/HTML'>Learn about HTML</a>
       <br />HTML example: <code>This is a &lt;strong&gt;bold&lt;/strong&gt; word.</code></li>
       <li><code><strong>bbcode</strong></code> might be familiar from various forums, and is a simple markup for formatting text. <a href='http://en.wikipedia.org/wiki/BBCode'>Learn about BBCode</a>
