@@ -28,7 +28,19 @@
 <p>To make your new site look like yours, you will need to configure the theme. Simple changes are made in <code>site/config.php</code> and more advanced theming (HTML and CSS) are made in <code>themes/</code> or <code>site/themes/</code>. For more advanced theming it is recommended that you create a new directory in <code>site/themes/</code> and specify a <code>parent</code> in <code>site/config.php</code> instead of modifying the original theme.</p>
 
 <h3>Logo</h3>
-<p>To change the site logo, open up <code>site/config.php</code> in your text editor and change the bolded text of this code.</p>
+<p>To change the site logo, first place the file in the theme root, then open up <code>site/config.php</code> in your text editor and change the bolded text of this code. The <code>favicon</code> and <code>logo</code> configs may point to different files.</p>
+<blockquote>
+  <pre>$amvc->config['theme'] = array(
+  /* ... */
+  'data' => array(
+    /* ... */
+    'favicon'    => '<strong>logo_60x72.png</strong>',
+    'logo'       => '<strong>logo_60x72.png</strong>',
+    'logo_width' => <strong>60</strong>,
+    'logo_height'=> <strong>72</strong>,
+  ),
+);</pre>
+</blockquote>
 
 <h3>Title</h3>
 <p>To change the site title, open up <code>site/config.php</code> in your text editor and change the bolded text of this code.</p>
@@ -50,6 +62,7 @@
   'data' => array(
     /* ... */
     'footer' => '<strong>&lt;p&gt;Another MVC &amp;copy; pejg12 (pejg12@student.bth.se) &lt;br /&gt; Fork of Lydia &amp;copy; Mikael Roos (mos@dbwebb.se)&lt;/p&gt;</strong>',
+    /* ... */
   ),
 );</pre>
 </blockquote>
@@ -64,6 +77,7 @@
 );
 
 $amvc->config['menus'] = array(
+  /* ... */
   '<strong>my-navbar</strong>' => array(
     '<strong>name</strong>' => array('label'=>'<strong>Example</strong>', 'url'=>'<strong>controller/method</strong>'),
   ),

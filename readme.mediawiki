@@ -30,7 +30,18 @@ To make your new site look like yours, you will need to configure the theme. Sim
 
 == Logo ==
 
-To change the site logo, open up <code>site/config.php</code> in your text editor and change the bolded text of this code.
+To change the site logo, first place the file in the theme root, then open up <code>site/config.php</code> in your text editor and change the filenames and the size specifications. The <code>favicon</code> and <code>logo</code> configs may point to different files.
+
+ $amvc->config['theme'] = array(
+   /* ... */
+   'data' => array(
+     /* ... */
+     'favicon'    => 'logo_60x72.png',
+     'logo'       => 'logo_60x72.png',
+     'logo_width' => 60,
+     'logo_height'=> 72,
+   ),
+ );
 
 == Title ==
 
@@ -42,7 +53,7 @@ To change the site title, open up <code>site/config.php</code> in your text edit
      'site_title' => 'Another MVC',
      /* ... */
    ),
- );>
+ );
 
 == Footer ==
 
@@ -53,8 +64,9 @@ To change the site footer, open up <code>site/config.php</code> in your text edi
    'data' => array(
      /* ... */
      'footer' => '<p>Another MVC &copy; pejg12 (pejg12@student.bth.se) <br /> Fork of Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>',
+     /* ... */
    ),
- );>
+ );
 
 == Navigation ==
 
@@ -67,10 +79,11 @@ To change the site navigation menu, open up <code>site/config.php</code> in your
  );
  
  $amvc->config['menus'] = array(
+   /* ... */
    'my-navbar' => array(
      'name' => array('label'=>'Example', 'url'=>'controller/method'),
    ),
- );>
+ );
 
 In the code above, the first <code>my-navbar</code> has to be identical to the second <code>my-navbar</code>, because this is where Another MVC is told which menu to display. There can be many menus defined, but only one of them is displayed at any given time. If you change the name of your menu, you will need to make sure to map the new name in the <code>menu_to_region</code> config.
 
@@ -122,14 +135,14 @@ All controllers should implement the <code>IController</code> interface, which m
  class CCMyController extends CObject implements IController {
    public function Index() {
    }
- }>
+ }
 
 To use your new controller (although it doesn't do anything yet) you will need to enable it in <code>site/config.php</code>.
 
  $amvc->config['controllers'] = array(
    /* ... */
    'my' => array('enabled' => true,'class' => 'CCMyController'),
- );>
+ );
 
 The name of the controller (defined as <code>my</code> above) is what the user will see in the url. If they go to <code>http://example.com/my</code> then Another MVC will try to load the <code>Index()</code> method of the controller <code>CCMyController/CCMyController.php</code>. If you ever want to disable the controller, just change <code>true</code> to <code>false</code>.
 
@@ -146,7 +159,7 @@ Now, let's let your <code>Index()</code> method load the sample About page. Go b
        'content' => $content,
      ));
    }
- }>
+ }
 
 This will first load the content with id 5 (which is the id of the sample About page) into the variable <code>$content</code>. It then proceeds to set the page HTML title to a safely escaped version of the About page's title, using the <code>$this->views->SetTitle()</code> and <code>htmlEnt()</code> methods. Lastly it will include the file <code>about.tpl.php</code> (we'll get to that in a bit), making sure that this file has access to the <code>$content</code> variable.
 
