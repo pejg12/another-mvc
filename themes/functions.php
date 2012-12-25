@@ -54,7 +54,7 @@ function get_debug() {
 /**
  * Prepend the base_url.
  */
-function base_url($url) {
+function base_url($url=null) {
   return $amvc->request->base_url . trim($url, '/');
 }
 

@@ -116,6 +116,10 @@ $amvc->config['theme'] = array(
     'site_title' => 'Another MVC',
     'slogan'     => 'A PHP-based MVC-inspired CMF',
     'footer'     => '<p>Another MVC &copy; pejg12 (pejg12@student.bth.se) <br /> Fork of Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>',
+    'favicon'    => 'logo_60x72.png',
+    'logo'       => 'logo_60x72.png',
+    'logo_width' => 60,
+    'logo_height'=> 72,
   ),
 );
 

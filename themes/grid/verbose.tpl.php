@@ -43,6 +43,7 @@
     </header>
 
     <header>
+      <a href='<?=base_url()?>'><img src='<?=theme_url($logo)?>' alt='Logo' width='<?=$logo_width?>' height='<?=$logo_height?>' /></a>
       <h1><?=$site_title?></h1>
       <p><?=$slogan?></p>
     </header>

@@ -12,10 +12,11 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+    <link rel='shortcut icon' href='<?=theme_url($favicon)?>'/>
     <link rel="stylesheet" href="<?=theme_parent_url('css/normalize.css')?>">
     <link rel="stylesheet" href="<?=theme_parent_url('css/main.css')?>">
     <link rel="stylesheet" href="<?=theme_url($stylesheet)?>">
-    <script src="<?=$themeUrl?>/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="<?=theme_parent_url('js/vendor/modernizr-2.6.2.min.js')?>"></script>
 
 <?php if(isset($inline_style)): ?>
     <style>
@@ -41,6 +42,7 @@
     </header>
 
     <header>
+      <a href='<?=base_url()?>'><img src='<?=theme_url($logo)?>' alt='Logo' width='<?=$logo_width?>' height='<?=$logo_height?>' /></a>
       <h1><?=$site_title?></h1>
       <p><?=$slogan?></p>
     </header>

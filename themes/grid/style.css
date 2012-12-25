@@ -31,6 +31,13 @@ body>header {
 body>header:nth-child(2) {
   margin-top: 24px;
 }
+body>header:nth-child(2) img {
+  float: left;
+  margin-right: 20px;
+}
+body>header:nth-child(2) h1 {
+  margin-top: 0;
+}
 body>header#top {
   position: absolute;
   top: 0;
