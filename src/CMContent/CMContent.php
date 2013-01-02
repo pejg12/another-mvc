@@ -203,7 +203,7 @@ class CMContent extends CObject implements IHasSQL, IModule, ArrayAccess {
       case 'html': $data = nl2br(makeClickable($data)); break;*/
       case 'htmlpurify': $data = nl2br(CHTMLPurifier::Purify($data)); break;
       case 'bbcode': $data = nl2br(bbcode2html(htmlEnt($data))); break;
-      case 'mediawiki': $data = nl2br(mediawiki2html(htmlEnt($data))); break;
+      case 'mediawiki': $data = nl2br(mediawiki2html(htmlEnt(str_replace("\r\n", "\n", $data)))); break;
       case 'plain': // fall through
       default: $data = nl2br(makeClickable(htmlEnt($data))); break;
     }
